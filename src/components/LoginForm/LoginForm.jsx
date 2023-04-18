@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const onRegister = (event) => {
+    history.push('/registration');
+  };
+
+  const onGuest = (event) => {
+    history.push('/gameId')
+  }
 
   const login = (event) => {
     event.preventDefault();
@@ -26,7 +36,10 @@ function LoginForm() {
 
   return (
     <form className="formPanel" onSubmit={login}>
-      <h2>Login</h2>
+      {/* <h2>Login</h2> */}
+      <div>
+        <img src='' alt='game logo' style={{width: '250px', height: '250px'}}/>
+      </div>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
@@ -44,21 +57,27 @@ function LoginForm() {
           />
         </label>
       </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
-      </div>
+        <div>
+          <label htmlFor="password">
+            Password:
+            <input
+              type="password"
+              name="password"
+              required
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <input className="btn btn_sizeSm" type="submit" name="submit" value="Log In" />
+          <button className="btn btn_sizeSm" onClick={onRegister}>
+                Register
+          </button>
+        </div>
+        <div>
+          <button className="btn btn_sizeSm" onClick={onGuest}>Play As Guest</button>
+        </div>
     </form>
   );
 }
