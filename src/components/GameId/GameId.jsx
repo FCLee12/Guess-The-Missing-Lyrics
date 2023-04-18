@@ -13,16 +13,22 @@ function GameId() {
     event.preventDefault();
 
     if (gameId) {
+    //this will go to the saga which will then make the call to the server
+        // the server will then pull the registered user's collection of songs via
+        // the gameId and SQL queries/joined tables
       dispatch({
         type: 'GAMEID',
         payload: {
           gameId: gameId
         },
       });
+    // will navigate to the guest user dashboard
+    // history.push('/guestDashboard')
     } else {
       dispatch({ type: 'GAMEID_INPUT_ERROR' });
     }
-  }; // end login
+
+  };
 
   return (
     <form className="formPanel" onSubmit={playGuest}>
@@ -30,9 +36,9 @@ function GameId() {
       <div>
         <img src='' alt='game logo' style={{width: '250px', height: '250px'}}/>
       </div>
-      {errors.loginMessage && (
+      {errors.gameIdMessages && (
         <h3 className="alert" role="alert">
-          {errors.loginMessage}
+          {errors.gameIdMessages}
         </h3>
       )}
         <div>
