@@ -19,12 +19,24 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // is that the password gets encrypted before being inserted
 router.post('/register', (req, res, next) => {
   const username = req.body.username;
+  const emailAddress = req.body.emailAddress;
   const password = encryptLib.encryptPassword(req.body.password);
 
-  const queryText = `INSERT INTO "user" (username, password)
-    VALUES ($1, $2) RETURNING id`;
+  function gameIDGenerator (min, max) {
+    let numberString = '';
+    for(let i = 0; i < 6; i++) {
+        let randomNumber = Math.floor(Math.random() * (1 + max - min) + min);
+        numberString += randomNumber;
+    }
+    return numberString;
+  }
+
+  const gameId = gameIDGenerator(0, 9);
+
+  const queryText = `INSERT INTO "user" (username, password, email_address, game_id)
+    VALUES ($1, $2, $3) RETURNING id`;
   pool
-    .query(queryText, [username, password])
+    .query(queryText, [username, password, emailAddress, gameId])
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log('User registration failed: ', err);
