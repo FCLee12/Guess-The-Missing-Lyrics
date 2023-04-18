@@ -3,55 +3,96 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
+import { Menu, MenuItem, Box, Typography, IconButton } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+
 
 function Nav() {
   const user = useSelector((store) => store.user);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+      setAnchorEl(null);
+  };
 
   return (
     <div className="nav">
       <Link to="/home">
         <h2 className="nav-title">Guess The Missing Lyrics</h2>
       </Link>
+      
       <div>
-        <Link className="navLink" to="/home">
-          Home
-        </Link>
+        <IconButton 
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 26 }}
+          onClick={handleClick}
+          >
+          <MenuIcon />
+        </IconButton>
 
-        {/* If no user is logged in, show these links */}
-        {!user.id && (
-          
-            // If there's no user, show login/registration links
-          <>
-            <Link className='navLink' to="/gameId">
-              Play As Guest
+        <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+        'aria-labelledby': 'basic-button',
+        }}
+        >
+          <MenuItem onClick={handleClose}>
+            <Link className="navLink" to="/home">
+            Home
             </Link>
-            <Link className='navLink' to="/registration">
-              Register
-            </Link>
-          </>
-        )}
+          </MenuItem>
 
-        {/* If a user is logged in, show these links */}
-        {user.id && (
-          <>
-            <Link className="navLink" to="/user">
-              My Dashboard
-            </Link>
+          {/* If no user is logged in, show these links */}
+          {!user.id && (
+            
+              // If there's no user, show login/registration links
+            <div>
+              <MenuItem onClick={handleClose}>
+                <Link className='navLink' to="/gameId">
+                  Play As Guest
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link className='navLink' to="/registration">
+                  Register
+                </Link>
+              </MenuItem>
+            </div>
+          )}
 
-            <Link className="navLink" to="/info">
-              Info Page
-            </Link>
-
-            <Link className='navLink' to="/gameId">
-              Play Others' Songs
-            </Link>
-
-            <LogOutButton className="navLink" />
-          </>
-        )}
+          {/* If a user is logged in, show these links */}
+          {user.id && (
+            <div>
+              <MenuItem onClick={handleClose}>
+                <Link className="navLink" to="/profile">
+                  Profile
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link className='navLink' to="/gameId">
+                  Play Others' Songs
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <LogOutButton className="navLink" />
+              </MenuItem>
+            </div>
+          )}
+        </Menu>
       </div>
     </div>
   );
 }
 
 export default Nav;
+

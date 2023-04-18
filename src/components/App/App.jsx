@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import GameId from '../GameId/GameId';
 
 import './App.css';
+import ProfilePage from '../ProfilePage/ProfilePage';
 
 
 function App() {
@@ -117,6 +118,13 @@ function App() {
             path="/gameId"
           >
             <GameId />
+          </Route>
+
+          <Route
+            exact
+            path="/profile"
+          >
+            <ProfilePage />
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
