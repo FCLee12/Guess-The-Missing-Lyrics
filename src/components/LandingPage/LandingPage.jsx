@@ -13,8 +13,7 @@ function LandingPage() {
       {/* <h2>{heading}</h2> */}
 
       <div className="grid">
-        <div className="grid-col grid-col_4">
-          {/* <RegisterForm /> */}
+        <div className="grid-col grid-col_12" style={{display: 'flexbox', justifyContent: 'center'}}>
           <LoginForm />
 
         </div>

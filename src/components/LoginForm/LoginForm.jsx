@@ -57,27 +57,27 @@ function LoginForm() {
           />
         </label>
       </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <input className="btn btn_sizeSm" type="submit" name="submit" value="Log In" />
-        <button className="btn btn_sizeSm" onClick={onRegister}>
-              Register
-        </button>
-      </div>
-      <div>
-        <button className="btn btn_sizeSm" onClick={onGuest}>Play As Guest</button>
-      </div>
+        <div>
+          <label htmlFor="password">
+            Password:
+            <input
+              type="password"
+              name="password"
+              required
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <input className="btn btn_sizeSm" type="submit" name="submit" value="Log In" />
+          <button className="btn btn_sizeSm" onClick={onRegister}>
+                Register
+          </button>
+        </div>
+        <div>
+          <button className="btn btn_sizeSm" onClick={onGuest}>Play As Guest</button>
+        </div>
     </form>
   );
 }

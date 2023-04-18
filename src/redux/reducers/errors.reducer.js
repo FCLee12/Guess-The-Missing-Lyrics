@@ -32,10 +32,22 @@ const registrationMessage = (state = '', action) => {
   }
 };
 
+// gameIdMessage holds the string that will display
+// on the gameId page if there's an error
+const gameIdMessage = (state = '', action) => {
+  switch (action.type) {
+    case 'GAMEID_INPUT_ERROR':
+      return "Enter a valid registered user's gameID!";
+    default:
+      return state;
+  }
+};
+
 // make one object that has keys loginMessage, registrationMessage
 // these will be on the redux state at:
 // state.errors.loginMessage and state.errors.registrationMessage
 export default combineReducers({
   loginMessage,
   registrationMessage,
+  gameIdMessage
 });
