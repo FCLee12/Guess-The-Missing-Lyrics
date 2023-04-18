@@ -22,6 +22,8 @@ router.post('/register', (req, res, next) => {
   const emailAddress = req.body.emailAddress;
   const password = encryptLib.encryptPassword(req.body.password);
 
+  // this is a function to generate a random 6 character string of numbers to the pass to the server
+    // along with user registration information
   function gameIDGenerator (min, max) {
     let numberString = '';
     for(let i = 0; i < 6; i++) {
@@ -34,7 +36,7 @@ router.post('/register', (req, res, next) => {
   const gameId = gameIDGenerator(0, 9);
 
   const queryText = `INSERT INTO "user" (username, password, email_address, game_id)
-    VALUES ($1, $2, $3) RETURNING id`;
+    VALUES ($1, $2, $3, $4) RETURNING id`;
   pool
     .query(queryText, [username, password, emailAddress, gameId])
     .then(() => res.sendStatus(201))
