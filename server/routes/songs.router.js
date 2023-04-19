@@ -55,4 +55,19 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     })
 });
 
+// REGISTERED USER DELETE Request to remove a song from their collection
+    // REMEMBER: either conditionally render the delete button so only the owner can remove a song from their collection
+        // OR use the same solution as we did in the auth-shelf using SQL text to limit deletion
+        // OR do both (I'll probably do both)
+router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = `DELETE FROM "gameSongs" WHERE id=$1 AND "user_id"=$2;`;
+    let queryValues = [req.params.id, req.user.id];
+    pool.query(queryText, queryValues)
+    .then((result) => {
+        res.sendStatus(200);
+    }).catch((error) => {
+        res.sendStatus(500);
+    })
+});
+
 module.exports = router;
