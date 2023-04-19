@@ -31,9 +31,28 @@ router.get('/guest/:gameId', (req, res) => {
     })
 });
   
+// REGISTERED USER POST request to add song to their collection
 
-router.post('/', (req, res) => {
-// POST route code here
+// example song object to test POST
+const songObj = {
+    title: 'This I Promise You',
+    artist: '*NSYNC',
+    edited_lyrics: `When the visions around you Bring tears to your eyes And all that surrounds you Are secrets and lies  I'll be your strength I'll give you hope Keeping your faith when it's gone The one you should call Was standing here all along  And I will take  you in my arms And hold you right where you belong 'Til the day my life is through  this I promise you This I promise you`,
+    answer_lyrics: `When the visions around you Bring tears to your eyes And all that surrounds you Are secrets and lies  I'll be your strength I'll give you hope Keeping your faith when it's gone The one you should call Was standing here all along  And I will take  you in my arms And hold you right where you belong 'Til the day my life is through  this I promise you This I promise you` 
+}
+
+router.post('/', rejectUnauthenticated, (req, res) => {
+    // NOTE: "score" is left out for now due to it probably being a PUT based on the number of n!&x string bundles
+    const queryText = `INSERT INTO "gameSongs" ("title", "artist", "edited_lyrics", "answer_lyrics", "user_id")
+    VALUES ($1, $2, $3, $4, $5);`;
+    let queryValues = [songObj.title, songObj.artist, songObj.edited_lyrics, songObj.answer_lyrics, req.user.id]
+    pool.query(queryText, queryValues)
+    .then((result) => {
+      res.sendStatus(201)
+    }).catch((error) => {
+      console.log(error)
+      res.sendStatus(500)
+    })
 });
 
 module.exports = router;
