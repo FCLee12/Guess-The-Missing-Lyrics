@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 function ProfilePage() {
 
     const user = useSelector((store) => store.user);
+    
 
     return(
         <>

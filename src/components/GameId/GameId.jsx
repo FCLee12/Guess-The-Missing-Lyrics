@@ -34,7 +34,7 @@ function GameId() {
     <form className="formPanel" onSubmit={playGuest}>
       {/* <h2>Login</h2> */}
       <div>
-        <img src='' alt='game logo' style={{width: '250px', height: '250px'}}/>
+        <img src='./images/music.svg' alt='game logo' style={{width: '250px', height: '250px'}}/>
       </div>
       {errors.gameIdMessages && (
         <h3 className="alert" role="alert">
