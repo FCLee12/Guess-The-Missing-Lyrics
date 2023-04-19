@@ -89,6 +89,9 @@ function Nav() {
             </div>
           )}
         </Menu>
+        <Typography>
+                {user.username}
+        </Typography>
       </div>
     </div>
   );
