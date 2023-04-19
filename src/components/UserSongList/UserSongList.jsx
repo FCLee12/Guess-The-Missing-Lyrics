@@ -38,7 +38,7 @@ function UserSongList() {
                                 </Typography>
                             </CardActionArea>
                             <Typography variant="body2" color="text.secondary">
-                                There will be some song lyrics that go here
+                                The Play, Edit, and Create Buttons will be here
                             </Typography>
                         </CardContent>
                     </Card> 
