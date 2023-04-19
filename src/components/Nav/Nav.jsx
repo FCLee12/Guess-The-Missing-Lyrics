@@ -90,7 +90,9 @@ function Nav() {
           )}
         </Menu>
         <Typography>
-                {user.username}
+            <Link to="/profile">
+              {user.username}
+            </Link>
         </Typography>
       </div>
     </div>
