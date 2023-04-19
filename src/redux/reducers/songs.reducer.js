@@ -1,5 +1,5 @@
 // Interacts with the REDUX Store
-const songsReducer = (state = [], action)
+const songsReducer = (state = [], action) => {
     switch (action.type) {
         // listens for SET_SONGS, should return
             // the array of song objects on call/reference/useSelector
@@ -8,5 +8,6 @@ const songsReducer = (state = [], action)
         default:
             return state;
     }
+}
 
 export default songsReducer;
