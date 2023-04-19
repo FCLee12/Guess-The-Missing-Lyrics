@@ -13,44 +13,52 @@ function GameId() {
     event.preventDefault();
 
     if (gameId) {
+    //this will go to the saga which will then make the call to the server
+        // the server will then pull the registered user's collection of songs via
+        // the gameId and SQL queries/joined tables
       dispatch({
         type: 'GAMEID',
         payload: {
           gameId: gameId
         },
       });
+    // will navigate to the guest user dashboard
+    // history.push('/guestDashboard')
     } else {
       dispatch({ type: 'GAMEID_INPUT_ERROR' });
     }
-  }; // end login
+
+  };
 
   return (
-    <form className="formPanel" onSubmit={playGuest}>
-      {/* <h2>Login</h2> */}
-      <div>
-        <img src='' alt='game logo' style={{width: '250px', height: '250px'}}/>
-      </div>
-      {errors.loginMessage && (
-        <h3 className="alert" role="alert">
-          {errors.loginMessage}
-        </h3>
-      )}
+    <div className="container">
+      <form className="formPanel" onSubmit={playGuest}>
         <div>
-            <label htmlFor="gameId">
-            gameId:
-            <input
-                type="text"
-                name="gameId"
-                required
-                value={gameId}
-                onChange={(event) => setGameId(event.target.value)}
-            />
-            </label>
+          <img src='./images/music.svg' alt='game logo' style={{width: '250px', height: '250px'}}/>
         </div>
-        <div>
-          <input className="btn btn_sizeSm" type="submit" name="submit" value="Submit" />
-        </div>
-    </form>
+        <h2>Enter a User's GameID</h2>
+        {errors.gameIdMessages && (
+          <h3 className="alert" role="alert">
+            {errors.gameIdMessages}
+          </h3>
+        )}
+          <div>
+              <label htmlFor="gameId">
+              gameId:
+              <input
+                  type="text"
+                  name="gameId"
+                  required
+                  value={gameId}
+                  onChange={(event) => setGameId(event.target.value)}
+              />
+              </label>
+          </div>
+          <div>
+            <input className="btn btn_sizeSm" type="submit" name="submit" value="Submit" />
+          </div>
+      </form>
+    </div>
   );
 }
 
