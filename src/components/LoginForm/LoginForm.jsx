@@ -40,6 +40,7 @@ function LoginForm() {
       <div>
         <img src='./images/music.svg' alt='game logo' style={{width: '250px', height: '250px'}}/>
       </div>
+      <h2>Welcome!</h2>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
