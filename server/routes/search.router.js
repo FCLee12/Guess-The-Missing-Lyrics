@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const axios = require('axios');
 
-// Get the song based on search parameters
+// Get the list of search results based on search parameters
     // Need to figure out a way to make the q_track and q_artist and their values dynamic
 router.get('/search', (req, res) => {
     console.log(req.params);

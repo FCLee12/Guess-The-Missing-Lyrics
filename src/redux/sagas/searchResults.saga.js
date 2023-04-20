@@ -5,9 +5,13 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchSearchResults(action) {
     try {
         // axios GET to server to grab search results from API DB
+            // action.payload is an object
         console.log('this is action.payload in searchResults saga', action.payload);
         const title = action.payload.title;
         const artist = action.payload.artist;
+        // this GET goes to the server which will make the GET request to the API database
+            // but I can't send the user input stored in action.payload over to the server to use
+            // as search parameters
         const searchResults = yield axios.get(`/api/musix/search`);
         console.log('searchResults:', searchResults);
 
@@ -20,11 +24,11 @@ function* fetchSearchResults(action) {
     } catch (error) {
       console.log('API Search GET request for songs failed', error);
     }
-  }
-  
-  //FOR ROOT SAGA
-  function* searchResultsSaga() {
-    yield takeLatest('FETCH_SEARCH_RESULTS', fetchSearchResults);
-  }
-  
-  export default searchResultsSaga;
+}
+
+//FOR ROOT SAGA
+function* searchResultsSaga() {
+yield takeLatest('FETCH_SEARCH_RESULTS', fetchSearchResults);
+}
+
+export default searchResultsSaga;
