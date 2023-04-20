@@ -9,7 +9,7 @@ function UserDashboard() {
   const user = useSelector((store) => store.user);
   return (
     <>
-      <Grid container style={{"flex-direction":"column", "margin-left":"8px", "textAlign":"center"}} xs={5}>
+      <Grid container style={{flexDirection:"column", marginLeft:"8px", textAlign:"center"}} xs={5}>
         <Button 
           variant="contained" 
           endIcon={<AddIcon />}

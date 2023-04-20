@@ -32,7 +32,7 @@ function UserSongList() {
         <>
             {songList.data ?
                 songList.data.map((song) => {
-                    return (<Card sx={{ maxWidth: 315 }} key={song.id}>
+                    return (<Card sx={{ maxWidth: 300, marginTop: '5px', marginBottom: '5px', border: "solid black 1px"}} key={song.id}>
                         <CardContent>
                             <CardActionArea onClick={setActive}>
                                 <Typography variant='h6'>
@@ -46,7 +46,8 @@ function UserSongList() {
                                 <Button 
                                     variant="contained" 
                                     endIcon={<SportsEsportsIcon />}
-                                    size="small">
+                                    size="small"
+                                    color='success'>
                                     Play
                                 </Button>
                                 <Button
@@ -58,7 +59,8 @@ function UserSongList() {
                                 <Button
                                     variant="contained" 
                                     endIcon={<DeleteIcon />}
-                                    size="small">
+                                    size="small"
+                                    color="error">
                                     Delete
                                 </Button>
                             </Stack>
