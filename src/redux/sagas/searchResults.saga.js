@@ -4,15 +4,11 @@ import { put, takeLatest } from 'redux-saga/effects';
 // worker Saga: will be fired on "FETCH_SONGS" actions
 function* fetchSearchResults(action) {
     try {
-        // axios GET to server to grab search results from API DB
-            // action.payload is an object
-        console.log('this is action.payload in searchResults saga', action.payload);
-        const title = action.payload.title;
-        const artist = action.payload.artist;
-        // this GET goes to the server which will make the GET request to the API database
-            // but I can't send the user input stored in action.payload over to the server to use
-            // as search parameters
-        const searchResults = yield axios.get(`/api/musix/search`);
+        // axios POST to server to grab search results from API DB
+            // action.payload is an object, used POST to send a body
+        // console.log('this is action.payload in searchResults saga', action.payload);
+        // this POST goes to the server which will make the GET request to the API database
+        const searchResults = yield axios.post(`/api/musix/search`, action.payload);
         console.log('searchResults:', searchResults);
 
         // // Sends the search results to the reducer

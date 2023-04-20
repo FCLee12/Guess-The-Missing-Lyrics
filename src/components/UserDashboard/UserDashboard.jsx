@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import UserSongList from '../UserSongList/UserSongList';
 import AddIcon from '@mui/icons-material/Add';
-import { Button, Grid, Input, InputLabel, ListItemText, MenuItem, MenuList, Modal, Paper, Typography } from '@mui/material/';
+import { Button, FormControl, Grid, Input, InputLabel, ListItemText, MenuItem, Modal, Select, Typography } from '@mui/material/';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -14,11 +14,12 @@ function UserDashboard() {
   const user = useSelector((store) => store.user);
   // pulls searchResults array from store
   const songSearch = useSelector((store => store.searchResultsReducer));
-
+  
   // local state to collect input field values
   let [searchInput, setSearchInput] = useState({title: '', artist: ''})
+  const [newSong, setNewSong] = useState('');
   
-  console.log('this is searchInput', searchInput);
+  // console.log('this is searchInput', searchInput);
   // handles collecting input values
   const handleInputChange = (event) => {
     console.log('handleInputChange is running');
@@ -52,7 +53,7 @@ function UserDashboard() {
     };
 
   const sendSearch = () => {
-    console.log('sendSearch is running');
+    // console.log('sendSearch is running');
     // sends this to SAGA
       // payload is an object
     if(searchInput.title == '' && searchInput.artist == '') {
@@ -66,6 +67,11 @@ function UserDashboard() {
       setSearchInput({title: '', artist: ''});
     }
   }
+
+  const handleSongSelect = (event) => {
+    console.log('handleSongSelect running', event.target.value);
+    setNewSong(event.target.value);
+  };
 
   return (
     <>
@@ -99,24 +105,29 @@ function UserDashboard() {
                 <Button 
                   variant='contained' 
                   size='small' 
-                  style={{marginTop:"5px"}}
+                  style={{marginTop:"10px"}}
                   onClick={sendSearch}>Search</Button>
 
               
                 <Typography style={{marginTop:"5px"}}>
                   Results:
                 </Typography>
-                <Paper sx={{width: 300}}>
-                  <MenuList dense>
-                  {songSearch ? 
-                    songSearch.map((result, i) => (
-                      <MenuItem key={i}>
-                        <ListItemText>Title: {result.track.track_name} Artist: {result.track.artist_name}</ListItemText>
-                      </MenuItem>
-                    )) : <Typography>Loading</Typography>}
-                  </MenuList>
-                </Paper>
-               
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                  <Select sx={{width: 240, minWidth: 240}} value={newSong} onChange={handleSongSelect}>
+                    {songSearch ? 
+                      <div>
+                        {songSearch.map((result, i) => {
+                          return (<MenuItem key={i} value={3}>
+                            <ListItemText>Title: {result.track.track_name}</ListItemText>
+                            <ListItemText>Artist: {result.track.artist_name}</ListItemText>
+                          </MenuItem>)
+                        })}
+                      </div> : <Typography>Loading</Typography>}
+                  </Select>
+                </FormControl>
+                <div>
+                  <Button variant='contained' style={{marginTop: '10px'}}>Add Song</Button>
+                </div>
             </Grid>
         </Modal>
         <Typography variant='h5'>

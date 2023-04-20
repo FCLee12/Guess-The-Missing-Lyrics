@@ -5,27 +5,27 @@ const axios = require('axios');
 
 // Get the list of search results based on search parameters
     // Need to figure out a way to make the q_track and q_artist and their values dynamic
-router.get('/search', (req, res) => {
-    console.log(req.params);
-    console.log('this is req.params.title', req.params.title);
-    console.log('this is req.params.artist', req.params.artist);
+router.post('/search', (req, res) => {
+    // console.log(req.body);
+    // console.log('this is req.body.title', req.body.title);
+    // console.log('this is req.body.artist', req.body.artist);
     let url = `http://api.musixmatch.com/ws/1.1/track.search?`;
 
     // function to dynamically build the URL based on parameters given
     const urlSearchBuilder = (urlString) => {
         let finalUrl = [urlString]
-        if(req.params.title != '' && req.params.artist != '') {
-            finalUrl.push(urlString + `q_track=${req.params.title}` + `&q_artist=${req.params.artist}`)
+        if(req.body.title != '' && req.body.artist != '') {
+            finalUrl.push(urlString + `q_track=${req.body.title}` + `&q_artist=${req.body.artist}`)
         }
-        if(req.params.title == '') {
+        if(req.body.title == '') {
             console.log('q_track not needed');
         } else {
-            finalUrl.push(urlString + `q_track=${req.params.title}`);
+            finalUrl.push(urlString + `q_track=${req.body.title}`);
         }
-        if(req.params.artist == '') {
+        if(req.body.artist == '') {
             console.log('q_artist not needed');
         } else {
-            finalUrl.push(finalUrl[finalUrl.length-1] + `&q_artist=${req.params.artist}`);
+            finalUrl.push(finalUrl[finalUrl.length-1] + `&q_artist=${req.body.artist}`);
         }
         // console.log(finalUrl[finalUrl.length-1] + `&apikey=${process.env.MUSIXMATCH_API_KEY}`);
         return finalUrl[finalUrl.length-1] + `&apikey=${process.env.MUSIXMATCH_API_KEY}`;
