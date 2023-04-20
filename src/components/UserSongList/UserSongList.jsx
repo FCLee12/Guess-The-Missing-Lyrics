@@ -1,8 +1,13 @@
 import * as React from 'react';
-import { Card, CardContent, Typography, CardActionArea } from '@mui/material';
+import { Card, CardContent, Typography, CardActionArea, Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import  DeleteIcon from '@mui/icons-material/Delete';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+
+import { Button, Stack } from '@mui/material/';
 
 function UserSongList() {
 
@@ -24,27 +29,44 @@ function UserSongList() {
       }, []);
     
       return (
-        <ul>
+        <>
             {songList.data ?
                 songList.data.map((song) => {
-                    return (<Card sx={{ maxWidth: 300 }}>
+                    return (<Card sx={{ maxWidth: 315 }} key={song.id}>
                         <CardContent>
                             <CardActionArea onClick={setActive}>
-                                <Typography>
+                                <Typography variant='h6'>
                                     Song Title: {song.title}
                                 </Typography>
                                 <Typography>
                                     Song Artist: {song.artist}
                                 </Typography>
                             </CardActionArea>
-                            <Typography variant="body2" color="text.secondary">
-                                The Play, Edit, and Create Buttons will be here
-                            </Typography>
+                            <Stack direction="row" spacing={1}>
+                                <Button 
+                                    variant="contained" 
+                                    endIcon={<SportsEsportsIcon />}
+                                    size="small">
+                                    Play
+                                </Button>
+                                <Button
+                                    variant="contained" 
+                                    endIcon={<EditNoteIcon />}
+                                    size="small">
+                                    Edit
+                                </Button>
+                                <Button
+                                    variant="contained" 
+                                    endIcon={<DeleteIcon />}
+                                    size="small">
+                                    Delete
+                                </Button>
+                            </Stack>
                         </CardContent>
                     </Card> 
                 )}) : <li><p>Loading</p></li>
             }
-        </ul>
+        </>
       );
       
 }
