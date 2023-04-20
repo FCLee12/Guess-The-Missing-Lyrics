@@ -14,7 +14,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
+import UserDashboard from '../UserDashboard/UserDashboard';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
@@ -56,11 +56,11 @@ function App() {
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
           <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
+            // logged in shows UserDashboard else shows LoginPage
             exact
-            path="/user"
+            path="/userDashboard"
           >
-            <UserPage />
+            <UserDashboard />
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -73,15 +73,15 @@ function App() {
 
           <Route
             exact
-            path="/login"
+            path="/home"
           >
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/userDashboard" />
               :
-              // Otherwise, show the login page
-              <LoginPage />
+              // Otherwise, show the landing page
+              <LandingPage />
             }
           </Route>
 
@@ -92,7 +92,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/userDashboard" />
               :
               // Otherwise, show the registration page
               <RegisterPage />
@@ -106,7 +106,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/userDashboard" />
               :
               // Otherwise, show the Landing page
               <LandingPage />
@@ -124,7 +124,14 @@ function App() {
             exact
             path="/profile"
           >
-            <ProfilePage />
+            {user.id ?
+              // If the user is already logged in, 
+              // redirect them to the /userDashboard page
+              <ProfilePage />
+              :
+              // Otherwise, show the Landing page
+              <LandingPage />
+            }
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
