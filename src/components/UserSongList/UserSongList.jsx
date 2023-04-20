@@ -20,55 +20,63 @@ function UserSongList() {
             // meaning the song will appear when a guest user uses a registered user's gameID
       }
     
-      // need a dispatch call to SAGA to do a get request to SERVER/ROUTER who will pull data from DB then store it in a reducer
-      useEffect(() => {
+    // need a dispatch call to SAGA to do a get request to SERVER/ROUTER who will pull data from DB then store it in a reducer
+    useEffect(() => {
+    dispatch({
+        type: 'FETCH_SONGS'
+    });
+    }, []);
+
+    const handleDelete = (id) => {
+        console.log('in handleDelete, see id', id);
         dispatch({
-            type: 'FETCH_SONGS'
-        });
-      }, []);
+            type: 'DELETE_SONG'
+        })
+    }
     
-      return (
-        <>
-            {songList.data ?
-                songList.data.map((song) => {
-                    return (<Card sx={{ maxWidth: 300, marginTop: '5px', marginBottom: '5px', border: "solid black 1px"}} key={song.id}>
-                        <CardContent>
-                            <CardActionArea onClick={setActive}>
-                                <Typography variant='h6'>
-                                    Song Title: {song.title}
-                                </Typography>
-                                <Typography>
-                                    Song Artist: {song.artist}
-                                </Typography>
-                            </CardActionArea>
-                            <Stack direction="row" spacing={1}>
-                                <Button 
-                                    variant="contained" 
-                                    endIcon={<SportsEsportsIcon />}
-                                    size="small"
-                                    color='success'>
-                                    Play
-                                </Button>
-                                <Button
-                                    variant="contained" 
-                                    endIcon={<EditNoteIcon />}
-                                    size="small">
-                                    Edit
-                                </Button>
-                                <Button
-                                    variant="contained" 
-                                    endIcon={<DeleteIcon />}
-                                    size="small"
-                                    color="error">
-                                    Delete
-                                </Button>
-                            </Stack>
-                        </CardContent>
-                    </Card> 
-                )}) : <li><p>Loading</p></li>
-            }
-        </>
-      );
+    return (
+    <>
+        {songList.data ?
+            songList.data.map((song) => {
+                return (<Card sx={{ maxWidth: 300, marginTop: '5px', marginBottom: '5px', border: "solid black 1px"}} key={song.id}>
+                    <CardContent>
+                        <CardActionArea onClick={setActive}>
+                            <Typography variant='h6'>
+                                Song Title: {song.title}
+                            </Typography>
+                            <Typography>
+                                Song Artist: {song.artist}
+                            </Typography>
+                        </CardActionArea>
+                        <Stack direction="row" spacing={1}>
+                            <Button 
+                                variant="contained" 
+                                endIcon={<SportsEsportsIcon />}
+                                size="small"
+                                color='success'>
+                                Play
+                            </Button>
+                            <Button
+                                variant="contained" 
+                                endIcon={<EditNoteIcon />}
+                                size="small">
+                                Edit
+                            </Button>
+                            <Button
+                                variant="contained" 
+                                endIcon={<DeleteIcon />}
+                                size="small"
+                                color="error"
+                                onClick={() => handleDelete(song.id)}>
+                                Delete
+                            </Button>
+                        </Stack>
+                    </CardContent>
+                </Card> 
+            )}) : <li><p>Loading</p></li>
+        }
+    </>
+    );
       
 }
 
