@@ -3,17 +3,33 @@ import {useSelector} from 'react-redux';
 import UserSongList from '../UserSongList/UserSongList';
 import AddIcon from '@mui/icons-material/Add';
 import { Button, Grid, Input, InputLabel, ListItemText, MenuItem, MenuList, Modal, Paper, Typography } from '@mui/material/';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 function UserDashboard() {
+  
+  const dispatch = useDispatch();
+
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
+
+  // local state to collect input field values
+  // const [titleInput, setTitleInput] = useState('');
+  // const [artistInput, setArtistInput] = useState('');
+  const [searchInput, setSearchInput] = useState({title: '', artist: ''})
+
+  const handleInputChange = (event) => {
+    const {name, value} = event.target;
+    setSearchInput({
+      ...searchInput,
+      [name] : value,
+    })
+  }
 
   // needed local state and two functions to toggle Modal on and off
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  
 
   // sets style for the Add New Song Modal
   const style = {
@@ -30,6 +46,22 @@ function UserDashboard() {
       flexDirection:"column",
       textAlign:"center"
     };
+
+  const sendSearch = () => {
+    console.log('sendSearch is running');
+    // sends this to SAGA
+      // payload is an object
+    if(searchInput.title == '' && searchInput.artist == '') {
+      alert('Please enter either a song title or an artist name')
+    } else {
+      dispatch({
+        type: 'FETCH_SEARCH_RESULTS',
+        payload: searchInput
+      });
+      // to clear inputs
+      setSearchInput({title: '', artist: ''});
+    }
+  }
 
   return (
     <>
@@ -49,10 +81,20 @@ function UserDashboard() {
                     Song Search:
                 </Typography>
                 <InputLabel style={{marginTop:"5px"}}>Song Title:</InputLabel>
-                <Input type="text"></Input>
+                <Input 
+                  type="text" 
+                  onChange={handleInputChange} 
+                  value={searchInput.title} />
                 <InputLabel style={{marginTop:"5px"}}>Song Artist:</InputLabel>
-                <Input type="text" ></Input>
-                <Button variant='contained' size='small' style={{marginTop:"5px"}}>Search</Button>
+                <Input 
+                  type="text" 
+                  onChange={handleInputChange}
+                  value={searchInput.artist} />
+                <Button 
+                  variant='contained' 
+                  size='small' 
+                  style={{marginTop:"5px"}}
+                  onClick={sendSearch}>Search</Button>
               {/* {songSearch ? 
                 <Typography style={{marginTop:"5px"}}>
                   Results:
