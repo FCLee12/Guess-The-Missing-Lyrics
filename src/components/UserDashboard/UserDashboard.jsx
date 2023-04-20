@@ -112,14 +112,13 @@ function UserDashboard() {
                 <Typography style={{marginTop:"5px"}}>
                   Results:
                 </Typography>
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                <FormControl variant="standard">
                   <Select sx={{width: 240, minWidth: 240}} value={newSong} onChange={handleSongSelect}>
                     {songSearch ? 
                       <div>
                         {songSearch.map((result, i) => {
-                          return (<MenuItem key={i} value={3}>
-                            <ListItemText>Title: {result.track.track_name}</ListItemText>
-                            <ListItemText>Artist: {result.track.artist_name}</ListItemText>
+                          return (<MenuItem key={i} value={i}>
+                            <ListItemText>Title: {result.track.track_name} Artist: {result.track.artist_name}</ListItemText>
                           </MenuItem>)
                         })}
                       </div> : <Typography>Loading</Typography>}
