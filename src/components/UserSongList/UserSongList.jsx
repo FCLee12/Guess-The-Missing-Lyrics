@@ -11,7 +11,7 @@ function UserSongList() {
 
     const dispatch = useDispatch();
     const songList = useSelector(store => store.songsReducer);
-    console.log('this is songList.data', songList.data);
+    // console.log('this is songList.data', songList.data);
     
     const setActive = (event) => {
         console.log('setActive is running');

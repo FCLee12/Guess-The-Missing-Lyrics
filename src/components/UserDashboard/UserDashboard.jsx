@@ -12,13 +12,17 @@ function UserDashboard() {
 
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
+  // pulls searchResults array from store
+  const songSearch = useSelector((store => store.searchResultsReducer));
 
   // local state to collect input field values
-  // const [titleInput, setTitleInput] = useState('');
-  // const [artistInput, setArtistInput] = useState('');
-  const [searchInput, setSearchInput] = useState({title: '', artist: ''})
-
+  let [searchInput, setSearchInput] = useState({title: '', artist: ''})
+  
+  console.log('this is searchInput', searchInput);
+  // handles collecting input values
   const handleInputChange = (event) => {
+    console.log('handleInputChange is running');
+    console.log(event.target);
     const {name, value} = event.target;
     setSearchInput({
       ...searchInput,
@@ -76,18 +80,20 @@ function UserDashboard() {
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description">
-            <Grid sx={style} spacing={4}>
+            <Grid sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     Song Search:
                 </Typography>
                 <InputLabel style={{marginTop:"5px"}}>Song Title:</InputLabel>
                 <Input 
-                  type="text" 
+                  type="text"
+                  name='title' 
                   onChange={handleInputChange} 
                   value={searchInput.title} />
                 <InputLabel style={{marginTop:"5px"}}>Song Artist:</InputLabel>
                 <Input 
-                  type="text" 
+                  type="text"
+                  name='artist' 
                   onChange={handleInputChange}
                   value={searchInput.artist} />
                 <Button 
@@ -95,19 +101,22 @@ function UserDashboard() {
                   size='small' 
                   style={{marginTop:"5px"}}
                   onClick={sendSearch}>Search</Button>
-              {/* {songSearch ? 
+
+              
                 <Typography style={{marginTop:"5px"}}>
                   Results:
                 </Typography>
                 <Paper sx={{width: 300}}>
                   <MenuList dense>
-                    songSearch.map((result) => {
-                      <MenuItem>
-                        <ListItemText></ListItemText>
+                  {songSearch ? 
+                    songSearch.map((result, i) => (
+                      <MenuItem key={i}>
+                        <ListItemText>Title: {result.track.track_name} Artist: {result.track.artist_name}</ListItemText>
                       </MenuItem>
-                    })
+                    )) : <Typography>Loading</Typography>}
                   </MenuList>
-                </Paper> : <Typography>Loading</Typography>} */}
+                </Paper>
+               
             </Grid>
         </Modal>
         <Typography variant='h5'>
