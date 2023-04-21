@@ -73,7 +73,7 @@ router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
 
 // REGISTERED USER GET Request to grab lyrics from the DB to edit
 router.get('/songEdit/:id', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT "gameSongs".title, "gameSongs".artist, "gameSongs".edited_lyrics, "gameSongs".answer_lyrics FROM "gameSongs" WHERE id=$1 AND "user_id"=$2;`;
+    const queryText = `SELECT "gameSongs".id, "gameSongs".title, "gameSongs".artist, "gameSongs".edited_lyrics, "gameSongs".answer_lyrics FROM "gameSongs" WHERE id=$1 AND "user_id"=$2;`;
     let queryValues = [req.params.id, req.user.id];
     pool.query(queryText, queryValues)
     .then((result) => {

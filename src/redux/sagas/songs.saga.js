@@ -24,10 +24,10 @@ function* fetchSongs() {
 function* fetchSongForEdit(action) {
   try{
     const lyricsToEdit = yield axios.get(`/songs/songEdit/${action.payload}`);
-    console.log('lyricsToEdit:', lyricsToEdit);
+    console.log('lyricsToEdit:', lyricsToEdit.data[0]);
     yield put({
       type: 'SET_LYRICS_EDIT',
-      payload: lyricsToEdit
+      payload: lyricsToEdit.data[0]
     });
   } catch(error) {
     console.log('User GET request for lyrics to edit failed', error);
@@ -45,12 +45,23 @@ function* deleteSong(action) {
     console.log('User delete request failed', error);
   }
 }
+
+function* updateLyrics(action) {
+  try {
+    console.log('this is updateLyrics action.payload', action.payload);
+    console.log('this is updateLyrics action.id', action.id);
+    yield axios.put(`/songs/${action.id}`, action.payload);
+  } catch(error) {
+    console.log('User PUT request to update lyrics failed', error);
+  }
+}
   
 //FOR ROOT SAGA
 function* songsSaga() {
   yield takeLatest('FETCH_SONGS', fetchSongs);
   yield takeLatest('DELETE_SONG', deleteSong);
   yield takeLatest('FETCH_SONG_FOR_EDIT', fetchSongForEdit);
+  yield takeLatest('UPDATE_LYRICS', updateLyrics);
 }
 
 export default songsSaga;

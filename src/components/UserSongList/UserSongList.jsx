@@ -35,11 +35,12 @@ function UserSongList() {
 
     // ********** CARD EDIT BUTTON **********
     const handleEdit = (id) => {
+        console.log('this is the song.id', id);
         dispatch({
             type: 'FETCH_SONG_FOR_EDIT',
             payload: id
         })
-        history.push('/edit');
+        history.push(`/edit`);
     }
     // END ********** CARD EDIT BUTTON **********
 
@@ -69,14 +70,14 @@ function UserSongList() {
     };
     
     const [open, setOpen] = React.useState(false);
-    const [cardId, setCardId] = useState(0);
+    const [cardId, setCardId] = useState('');
     const handleOpen = (id) => {
         setOpen(true);
         setCardId(id);
     };
     const handleClose = () => {
         setOpen(false);
-        setCardId(0);
+        setCardId('');
     };
     // END ********** CARD DELETE BUTTON **********
 
