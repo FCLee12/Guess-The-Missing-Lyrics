@@ -86,14 +86,15 @@ function UserSongList() {
                                 endIcon={<DeleteIcon />}
                                 size="small"
                                 color="error"
-                                onClick={handleOpen}>
+                                onClick={() => handleDelete(song.id)}>
                                 Delete
                             </Button>
-                            <Modal
-                            open={open}
-                            onClose={handleClose}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description">
+                        </Stack>
+                        {/* <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description">
                             <Box sx={style}>
                                 <Typography id="modal-modal-title" variant="h6" component="h2">
                                     Are you sure you want to delete this song?
@@ -104,7 +105,7 @@ function UserSongList() {
                                     endIcon={<DeleteIcon />}
                                     size="small"
                                     color="error"
-                                    onClick={() => handleDelete(song.id)}>
+                                    onClick={() => handleDelete(this.id)}>
                                     Delete
                                     </Button>
                                     <Button
@@ -117,8 +118,7 @@ function UserSongList() {
                                     </Button>
                                 </Grid>
                             </Box>
-                            </Modal>
-                        </Stack>
+                        </Modal> */}
                     </CardContent>
                 </Card>
             )}) : <li><p>Loading</p></li>
