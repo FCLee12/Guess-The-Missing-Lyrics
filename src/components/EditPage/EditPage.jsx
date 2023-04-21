@@ -15,14 +15,6 @@ function EditPage() {
 
   let songObj = lyricsToEdit.lyricsToEditReducer.data[0];
   const[localEditLyrics, setlocalEditLyrics] = useState(songObj.edited_lyrics);
-
-  // const resetLyrics = () => {
-    
-  // }
-
-  useEffect(() => {
-    console.log('localEditLyrics changed!');
-  }, [localEditLyrics])
   
   return (
     <>
@@ -52,9 +44,7 @@ function EditPage() {
             endIcon={<SendIcon />}
             color="error"
             sx={{width: 300, marginTop: 2}}
-            size="small"
-            // onClick={resetLyrics}
-            >
+            size="small">
             Reset Lyrics
         </Button>
       </Grid>
