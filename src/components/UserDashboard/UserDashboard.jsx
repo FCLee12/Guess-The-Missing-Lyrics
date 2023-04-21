@@ -22,8 +22,8 @@ function UserDashboard() {
   // console.log('this is searchInput', searchInput);
   // handles collecting input values
   const handleInputChange = (event) => {
-    console.log('handleInputChange is running');
-    console.log(event.target);
+    // console.log('handleInputChange is running');
+    // console.log(event.target);
     const {name, value} = event.target;
     setSearchInput({
       ...searchInput,
@@ -64,11 +64,12 @@ function UserDashboard() {
         payload: searchInput
       });
       // to clear inputs
-      setSearchInput({title: '', artist: ''});
+      // setSearchInput({title: '', artist: ''});
     }
   }
 
   const handleSongSelect = (event) => {
+    console.log('handleSongSelect running');
     console.log('handleSongSelect running', event.target.value);
     setNewSong(event.target.value);
   };
@@ -117,9 +118,13 @@ function UserDashboard() {
                     {songSearch ? 
                       <div>
                         {songSearch.map((result, i) => {
-                          return (<MenuItem key={i} value={i}>
-                            <ListItemText>Title: {result.track.track_name} Artist: {result.track.artist_name}</ListItemText>
-                          </MenuItem>)
+                          return (
+                            <MenuItem key={i} value={i} sx={{maxWidth: 290, paddingTop: 0, paddingBottom: 0, border: 'solid 1px black', flexDirection: "column", whiteSpace: 'normal'}}>
+                                Cats {i}
+                                {/* <p style={{marginTop: 3, marginBottom: 3}}>Title: {result.track.track_name}</p>
+                                <p style={{marginTop: 3, marginBottom: 3}}>Artist: {result.track.artist_name}</p> */}
+                            </MenuItem>
+                          )
                         })}
                       </div> : <Typography>Loading</Typography>}
                   </Select>

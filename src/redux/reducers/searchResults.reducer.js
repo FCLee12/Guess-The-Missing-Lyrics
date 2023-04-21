@@ -5,7 +5,7 @@ const searchResultsReducer = (state = [], action) => {
         // listens for SET_SEARCH_RESULTS, should return
             // the array of song objects on call/reference/useSelector
         case "SET_SEARCH_RESULTS":
-            console.log(action.payload);
+            // console.log(action.payload);
             return action.payload.data;
         default:
             return state;
