@@ -3,25 +3,38 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 // worker Saga: will be fired on "FETCH_SONGS" actions
 function* fetchSongs() {
-    try {
-        // axios GET to server to grab songs from the DB
-        const songsList = yield axios.get('/songs')
-        console.log('songsList:', songsList);
+  try {
+      // axios GET to server to grab songs from the DB
+      const songsList = yield axios.get('/songs')
+      console.log('songsList:', songsList);
 
-        // Sends the songs list to the reducer
-            // to be stored in the REDUX Store, ready for referencing
-        yield put({
-            type: 'SET_SONGS',
-            payload: songsList
-        });
-    } catch (error) {
+      // Sends the songs list to the reducer
+          // to be stored in the REDUX Store, ready for referencing
+      yield put({
+          type: 'SET_SONGS',
+          payload: songsList
+      });
+  } catch (error) {
       console.log('User get request failed', error);
-    }
   }
-  
-  //FOR ROOT SAGA
-  function* songsSaga() {
-    yield takeLatest('FETCH_SONGS', fetchSongs);
+}
+
+function* deleteSong(action) {
+  try {
+    console.log('this is deleteSong action.payload', action.payload);
+    yield axios.delete(`/songs/delete/${action.payload}`);
+    yield put({
+      type: 'FETCH_SONGS'
+    })
+  } catch (error) {
+    console.log('User delete request failed', error);
   }
+}
   
-  export default songsSaga;
+//FOR ROOT SAGA
+function* songsSaga() {
+  yield takeLatest('FETCH_SONGS', fetchSongs);
+  yield takeLatest('DELETE_SONG', deleteSong);
+}
+
+export default songsSaga;
