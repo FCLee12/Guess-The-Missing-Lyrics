@@ -71,6 +71,18 @@ router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
     })
 });
 
+// REGISTERED USER GET Request to grab lyrics from the DB to edit
+router.get('/songEdit/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = `SELECT "gameSongs".title, "gameSongs".artist, "gameSongs".edited_lyrics, "gameSongs".answer_lyrics FROM "gameSongs" WHERE id=$1 AND "user_id"=$2;`;
+    let queryValues = [req.params.id, req.user.id];
+    pool.query(queryText, queryValues)
+    .then((result) => {
+        res.send(result.rows);
+    }).catch((error) => {
+        res.sendStatus(500);
+    })
+});
+
 // REGISTERED USER PUT Request to swap out edited_lyrics with the updated edited_lyrics with n!&x bundles included
 
 // example edited song with n!&x bundles

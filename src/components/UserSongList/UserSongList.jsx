@@ -34,7 +34,11 @@ function UserSongList() {
     }, []);
 
     // ********** CARD EDIT BUTTON **********
-    const handleEdit = () => {
+    const handleEdit = (id) => {
+        dispatch({
+            type: 'FETCH_SONG_FOR_EDIT',
+            payload: id
+        })
         history.push('/edit');
     }
     // END ********** CARD EDIT BUTTON **********
@@ -102,7 +106,7 @@ function UserSongList() {
                                 variant="contained" 
                                 endIcon={<EditNoteIcon />}
                                 size="small"
-                                onClick={handleEdit}>
+                                onClick={() => handleEdit(song.id)}>
                                 Edit
                             </Button>
                             <Button
