@@ -14,7 +14,7 @@ const songsReducer = (state = [], action) => {
 
 const lyricsToEditReducer = (state = {}, action) => {
     switch (action.type) {
-        // listens for SET_SONGS, should return
+        // listens for SET_LYRICS_EDIT, should return
             // the array of song objects on call/reference/useSelector
         case "SET_LYRICS_EDIT":
             return action.payload;
