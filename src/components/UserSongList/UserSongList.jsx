@@ -16,8 +16,8 @@ function UserSongList() {
     const history = useHistory();
     
     // stores the song list that displays on the user dashboard
-    const songList = useSelector(store => store.songsReducer);
-    console.log('this is songList.data', songList.data);
+    const songList = useSelector(store => store.songs);
+    // console.log('this is songList.songsReducer.data', songList.songsReducer.data);
     
     // STRETCH
     const setActive = (event) => {
@@ -82,8 +82,8 @@ function UserSongList() {
 
     return (
     <>
-        {songList.data ?
-            songList.data.map((song) => {
+        {songList.songsReducer.data ?
+            songList.songsReducer.data.map((song) => {
                 return (<Card sx={{ maxWidth: 300, marginTop: '5px', marginBottom: '5px', border: "solid black 1px"}} key={song.id}>
                     <CardContent>
                         <CardActionArea onClick={setActive}>
