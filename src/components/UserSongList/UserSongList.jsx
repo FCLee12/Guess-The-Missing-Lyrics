@@ -8,13 +8,18 @@ import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function UserSongList() {
 
     const dispatch = useDispatch();
+    const history = useHistory();
+    
+    // stores the song list that displays on the user dashboard
     const songList = useSelector(store => store.songsReducer);
     console.log('this is songList.data', songList.data);
     
+    // STRETCH
     const setActive = (event) => {
         console.log('setActive is running');
         // will need a dispatch to SAGA to do a put request to SERVER which will set the status from active = false to active = true
@@ -28,6 +33,13 @@ function UserSongList() {
     });
     }, []);
 
+    // ********** CARD EDIT BUTTON **********
+    const handleEdit = () => {
+        history.push('/edit');
+    }
+    // END ********** CARD EDIT BUTTON **********
+
+    // ********** CARD DELETE BUTTON **********
     const handleDelete = (id) => {
         console.log('in handleDelete, see id', id);
         dispatch({
@@ -38,6 +50,7 @@ function UserSongList() {
         handleClose();
     }
 
+    // ----- For the DELETE CONFRIMATION MODAL -----
     const style = {
         position: 'absolute',
         top: '50%',
@@ -49,9 +62,8 @@ function UserSongList() {
         boxShadow: 24,
         p: 4,
         align: 'center'
-      };
+    };
     
-    // For the DELETE MODAL
     const [open, setOpen] = React.useState(false);
     const [cardId, setCardId] = useState(0);
     const handleOpen = (id) => {
@@ -62,7 +74,8 @@ function UserSongList() {
         setOpen(false);
         setCardId(0);
     };
-    
+    // END ********** CARD DELETE BUTTON **********
+
     return (
     <>
         {songList.data ?
@@ -88,7 +101,8 @@ function UserSongList() {
                             <Button
                                 variant="contained" 
                                 endIcon={<EditNoteIcon />}
-                                size="small">
+                                size="small"
+                                onClick={handleEdit}>
                                 Edit
                             </Button>
                             <Button
@@ -116,7 +130,7 @@ function UserSongList() {
                                         size="small"
                                         color="error"
                                         onClick={() => handleDelete(cardId)}>
-                                    Delete
+                                        Delete
                                     </Button>
                                     <Button
                                         variant="outlined" 

@@ -17,7 +17,7 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserDashboard from '../UserDashboard/UserDashboard';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
-import LoginPage from '../LoginPage/LoginPage';
+import EditPage from '../EditPage/EditPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import GameId from '../GameId/GameId';
 
@@ -101,12 +101,12 @@ function App() {
 
           <Route
             exact
-            path="/home"
+            path="/edit"
           >
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/userDashboard" />
+              <EditPage />
               :
               // Otherwise, show the Landing page
               <LandingPage />
