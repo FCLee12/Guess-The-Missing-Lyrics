@@ -19,18 +19,26 @@ function UserSongList() {
     const songList = useSelector(store => store.songs);
     // console.log('this is songList.songsReducer.data', songList.songsReducer.data);
     
-    // STRETCH
-    const setActive = (event) => {
-        console.log('setActive is running');
+    // Changes a song's status from false to true or true to false
+        // true indicates the song can be seen by guest users
+        // false indicates the song will not be viewable to guest users
+        // issue is: requires refresh to reflect updated status
+    const setActive = (boolean, id) => {
+        console.log('setActive is running', boolean, id);
         // will need a dispatch to SAGA to do a put request to SERVER which will set the status from active = false to active = true
             // meaning the song will appear when a guest user uses a registered user's gameID
-      }
+        dispatch({
+            type: 'CHANGE_STATUS',
+            payload: !boolean,
+            id: id
+        })
+    }
     
     // need a dispatch call to SAGA to do a get request to SERVER/ROUTER who will pull data from DB then store it in a reducer
     useEffect(() => {
-    dispatch({
-        type: 'FETCH_SONGS'
-    });
+        dispatch({
+            type: 'FETCH_SONGS'
+        });
     }, []);
 
     // ********** CARD EDIT BUTTON **********
@@ -87,7 +95,7 @@ function UserSongList() {
             songList.songsReducer.data.map((song) => {
                 return (<Card sx={{ maxWidth: 300, marginTop: '5px', marginBottom: '5px', border: "solid black 1px"}} key={song.id}>
                     <CardContent>
-                        <CardActionArea onClick={setActive}>
+                        <CardActionArea onClick={() => setActive(song.status, song.id)}>
                             <Typography variant='h6'>
                                 Song Title: {song.title}
                             </Typography>

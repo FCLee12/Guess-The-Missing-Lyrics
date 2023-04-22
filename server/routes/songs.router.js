@@ -100,4 +100,17 @@ router.put('/edited/:id', rejectUnauthenticated, (req, res) => {
     })
 });
 
+// REGISTERED USER PUT Request to change song status
+router.put('/status/:id', rejectUnauthenticated, (req, res) => {
+    console.log('this is req.body in changeStatus', req.body.status);
+    const queryText = `UPDATE "gameSongs" SET "status" = $1 WHERE "id" = $2 AND "user_id" = $3;`;
+    let queryValues = [req.body.status, req.params.id, req.user.id];
+    pool.query(queryText, queryValues)
+    .then((result) => {
+        res.sendStatus(200);
+    }).catch((error) => {
+        res.sendStatus(500);
+    })
+})
+
 module.exports = router;

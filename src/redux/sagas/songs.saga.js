@@ -55,6 +55,14 @@ function* updateLyrics(action) {
     console.log('User PUT request to update lyrics failed', error);
   }
 }
+
+function* changeActive(action) {
+  try {
+    yield axios.put(`/songs/status/${action.id}`, {status: action.payload})
+  } catch(error) {
+    console.log('User PUT request to change song status failed', error);
+  }
+}
   
 //FOR ROOT SAGA
 function* songsSaga() {
@@ -62,6 +70,7 @@ function* songsSaga() {
   yield takeLatest('DELETE_SONG', deleteSong);
   yield takeLatest('FETCH_SONG_FOR_EDIT', fetchSongForEdit);
   yield takeLatest('UPDATE_LYRICS', updateLyrics);
+  yield takeLatest('CHANGE_STATUS', changeActive);
 }
 
 export default songsSaga;
