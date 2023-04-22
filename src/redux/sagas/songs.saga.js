@@ -24,7 +24,7 @@ function* fetchSongs() {
 function* fetchSongForEdit(action) {
   try{
     const lyricsToEdit = yield axios.get(`/songs/songEdit/${action.payload}`);
-    console.log('lyricsToEdit:', lyricsToEdit.data[0]);
+    console.log('this is lyricsToEdit in saga:', lyricsToEdit.data[0]);
     yield put({
       type: 'SET_LYRICS_EDIT',
       payload: lyricsToEdit.data[0]

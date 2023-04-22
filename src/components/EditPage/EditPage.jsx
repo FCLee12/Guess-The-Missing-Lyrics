@@ -15,9 +15,9 @@ function EditPage() {
 
   let songObj = lyricsToEdit.lyricsToEditReducer;
   // hoping to use the first piece of state to double as a reset by using the answer_lyrics
-  const[localEditLyrics, setlocalEditLyrics] = useState(songObj.edited_lyrics);
+  const[localEditLyrics, setlocalEditLyrics] = useState('');
   // this one is the finalized version to be passed down to the DB
-  const[editedLyrics, setEditedLyrics] = useState(localEditLyrics);
+  const[editedLyrics, setEditedLyrics] = useState('');
 
   // console.log('this is editedLyrics', editedLyrics);
   
@@ -30,6 +30,8 @@ function EditPage() {
     })
   }
 
+  // rerenders the lyrics when the latest updateSong dispatch is sent
+    // allowing for the correct lyrics to display
   useEffect(() => {
     setlocalEditLyrics(songObj.edited_lyrics)
   }, [lyricsToEdit])
