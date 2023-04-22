@@ -17,7 +17,7 @@ function UserSongList() {
     
     // stores the song list that displays on the user dashboard
     const songList = useSelector(store => store.songs);
-    // console.log('this is songList.songsReducer.data', songList.songsReducer.data);
+    console.log('this is songList.songsReducer.data', songList.songsReducer.data);
     
     // Changes a song's status from false to true or true to false
         // true indicates the song can be seen by guest users

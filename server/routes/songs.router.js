@@ -18,7 +18,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // GUEST GET request to get songs from DB using gameId
 router.get('/guest/:gameId', (req, res) => {
     let queryText = 
-    `SELECT "gameSongs".title, "gameSongs".artist, "gameSongs".edited_lyrics, "gameSongs".answer_lyrics, "gameSongs".status, "user".username, "user".game_id
+    `SELECT "gameSongs".id, "gameSongs".title, "gameSongs".artist, "gameSongs".edited_lyrics, "gameSongs".answer_lyrics, "gameSongs".status, "user".username, "user".game_id
     FROM "gameSongs"
     JOIN "user" ON "gameSongs".user_id = "user".id
     WHERE "game_id"=$1;`;
