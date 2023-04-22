@@ -19,7 +19,7 @@ function EditPage() {
   // this one is the finalized version to be passed down to the DB
   const[editedLyrics, setEditedLyrics] = useState(localEditLyrics);
 
-  console.log('this is editedLyrics', editedLyrics);
+  // console.log('this is editedLyrics', editedLyrics);
   
   // updates song lyrics with edited lyrics
   const updateSong = (id) => {
@@ -29,6 +29,10 @@ function EditPage() {
       id: id
     })
   }
+
+  useEffect(() => {
+    setlocalEditLyrics(songObj.edited_lyrics)
+  }, [lyricsToEdit])
 
   return (
     <>
