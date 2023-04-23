@@ -13,19 +13,27 @@ function EditPage() {
   const activeSong = useSelector(store => store.songs)
   let songObj = activeSong.activeSongReducer;
 
-  const[localEditLyrics, setLocalEditLyrics] = useState('');
+  const[editedLyrics, setEditedLyrics] = useState(songObj.edited_lyrics);
+  const[freshLyrics, setFreshLyrics] = useState(songObj.answer_lyrics);
+  const[lyricsToSend, setLyricsToSend] = useState('');
 
   const [resetListen, setResetListen] = useState(false);
   // console.log('this is editedLyrics', editedLyrics);
   
   // updates song lyrics with edited lyrics
   const updateSong = (id) => {
-    console.log('this is editedLyrics before it sends', localEditLyrics);
+    console.log('this is lyricsToSend before it sends', lyricsToSend);
     dispatch({
       type: 'UPDATE_LYRICS',
-      payload: localEditLyrics,
+      payload: lyricsToSend,
       id: id
     })
+  }
+
+  const handleChange = (event) => {
+    console.log('this is event.target.value', event.target.value);
+    setLyricsToSend(event.target.value);
+    console.log('this is lyricsToSend', lyricsToSend);
   }
 
   // useEffect(() => {
@@ -46,17 +54,23 @@ function EditPage() {
           <TextField 
             label="songEditor"
             variant="filled"
-            value={songObj.edited_lyrics}
+            value={editedLyrics}
             sx={{width: 300, marginTop: 2}}
-            onChange={(event) => setLocalEditLyrics(event.target.value)}
+            onChange={(event) => {
+              setEditedLyrics(event.target.value);
+              setLyricsToSend(event.target.value);
+              console.log('this is lyricsToSend', lyricsToSend);}}
             multiline />
             : 
             <TextField 
             label="songEditor"
             variant="filled"
-            value={songObj.answer_lyrics}
+            value={freshLyrics}
             sx={{width: 300, marginTop: 2}}
-            onChange={(event) => setLocalEditLyrics(event.target.value)}
+            onChange={(event) => {
+              setFreshLyrics(event.target.value);
+              setLyricsToSend(event.target.value);
+              console.log('this is lyricsToSend', lyricsToSend);}}
             multiline />}
           <Button 
               variant="contained" 
