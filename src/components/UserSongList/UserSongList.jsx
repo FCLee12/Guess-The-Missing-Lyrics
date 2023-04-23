@@ -33,12 +33,18 @@ function UserSongList() {
     });
     }, []);
 
+    // Changes Active Song in reducer
+    const changeActiveSong = (object) => {
+        console.log('changeActiveSong is running', object);
+
+    }
+
     // ********** CARD EDIT BUTTON **********
-    const handleEdit = (id) => {
-        console.log('this is the song.id', id);
+    const handleEdit = (songObj) => {
+        console.log('this is the songObj', songObj);
         dispatch({
-            type: 'FETCH_SONG_FOR_EDIT',
-            payload: id
+            type: "SET_ACTIVE_SONG",
+            payload: songObj
         })
         history.push(`/edit`);
     }
@@ -107,7 +113,7 @@ function UserSongList() {
                                 variant="contained" 
                                 endIcon={<EditNoteIcon />}
                                 size="small"
-                                onClick={() => handleEdit(song.id)}>
+                                onClick={() => handleEdit(song)}>
                                 Edit
                             </Button>
                             <Button

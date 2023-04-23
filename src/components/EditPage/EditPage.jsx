@@ -11,11 +11,10 @@ function EditPage() {
   const dispatch = useDispatch();
 
   const lyricsToEdit = useSelector(store => store.songs)
-  console.log('this is lyricsToEdit in EditPage', lyricsToEdit.lyricsToEditReducer);
 
-  let songObj = lyricsToEdit.lyricsToEditReducer;
+  let songObj = lyricsToEdit.activeSongReducer;
   // hoping to use the first piece of state to double as a reset by using the answer_lyrics
-  const[localEditLyrics, setlocalEditLyrics] = useState('');
+  const[localEditLyrics, setlocalEditLyrics] = useState(songObj.edited_lyrics);
   // this one is the finalized version to be passed down to the DB
   const[editedLyrics, setEditedLyrics] = useState('');
 
