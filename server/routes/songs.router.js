@@ -79,7 +79,7 @@ const editedSong = `When the visions around you Bring n!&x to your eyes And all 
 router.put('/edited/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `UPDATE "gameSongs" SET "edited_lyrics" = $1 WHERE "id" = $2 AND "user_id"=$3;`;
     // remove editedSong and replace with the dynamic values/req.body (should be edited lyrics with n!&x bundles)
-    let queryValues = [editedSong, req.params.id, req.user.id];
+    let queryValues = [req.body.newLyrics, req.params.id, req.user.id];
     pool.query(queryText, queryValues)
     .then((result) => {
         res.sendStatus(200);

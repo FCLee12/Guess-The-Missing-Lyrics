@@ -10,11 +10,11 @@ function EditPage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const lyricsToEdit = useSelector(store => store.songs)
+  const activeSong = useSelector(store => store.songs)
 
-  let songObj = lyricsToEdit.activeSongReducer;
+  let songObj = activeSong.activeSongReducer;
   // hoping to use the first piece of state to double as a reset by using the answer_lyrics
-  const[localEditLyrics, setlocalEditLyrics] = useState(songObj.edited_lyrics);
+  const[localEditLyrics, setLocalEditLyrics] = useState(songObj.edited_lyrics);
   // this one is the finalized version to be passed down to the DB
   const[editedLyrics, setEditedLyrics] = useState('');
 
@@ -22,6 +22,7 @@ function EditPage() {
   
   // updates song lyrics with edited lyrics
   const updateSong = (id) => {
+    setEditedLyrics(localEditLyrics)
     dispatch({
       type: 'UPDATE_LYRICS',
       payload: editedLyrics,
@@ -29,11 +30,11 @@ function EditPage() {
     })
   }
 
-  // rerenders the lyrics when the latest updateSong dispatch is sent
-    // allowing for the correct lyrics to display
-  useEffect(() => {
-    setlocalEditLyrics(songObj.edited_lyrics)
-  }, [lyricsToEdit])
+  // // rerenders the lyrics when the latest updateSong dispatch is sent
+  //   // allowing for the correct lyrics to display
+  // useEffect(() => {
+  //   setLocalEditLyrics(songObj.edited_lyrics)
+  // }, [lyricsToEdit])
 
   return (
     <>
@@ -50,7 +51,7 @@ function EditPage() {
             variant="filled"
             value={localEditLyrics}
             sx={{width: 300, marginTop: 2}}
-            onChange={(event) => setEditedLyrics(event.target.value)}
+            onChange={(event) => setLocalEditLyrics(event.target.value)}
             multiline />
           <Button 
               variant="contained" 
