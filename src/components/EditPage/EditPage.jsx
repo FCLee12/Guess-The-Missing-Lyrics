@@ -30,12 +30,6 @@ function EditPage() {
     })
   }
 
-  // // rerenders the lyrics when the latest updateSong dispatch is sent
-  //   // allowing for the correct lyrics to display
-  // useEffect(() => {
-  //   setLocalEditLyrics(songObj.edited_lyrics)
-  // }, [lyricsToEdit])
-
   return (
     <>
       {songObj ? 
