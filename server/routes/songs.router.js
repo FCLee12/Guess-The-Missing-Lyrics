@@ -5,7 +5,7 @@ const { rejectUnauthenticated } = require("../modules/authentication-middleware"
 
 // REGISTERED USER GET request to get song from DB
 router.get('/', rejectUnauthenticated, (req, res) => {
-    let queryText = `SELECT * FROM "gameSongs" WHERE "user_id"=$1;`;
+    let queryText = `SELECT * FROM "gameSongs" WHERE "user_id"=$1 ORDER BY "id";`;
     let queryValues = [req.user.id];
     pool.query(queryText, queryValues)
     .then((result) => {
