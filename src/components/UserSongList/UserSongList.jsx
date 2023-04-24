@@ -41,12 +41,6 @@ function UserSongList() {
         });
     }, []);
 
-    // Changes Active Song in reducer
-    const changeActiveSong = (object) => {
-        console.log('changeActiveSong is running', object);
-
-    }
-
     // ********** CARD EDIT BUTTON **********
     const handleEdit = (songObj) => {
         console.log('this is the songObj', songObj);
