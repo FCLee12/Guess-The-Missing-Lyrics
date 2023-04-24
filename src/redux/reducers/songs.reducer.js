@@ -12,11 +12,12 @@ const songsReducer = (state = [], action) => {
     }
 }
 
-const lyricsToEditReducer = (state = {}, action) => {
+const activeSongReducer = (state = {}, action) => {
     switch (action.type) {
-        // listens for SET_LYRICS_EDIT, should return
-            // the array of song objects on call/reference/useSelector
-        case "SET_LYRICS_EDIT":
+        // listens for SET_ACTIVE_SONG, should return
+            // a song object to be used for each song card's buttons
+        case "SET_ACTIVE_SONG":
+            console.log('this is activeSongReducer value', action.payload);
             return action.payload;
         default:
             return state;
@@ -25,5 +26,5 @@ const lyricsToEditReducer = (state = {}, action) => {
 
 export default combineReducers({
     songsReducer,
-    lyricsToEditReducer
+    activeSongReducer
 });

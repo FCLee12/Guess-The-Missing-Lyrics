@@ -5,7 +5,7 @@ const { rejectUnauthenticated } = require("../modules/authentication-middleware"
 
 // REGISTERED USER GET request to get song from DB
 router.get('/', rejectUnauthenticated, (req, res) => {
-    let queryText = `SELECT * FROM "gameSongs" WHERE "user_id"=$1;`;
+    let queryText = `SELECT * FROM "gameSongs" WHERE "user_id"=$1 ORDER BY "id";`;
     let queryValues = [req.user.id];
     pool.query(queryText, queryValues)
     .then((result) => {
@@ -66,18 +66,6 @@ router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
     pool.query(queryText, queryValues)
     .then((result) => {
         res.sendStatus(200);
-    }).catch((error) => {
-        res.sendStatus(500);
-    })
-});
-
-// REGISTERED USER GET Request to grab lyrics from the DB to edit
-router.get('/songEdit/:id', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT "gameSongs".id, "gameSongs".title, "gameSongs".artist, "gameSongs".edited_lyrics, "gameSongs".answer_lyrics FROM "gameSongs" WHERE id=$1 AND "user_id"=$2;`;
-    let queryValues = [req.params.id, req.user.id];
-    pool.query(queryText, queryValues)
-    .then((result) => {
-        res.send(result.rows);
     }).catch((error) => {
         res.sendStatus(500);
     })

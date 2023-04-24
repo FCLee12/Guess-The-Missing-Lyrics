@@ -10,31 +10,35 @@ function EditPage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const lyricsToEdit = useSelector(store => store.songs)
-  console.log('this is lyricsToEdit in EditPage', lyricsToEdit.lyricsToEditReducer);
+  const activeSong = useSelector(store => store.songs)
+  let songObj = activeSong.activeSongReducer;
 
-  let songObj = lyricsToEdit.lyricsToEditReducer;
-  // hoping to use the first piece of state to double as a reset by using the answer_lyrics
-  const[localEditLyrics, setlocalEditLyrics] = useState('');
-  // this one is the finalized version to be passed down to the DB
-  const[editedLyrics, setEditedLyrics] = useState('');
+  const[editedLyrics, setEditedLyrics] = useState(songObj.edited_lyrics);
+  const[freshLyrics, setFreshLyrics] = useState(songObj.answer_lyrics);
+  const[lyricsToSend, setLyricsToSend] = useState('');
 
+  const [resetListen, setResetListen] = useState(false);
   // console.log('this is editedLyrics', editedLyrics);
   
   // updates song lyrics with edited lyrics
   const updateSong = (id) => {
+    console.log('this is lyricsToSend before it sends', lyricsToSend);
     dispatch({
       type: 'UPDATE_LYRICS',
-      payload: editedLyrics,
+      payload: lyricsToSend,
       id: id
     })
   }
 
-  // rerenders the lyrics when the latest updateSong dispatch is sent
-    // allowing for the correct lyrics to display
-  useEffect(() => {
-    setlocalEditLyrics(songObj.edited_lyrics)
-  }, [lyricsToEdit])
+  const handleChange = (event) => {
+    console.log('this is event.target.value', event.target.value);
+    setLyricsToSend(event.target.value);
+    console.log('this is lyricsToSend', lyricsToSend);
+  }
+
+  // useEffect(() => {
+  //   setLocalEditLyrics(songObj.answer_lyrics);
+  // }, [resetListen])
 
   return (
     <>
@@ -46,13 +50,28 @@ function EditPage() {
           <Typography variant='h6' align='center'>
             {songObj.artist}
           </Typography>
+          {!resetListen ? 
           <TextField 
             label="songEditor"
             variant="filled"
-            value={localEditLyrics}
+            value={editedLyrics}
             sx={{width: 300, marginTop: 2}}
-            onChange={(event) => setEditedLyrics(event.target.value)}
+            onChange={(event) => {
+              setEditedLyrics(event.target.value);
+              setLyricsToSend(event.target.value);
+              console.log('this is lyricsToSend', lyricsToSend);}}
             multiline />
+            : 
+            <TextField 
+            label="songEditor"
+            variant="filled"
+            value={freshLyrics}
+            sx={{width: 300, marginTop: 2}}
+            onChange={(event) => {
+              setFreshLyrics(event.target.value);
+              setLyricsToSend(event.target.value);
+              console.log('this is lyricsToSend', lyricsToSend);}}
+            multiline />}
           <Button 
               variant="contained" 
               endIcon={<SendIcon />}
@@ -66,7 +85,8 @@ function EditPage() {
               endIcon={<SendIcon />}
               color="error"
               sx={{width: 300, marginTop: 2}}
-              size="small">
+              size="small"
+              onClick={() => setResetListen(!resetListen)}>
               Reset Lyrics
           </Button>
         </Grid> : <h1>Loading</h1>
