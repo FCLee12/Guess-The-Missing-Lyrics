@@ -1,35 +1,23 @@
 import * as React from 'react';
-<<<<<<< HEAD
-import { Box, Card, CardContent, Typography, CardActionArea, Button, Stack, Modal } from '@mui/material';
-=======
 import { Box, Button, Card, CardContent, Typography, CardActionArea, Stack, Modal, Grid } from '@mui/material';
->>>>>>> main
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import  DeleteIcon from '@mui/icons-material/Delete';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-<<<<<<< HEAD
-=======
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
->>>>>>> main
 
 function UserSongList() {
 
     const dispatch = useDispatch();
-<<<<<<< HEAD
-    const songList = useSelector(store => store.songsReducer);
-    // console.log('this is songList.data', songList.data);
-=======
     const history = useHistory();
->>>>>>> main
     
     // stores the song list that displays on the user dashboard
     const songList = useSelector(store => store.songs);
-    console.log('this is songList.songsReducer.data', songList.songsReducer.data);
+    // console.log('this is songList.songsReducer.data', songList.songsReducer.data);
     
     // ***** Changes if song is active *****
     // Changes a song's status from false to true or true to false
@@ -177,7 +165,7 @@ function UserSongList() {
                         </Modal>
                     </CardContent>
                 </Card>
-            )}) : <li><p>Loading</p></li>
+            )}) : <p>Loading</p>
         }
     </>
     );

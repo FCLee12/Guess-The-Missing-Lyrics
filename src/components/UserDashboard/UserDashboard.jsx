@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import UserSongList from '../UserSongList/UserSongList';
 import AddIcon from '@mui/icons-material/Add';
-import { Button, FormControl, Grid, Input, InputLabel, ListItemText, MenuItem, Modal, Select, Typography } from '@mui/material/';
+import { Button, FormControl, Grid, Input, InputLabel, List, ListItem, ListItemText, Modal, Typography } from '@mui/material/';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -53,12 +53,14 @@ function UserDashboard() {
     };
 
   const sendSearch = () => {
-    // console.log('sendSearch is running');
+    console.log('sendSearch is running');
     // sends this to SAGA
       // payload is an object
     if(searchInput.title == '' && searchInput.artist == '') {
       alert('Please enter either a song title or an artist name')
     } else {
+      console.log('sending search inputs', searchInput);
+      // FETCH_SEARCH_RESULTS
       dispatch({
         type: 'FETCH_SEARCH_RESULTS',
         payload: searchInput
@@ -114,20 +116,19 @@ function UserDashboard() {
                   Results:
                 </Typography>
                 <FormControl variant="standard">
-                  <Select sx={{width: 240, minWidth: 240}} value={newSong} onChange={handleSongSelect}>
+                  <Grid sx={{width: 240, minWidth: 240}} value={newSong} onChange={handleSongSelect}>
                     {songSearch ? 
-                      <div>
+                      <List>
                         {songSearch.map((result, i) => {
                           return (
-                            <MenuItem key={i} value={i} sx={{maxWidth: 290, paddingTop: 0, paddingBottom: 0, border: 'solid 1px black', flexDirection: "column", whiteSpace: 'normal'}}>
-                                Cats {i}
-                                {/* <p style={{marginTop: 3, marginBottom: 3}}>Title: {result.track.track_name}</p>
-                                <p style={{marginTop: 3, marginBottom: 3}}>Artist: {result.track.artist_name}</p> */}
-                            </MenuItem>
+                            <ListItem key={i} sx={{maxWidth: 290, paddingTop: 0, paddingBottom: 0, border: 'solid 1px black', flexDirection: "column"}}>
+                                <ListItemText style={{marginTop: 3, marginBottom: 3}}>Title: {result.track.track_name}</ListItemText>
+                                <ListItemText style={{marginTop: 3, marginBottom: 3}}>Artist: {result.track.artist_name}</ListItemText>
+                            </ListItem>
                           )
                         })}
-                      </div> : <Typography>Loading</Typography>}
-                  </Select>
+                      </List> : <Typography>Loading</Typography>}
+                  </Grid>
                 </FormControl>
                 <div>
                   <Button variant='contained' style={{marginTop: '10px'}}>Add Song</Button>

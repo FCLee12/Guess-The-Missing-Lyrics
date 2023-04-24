@@ -6,9 +6,9 @@ const axios = require('axios');
 // Get the list of search results based on search parameters
     // Need to figure out a way to make the q_track and q_artist and their values dynamic
 router.post('/search', (req, res) => {
-    // console.log(req.body);
-    // console.log('this is req.body.title', req.body.title);
-    // console.log('this is req.body.artist', req.body.artist);
+    console.log(req.body);
+    console.log('this is req.body.title', req.body.title);
+    console.log('this is req.body.artist', req.body.artist);
     let url = `http://api.musixmatch.com/ws/1.1/track.search?`;
 
     // function to dynamically build the URL based on parameters given
@@ -27,7 +27,7 @@ router.post('/search', (req, res) => {
         } else {
             finalUrl.push(finalUrl[finalUrl.length-1] + `&q_artist=${req.body.artist}`);
         }
-        // console.log(finalUrl[finalUrl.length-1] + `&apikey=${process.env.MUSIXMATCH_API_KEY}`);
+        console.log(finalUrl[finalUrl.length-1] + `&apikey=${process.env.MUSIXMATCH_API_KEY}`);
         return finalUrl[finalUrl.length-1] + `&apikey=${process.env.MUSIXMATCH_API_KEY}`;
     }
     // urlSearchBuilder(url);
