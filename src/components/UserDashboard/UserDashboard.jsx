@@ -79,11 +79,12 @@ function UserDashboard() {
 
   return (
     <>
-      <Grid container sx={{flexDirection:"column", marginLeft:"8px", textAlign:"center", width: 290}}>
+      <Grid container sx={{flexDirection:"column", marginLeft: 1, textAlign:"center", width: 290}}>
         <Button 
           variant="contained" 
           endIcon={<AddIcon />}
           size="large"
+          sx={{marginBottom: 1, pt: 2, pb: 2}}
           onClick={handleOpen}>Add a New Song</Button>
         <Modal
             open={open}
