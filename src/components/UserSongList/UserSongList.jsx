@@ -8,13 +8,18 @@ import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function UserSongList() {
 
     const dispatch = useDispatch();
-    const songList = useSelector(store => store.songsReducer);
-    console.log('this is songList.data', songList.data);
+    const history = useHistory();
     
+    // stores the song list that displays on the user dashboard
+    const songList = useSelector(store => store.songs);
+    // console.log('this is songList.songsReducer.data', songList.songsReducer.data);
+    
+    // STRETCH
     const setActive = (event) => {
         console.log('setActive is running');
         // will need a dispatch to SAGA to do a put request to SERVER which will set the status from active = false to active = true
@@ -28,6 +33,24 @@ function UserSongList() {
     });
     }, []);
 
+    // Changes Active Song in reducer
+    const changeActiveSong = (object) => {
+        console.log('changeActiveSong is running', object);
+
+    }
+
+    // ********** CARD EDIT BUTTON **********
+    const handleEdit = (songObj) => {
+        console.log('this is the songObj', songObj);
+        dispatch({
+            type: "SET_ACTIVE_SONG",
+            payload: songObj
+        })
+        history.push(`/edit`);
+    }
+    // END ********** CARD EDIT BUTTON **********
+
+    // ********** CARD DELETE BUTTON **********
     const handleDelete = (id) => {
         console.log('in handleDelete, see id', id);
         dispatch({
@@ -38,6 +61,7 @@ function UserSongList() {
         handleClose();
     }
 
+    // ----- For the DELETE CONFRIMATION MODAL -----
     const style = {
         position: 'absolute',
         top: '50%',
@@ -49,24 +73,24 @@ function UserSongList() {
         boxShadow: 24,
         p: 4,
         align: 'center'
-      };
+    };
     
-    // For the DELETE MODAL
     const [open, setOpen] = React.useState(false);
-    const [cardId, setCardId] = useState(0);
+    const [cardId, setCardId] = useState('');
     const handleOpen = (id) => {
         setOpen(true);
         setCardId(id);
     };
     const handleClose = () => {
         setOpen(false);
-        setCardId(0);
+        setCardId('');
     };
-    
+    // END ********** CARD DELETE BUTTON **********
+
     return (
     <>
-        {songList.data ?
-            songList.data.map((song) => {
+        {songList.songsReducer.data ?
+            songList.songsReducer.data.map((song) => {
                 return (<Card sx={{ maxWidth: 300, marginTop: '5px', marginBottom: '5px', border: "solid black 1px"}} key={song.id}>
                     <CardContent>
                         <CardActionArea onClick={setActive}>
@@ -88,7 +112,8 @@ function UserSongList() {
                             <Button
                                 variant="contained" 
                                 endIcon={<EditNoteIcon />}
-                                size="small">
+                                size="small"
+                                onClick={() => handleEdit(song)}>
                                 Edit
                             </Button>
                             <Button
@@ -116,7 +141,7 @@ function UserSongList() {
                                         size="small"
                                         color="error"
                                         onClick={() => handleDelete(cardId)}>
-                                    Delete
+                                        Delete
                                     </Button>
                                     <Button
                                         variant="outlined" 
