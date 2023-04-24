@@ -76,7 +76,7 @@ function UserDashboard() {
 
   return (
     <>
-      <Grid container style={{flexDirection:"column", marginLeft:"8px", textAlign:"center"}} xs={5}>
+      <Grid container sx={{flexDirection:"column", marginLeft:"8px", textAlign:"center", width: 290}}>
         <Button 
           variant="contained" 
           endIcon={<AddIcon />}
