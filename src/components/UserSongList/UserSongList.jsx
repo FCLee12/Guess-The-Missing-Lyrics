@@ -19,6 +19,7 @@ function UserSongList() {
     const songList = useSelector(store => store.songs);
     console.log('this is songList.songsReducer.data', songList.songsReducer.data);
     
+    // ***** Changes if song is active *****
     // Changes a song's status from false to true or true to false
         // true indicates the song can be seen by guest users
         // false indicates the song will not be viewable to guest users
@@ -32,14 +33,19 @@ function UserSongList() {
             payload: !boolean,
             id: id
         })
+        setIsActive(!isActive);
     }
+
+    const [isActive, setIsActive] = useState(false);
+
+    // END ***** Changes if song is active ***** 
     
     // need a dispatch call to SAGA to do a get request to SERVER/ROUTER who will pull data from DB then store it in a reducer
     useEffect(() => {
         dispatch({
             type: 'FETCH_SONGS'
         });
-    }, []);
+    }, [isActive]);
 
     // ********** CARD EDIT BUTTON **********
     const handleEdit = (songObj) => {
@@ -93,7 +99,8 @@ function UserSongList() {
     <>
         {songList.songsReducer.data ?
             songList.songsReducer.data.map((song) => {
-                return (<Card sx={{ maxWidth: 300, marginTop: '5px', marginBottom: '5px', border: "solid black 1px"}} key={song.id}>
+                return (
+                <Card sx={{ maxWidth: 300, marginTop: '5px', marginBottom: '5px', border: `solid ${song.status ? "green" : "grey"} 4px`}} key={song.id}>
                     <CardContent>
                         <CardActionArea onClick={() => setActive(song.status, song.id)}>
                             <Typography variant='h6'>
