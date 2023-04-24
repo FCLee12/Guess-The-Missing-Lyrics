@@ -52,7 +52,7 @@ router.get('/lyrics/:trackid', (req, res) => {
     .then((response) => {
         console.log('this is response.data.message.body.lyrics.lyrics_body', response.data.message.body.lyrics.lyrics_body);
         if(response.status === 200) {
-            res.send(response.data.message.body.lyrics.lyrics_body.data);
+            res.send(response.data.message.body.lyrics.lyrics_body);
         } else {
             res.send(response.status);
         }
