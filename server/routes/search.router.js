@@ -47,11 +47,16 @@ router.post('/search', (req, res) => {
     })
 })
 
-router.get('/lyrics', (req, res) => {
-    axios.get(`http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=13690779&apikey=${process.env.MUSIXMATCH_API_KEY}`)
+router.get('/lyrics/:trackid', (req, res) => {
+    axios.get(`http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${req.params.trackid}&apikey=${process.env.MUSIXMATCH_API_KEY}`)
     .then((response) => {
-        console.log('this is response.data', response.data);
-        res.send(response.data);
+        console.log('this is response.data.message.body.lyrics.lyrics_body', response.data.message.body.lyrics.lyrics_body);
+        if(response.status === 200) {
+            res.send(response.data.message.body.lyrics.lyrics_body.data);
+        } else {
+            res.send(response.status);
+        }
+
     }) .catch((error) => {
         console.log('Error getting song list', error);
         res.sendStatus(500);

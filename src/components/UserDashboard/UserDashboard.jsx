@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import UserSongList from '../UserSongList/UserSongList';
 import AddIcon from '@mui/icons-material/Add';
-import { Button, FormControl, Grid, Input, InputLabel, List, ListItem, ListItemText, Modal, Typography } from '@mui/material/';
+import { Button, FormControl, Grid, Input, InputLabel, List, ListItem, ListItemText, Modal, Paper, Typography } from '@mui/material/';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -17,7 +17,6 @@ function UserDashboard() {
   
   // local state to collect input field values
   let [searchInput, setSearchInput] = useState({title: '', artist: ''})
-  const [newSong, setNewSong] = useState('');
   
   // console.log('this is searchInput', searchInput);
   // handles collecting input values
@@ -70,10 +69,12 @@ function UserDashboard() {
     }
   }
 
-  const handleSongSelect = (event) => {
-    console.log('handleSongSelect running');
-    console.log('handleSongSelect running', event.target.value);
-    setNewSong(event.target.value);
+  const addSong = (object) => {
+    console.log('addSong is running', object);
+    dispatch({
+      type: "FETCH_LYRICS",
+      payload: object
+    })
   };
 
   return (
@@ -116,25 +117,23 @@ function UserDashboard() {
                   Results:
                 </Typography>
                 <FormControl variant="standard">
-                  <Grid sx={{width: 240, minWidth: 240}} value={newSong} onChange={handleSongSelect}>
+                  <Paper variant="outlined" sx={{maxHeight: 240, overflow: 'auto', width: 260, marginLeft: -1.2}}>
                     {songSearch ? 
-                      <List>
+                      <List sx={{padding: 0}}>
                         {songSearch.map((result, i) => {
                           return (
                             <ListItem key={i} sx={{maxWidth: 290, paddingTop: 0, paddingBottom: 0, border: 'solid 1px black', flexDirection: "column"}}>
-                                <ListItemText style={{marginTop: 3, marginBottom: 3}}>Title: {result.track.track_name}</ListItemText>
-                                <ListItemText style={{marginTop: 3, marginBottom: 3}}>Artist: {result.track.artist_name}</ListItemText>
+                                <ListItemText style={{marginTop: 3, marginBottom: 3}}><strong>Title:</strong> {result.track.track_name}</ListItemText>
+                                <ListItemText style={{marginTop: 3, marginBottom: 3}}><strong>Artist:</strong> {result.track.artist_name}</ListItemText>
+                                <Button variant='contained' size="small" sx={{marginBottom: 1.2}} onClick={() => addSong(result.track)}>Add Song</Button>
                             </ListItem>
                           )
                         })}
                       </List> : <Typography>Loading</Typography>}
-                  </Grid>
+                  </Paper>
                 </FormControl>
-                <div>
-                  <Button variant='contained' style={{marginTop: '10px'}}>Add Song</Button>
-                </div>
             </Grid>
-        </Modal>
+          </Modal>
         <Typography variant='h5'>
           Your Song Collection:
         </Typography>

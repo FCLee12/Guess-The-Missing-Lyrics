@@ -23,9 +23,30 @@ function* fetchSearchResults(action) {
     }
 }
 
+function* fetchTrackLyrics(action) {
+    try {
+        console.log('this is fetchTrackLyrics action.payload', action.payload);
+        const trackLyrics = yield axios.get(`/api/musix/lyrics/${action.payload.track_id}`)
+        console.log('trackLyrics', trackLyrics);
+        if(isNaN(trackLyrics)) {
+            let newSong = {
+                title: action.payload.track_name,
+                artist: action.payload.artist_name,
+                edited_lyrics: trackLyrics,
+                answer_lyrics: trackLyrics,
+            }
+            console.log('this is newSong', newSong);
+            yield axios.post(`/songs`, newSong)
+        }
+    } catch(error) {
+        console.log('API Lyrics GET request for lyrics by track_id failed', error);
+    }
+}
+
 //FOR ROOT SAGA
 function* searchResultsSaga() {
     yield takeLatest('FETCH_SEARCH_RESULTS', fetchSearchResults);
+    yield takeLatest('FETCH_LYRICS', fetchTrackLyrics);
 }
 
 export default searchResultsSaga;
