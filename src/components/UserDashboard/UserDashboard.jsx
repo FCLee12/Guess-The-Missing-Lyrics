@@ -42,7 +42,7 @@ function UserDashboard() {
       left: '50%',
       transform: 'translate(-50%, -50%)',
       width: 310,
-      height: 500,
+      height: 510,
       bgcolor: 'background.paper',
       border: '2px solid #000',
       boxShadow: 24,
@@ -117,7 +117,7 @@ function UserDashboard() {
                   Results:
                 </Typography>
                 <FormControl variant="standard">
-                  <Paper variant="outlined" sx={{maxHeight: 240, overflow: 'auto', width: 260, marginLeft: -1.2}}>
+                  <Paper variant="outlined" sx={{maxHeight: 240, overflow: 'auto', width: 280, marginLeft: -2.5}}>
                     {songSearch ? 
                       <List sx={{padding: 0}}>
                         {songSearch.map((result, i) => {

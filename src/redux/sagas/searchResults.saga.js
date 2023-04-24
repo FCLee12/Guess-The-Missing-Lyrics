@@ -28,6 +28,7 @@ function* fetchTrackLyrics(action) {
         console.log('this is fetchTrackLyrics action.payload', action.payload);
         const trackLyrics = yield axios.get(`/api/musix/lyrics/${action.payload.track_id}`)
         console.log('trackLyrics', trackLyrics.data);
+        
         if(isNaN(trackLyrics.data)) {
             
             // Step 1: Remove \n escape characters from RAW JSON response
@@ -52,8 +53,13 @@ function* fetchTrackLyrics(action) {
             }
             console.log('this is newSong', newSong);
             yield axios.post(`/songs`, newSong)
+            // calls FETCH_SONGS to get the most up to date list including the new song
+            yield put({
+                type: 'FETCH_SONGS'
+            })
         }
     } catch(error) {
+        alert("Sorry, MusixMatch API Database doesn't have those lyrics available");
         console.log('API Lyrics GET request for lyrics by track_id failed', error);
     }
 }
