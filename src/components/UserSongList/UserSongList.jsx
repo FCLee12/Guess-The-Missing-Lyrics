@@ -17,7 +17,7 @@ function UserSongList() {
     
     // stores the song list that displays on the user dashboard
     const songList = useSelector(store => store.songs);
-    console.log('this is songList.songsReducer.data', songList.songsReducer.data);
+    // console.log('this is songList.songsReducer.data', songList.songsReducer.data);
     
     // ***** Changes if song is active *****
     // Changes a song's status from false to true or true to false
@@ -165,7 +165,7 @@ function UserSongList() {
                         </Modal>
                     </CardContent>
                 </Card>
-            )}) : <li><p>Loading</p></li>
+            )}) : <p>Loading</p>
         }
     </>
     );
