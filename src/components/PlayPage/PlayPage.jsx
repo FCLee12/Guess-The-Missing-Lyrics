@@ -55,8 +55,8 @@ function PlayPage() {
 
   // calling the convertor function
   const displayLyrics = convertToBlanks(songObj.edited_lyrics, songObj.edited_lyrics.length);
-  console.log('these are the lyrics that will be displayed', displayLyrics);
-  console.log('this is how many blanks there are', songObj.missing_lyrics);
+  // console.log('these are the lyrics that will be displayed', displayLyrics);
+  // console.log('this is how many blanks there are', songObj.missing_lyrics);
 
   // creates an array that will be used to create a number of input fields equal to the number of missing blanks
   function inputFieldGenerator() {
@@ -69,7 +69,7 @@ function PlayPage() {
     // console.log('this is the number of input fields needed:', inputFields.length);
     return inputFields;
   }
-  console.log('this is inputFieldGenerator', inputFieldGenerator());
+  // console.log('this is inputFieldGenerator', inputFieldGenerator());
 
   // local state for each possible input field
   const [answer1, setAnswer1] = useState('**** 1 ****');
@@ -80,6 +80,65 @@ function PlayPage() {
   const [answer6, setAnswer6] = useState('**** 6 ****');
   const [answer7, setAnswer7] = useState('**** 7 ****');
   const [answer8, setAnswer8] = useState('**** 8 ****');
+
+  // console.logs to monitor input values
+  // console.log('this is answer1', answer1);
+  // console.log('this is answer1', answer2);
+  // console.log('this is answer1', answer3);
+  // console.log('this is answer1', answer4);
+  // console.log('this is answer1', answer5);
+  // console.log('this is answer1', answer6);
+  // console.log('this is answer1', answer7);
+  // console.log('this is answer1', answer8);
+
+  const sendGuesses = () => {
+    let answersArray = [];
+    if(answer1 !== '**** 1 ****') {
+      answersArray.push(answer1)
+    }
+    if(answer2 !== '**** 2 ****') {
+      answersArray.push(answer2)
+    }
+    if(answer3 !== '**** 3 ****') {
+      answersArray.push(answer3)
+    }
+    if(answer4 !== '**** 4 ****') {
+      answersArray.push(answer4)
+    }
+    if(answer5 !== '**** 5 ****') {
+      answersArray.push(answer5)
+    }
+    if(answer6 !== '**** 6 ****') {
+      answersArray.push(answer6)
+    }
+    if(answer7 !== '**** 7 ****') {
+      answersArray.push(answer7)
+    }
+    if(answer8 !== '**** 8 ****') {
+      answersArray.push(answer8)
+    }
+    console.log('this is the answersArray:', answersArray);
+
+    // this function will replace the n!&x bundles with a word from the answersArray
+    function insertAnswers(string, answerArray, count) {
+      const blanker = /n!&x/;
+      return(string.replace(blanker, answerArray[count]));
+    }
+
+    // this converts the edited version to a version with the user's answer inputs
+    // will take in an array of the user's answers
+    function convertToAnswers(string, arrLength, answerArray) {
+      let editArray = [string];
+      for(let i = 0; i < arrLength; i++) {
+          editArray.push(insertAnswers(editArray[i], answerArray, i));
+      }
+      return editArray[editArray.length-1];
+    }
+
+    console.log('**** this is the lyric string with the user answers ****', convertToAnswers(songObj.edited_lyrics, songObj.missing_lyrics, answersArray));
+    // this is the lyric string with the user's guesses placed into the blanks
+    const userGuess = convertToAnswers(songObj.edited_lyrics, songObj.missing_lyrics, answersArray);
+  }
 
   
   return (
@@ -121,7 +180,7 @@ function PlayPage() {
           {inputFieldGenerator().length > 7 ?
             <TextField key={8} sx={inputStyle} size="small" value={answer8} variant="outlined" onChange={(event) => setAnswer8(event.target.value)}/>
           : <TextField disabled key={8} sx={inputStyle} size="small" value={answer8} variant="outlined" onChange={(event) => setAnswer8(event.target.value)}/>}
-          <Button variant="outlined" size="small" sx={{mt: .5}}>Submit Your Guesses!</Button>        
+          <Button variant="outlined" size="small" sx={{mt: .5}} onClick={sendGuesses}>Submit Your Guesses!</Button>        
         </Card>
       </Grid>
     </>
