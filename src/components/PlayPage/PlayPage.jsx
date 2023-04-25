@@ -138,8 +138,40 @@ function PlayPage() {
     console.log('**** this is the lyric string with the user answers ****', convertToAnswers(songObj.edited_lyrics, songObj.missing_lyrics, answersArray));
     // this is the lyric string with the user's guesses placed into the blanks
     const userGuess = convertToAnswers(songObj.edited_lyrics, songObj.missing_lyrics, answersArray);
-  }
 
+    // this splits the lyric strings into spaces and words
+      // NOTE: 'en' means english language
+    const segmenter = new Intl.Segmenter(
+      'en', { granularity: 'word' }
+    );
+    
+    const userGuessString = segmenter.segment(userGuess.toLowerCase());
+    const answerKeyString = segmenter.segment(songObj.answer_lyrics.toLowerCase());
+    
+    // compares the lyrics with the user's guesses against the answer key
+    const generateResults = (array1, array2) => {
+      let correctAnswerArray = [];
+      let wrongAnswerArray = [];
+      let extrasArray = [];
+      for(let i = 0; i < array1.length; i++) {
+        if(array1[i].segment !== array2[i].segment) {
+          wrongAnswerArray.push(array1[i]);
+          correctAnswerArray.push(array2[i]);
+        } else {
+          extrasArray.push(array1[i]);
+        }
+      }
+      let answersObj = {
+        correctAnswers: correctAnswerArray,
+        wrongAnswers: wrongAnswerArray,
+        extrasArray: extrasArray
+      };
+      console.log(answersObj);
+      return answersObj;
+    }
+    // .filter(s => s.isWordLike) property spits filters out spaces or punctuation, leaving only words in the array to compare
+    const resultsObj = generateResults([...userGuessString].filter(s => s.isWordLike), [...answerKeyString].filter(s => s.isWordLike));
+  }
   
   return (
     <>
