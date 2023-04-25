@@ -93,7 +93,7 @@ function PlayPage() {
         </Typography>
         <Paper sx={{width: 300, border: 'solid black 1px'}}>
           <Typography align='center' sx={{padding: 1}}>
-            {songObj.edited_lyrics}
+            {displayLyrics}
           </Typography>
         </Paper>
         <Card sx={style}>
