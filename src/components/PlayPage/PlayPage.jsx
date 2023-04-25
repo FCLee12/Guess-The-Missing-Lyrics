@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Card, Grid, Typography, TextField, Paper } from '@mui/material/';
+import { Box, Button, Card, Grid, Modal, Typography, TextField, Paper } from '@mui/material/';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -12,6 +12,7 @@ function PlayPage() {
   let songObj = activeSong.activeSongReducer;
   // console.log('this is songObj taken from the store in PlayPage', songObj);
   
+  // style for lyric display
   const style = {
     position: 'fixed',
     top: 554,
@@ -26,6 +27,7 @@ function PlayPage() {
     textAlign:"center"
   };
 
+  // style for input fields
   const inputStyle = {
     width: 100,
     height: 40,
@@ -58,19 +60,6 @@ function PlayPage() {
   // console.log('these are the lyrics that will be displayed', displayLyrics);
   // console.log('this is how many blanks there are', songObj.missing_lyrics);
 
-  // creates an array that will be used to create a number of input fields equal to the number of missing blanks
-  function inputFieldGenerator() {
-    const inputFields = [];
-    for(let i = 0; i < songObj.missing_lyrics; i++) {
-      // console.log(inputFields);
-      inputFields.push(i+1);
-    };
-    // console.log('this is the array', inputFields);
-    // console.log('this is the number of input fields needed:', inputFields.length);
-    return inputFields;
-  }
-  // console.log('this is inputFieldGenerator', inputFieldGenerator());
-
   // local state for each possible input field
   const [answer1, setAnswer1] = useState('**** 1 ****');
   const [answer2, setAnswer2] = useState('**** 2 ****');
@@ -91,7 +80,11 @@ function PlayPage() {
   // console.log('this is answer1', answer7);
   // console.log('this is answer1', answer8);
 
+
+  // ********** HANDLE SUBMIT YOUR GUESSES BUTTON **********
+  // this happens when the submit your guesses! button
   const sendGuesses = () => {
+    // building an array of the user's answers
     let answersArray = [];
     if(answer1 !== '**** 1 ****') {
       answersArray.push(answer1)
@@ -135,7 +128,7 @@ function PlayPage() {
       return editArray[editArray.length-1];
     }
 
-    console.log('**** this is the lyric string with the user answers ****', convertToAnswers(songObj.edited_lyrics, songObj.missing_lyrics, answersArray));
+    // console.log('**** this is the lyric string with the user answers ****', convertToAnswers(songObj.edited_lyrics, songObj.missing_lyrics, answersArray));
     // this is the lyric string with the user's guesses placed into the blanks
     const userGuess = convertToAnswers(songObj.edited_lyrics, songObj.missing_lyrics, answersArray);
 
@@ -161,17 +154,48 @@ function PlayPage() {
           extrasArray.push(array1[i]);
         }
       }
+    
+      // calculating correct answers and incorrect answers
+      const correctAnswers = songObj.missing_lyrics - wrongAnswerArray.length;
+
       let answersObj = {
-        correctAnswers: correctAnswerArray,
-        wrongAnswers: wrongAnswerArray,
-        extrasArray: extrasArray
+        correctAnswersArray: correctAnswerArray,
+        wrongAnswersArray: wrongAnswerArray,
+        extrasArray: extrasArray,
+        correctAnswers: correctAnswers,
+        wrongAnswers: wrongAnswerArray.length
       };
+      // opens the modal
+      handleOpen();
       console.log(answersObj);
       return answersObj;
     }
+    // END generateResults function
+
     // .filter(s => s.isWordLike) property spits filters out spaces or punctuation, leaving only words in the array to compare
     const resultsObj = generateResults([...userGuessString].filter(s => s.isWordLike), [...answerKeyString].filter(s => s.isWordLike));
   }
+  // END ********** HANDLE SUBMIT YOUR GUESSES BUTTON **********
+
+  // ********** RESULTS MODAL **********
+    // needed local state and two functions to toggle Modal on and off
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const modalStyle = {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 240,
+      bgcolor: 'background.paper',
+      border: '2px solid #000',
+      boxShadow: 24,
+      p: 4,
+      align: 'center'
+    };
+  // END ********** RESULTS MODAL **********
   
   return (
     <>
@@ -188,31 +212,48 @@ function PlayPage() {
           </Typography>
         </Paper>
         <Card sx={style}>
-          {inputFieldGenerator().length > 0 ?
+          {songObj.missing_lyrics > 0 ?
             <TextField key={1} sx={inputStyle} size="small" value={answer1} variant="outlined" onChange={(event) => setAnswer1(event.target.value)}/>
           : <TextField disabled key={1} sx={inputStyle} size="small" value={answer1} variant="outlined" onChange={(event) => setAnswer1(event.target.value)}/>}
-          {inputFieldGenerator().length > 1 ?
+          {songObj.missing_lyrics > 1 ?
             <TextField key={2} sx={inputStyle} size="small" value={answer2} variant="outlined" onChange={(event) => setAnswer2(event.target.value)}/>
           : <TextField disabled key={2} sx={inputStyle} size="small" value={answer2} variant="outlined" onChange={(event) => setAnswer2(event.target.value)}/>}
-          {inputFieldGenerator().length > 2 ?
+          {songObj.missing_lyrics > 2 ?
             <TextField key={3} sx={inputStyle} size="small" value={answer3} variant="outlined" onChange={(event) => setAnswer3(event.target.value)}/>
           : <TextField disabled key={3} sx={inputStyle} size="small" value={answer3} variant="outlined" onChange={(event) => setAnswer3(event.target.value)}/>}
-          {inputFieldGenerator().length > 3 ?
+          {songObj.missing_lyrics > 3 ?
             <TextField key={4} sx={inputStyle} size="small" value={answer4} variant="outlined" onChange={(event) => setAnswer4(event.target.value)}/>
           : <TextField disabled key={4} sx={inputStyle} size="small" value={answer4} variant="outlined" onChange={(event) => setAnswer4(event.target.value)}/>}
-          {inputFieldGenerator().length > 4 ?
+          {songObj.missing_lyrics > 4 ?
             <TextField key={5} sx={inputStyle} size="small" value={answer5} variant="outlined" onChange={(event) => setAnswer5(event.target.value)}/>
           : <TextField disabled key={5} sx={inputStyle} size="small" value={answer5} variant="outlined" onChange={(event) => setAnswer5(event.target.value)}/>}
-          {inputFieldGenerator().length > 5 ?
+          {songObj.missing_lyrics > 5 ?
             <TextField key={6} sx={inputStyle} size="small" value={answer6} variant="outlined" onChange={(event) => setAnswer6(event.target.value)}/>
           : <TextField disabled key={6} sx={inputStyle} size="small" value={answer6} variant="outlined" onChange={(event) => setAnswer6(event.target.value)}/>}
-          {inputFieldGenerator().length > 6 ?
+          {songObj.missing_lyrics > 6 ?
             <TextField key={7} sx={inputStyle} size="small" value={answer7} variant="outlined" onChange={(event) => setAnswer7(event.target.value)}/>
           : <TextField disabled key={7} sx={inputStyle} size="small" value={answer7} variant="outlined" onChange={(event) => setAnswer7(event.target.value)}/>}
-          {inputFieldGenerator().length > 7 ?
+          {songObj.missing_lyrics > 7 ?
             <TextField key={8} sx={inputStyle} size="small" value={answer8} variant="outlined" onChange={(event) => setAnswer8(event.target.value)}/>
           : <TextField disabled key={8} sx={inputStyle} size="small" value={answer8} variant="outlined" onChange={(event) => setAnswer8(event.target.value)}/>}
-          <Button variant="outlined" size="small" sx={{mt: .5}} onClick={sendGuesses}>Submit Your Guesses!</Button>        
+          <Button variant="outlined" size="small" sx={{mt: .5}} onClick={sendGuesses}>Submit Your Guesses!</Button>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description">
+            <Box sx={modalStyle}>
+                <Typography id="modal-modal-title" variant="h6" component="h2" align='center'>
+                  Results:
+                </Typography>
+                <Typography align='center'>
+                  Correct:
+                </Typography>
+                <Typography align='center'>
+                  Incorrect:
+                </Typography>
+            </Box>
+          </Modal>       
         </Card>
       </Grid>
     </>
