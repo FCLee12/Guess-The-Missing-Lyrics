@@ -14,22 +14,30 @@ function PlayPage() {
   
   const style = {
     position: 'fixed',
-    top: 580,
+    top: 558,
     left: 160.5,
     transform: 'translate(-50%, -50%)',
-    width: 234.5,
-    height: 100,
+    width: 284,
+    height: 220,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
-    flexDirection:"column",
+    p: 1,
     textAlign:"center"
   };
+
+  const inputStyle = {
+    width: 100,
+    height: 40,
+    ml: 2,
+    mr: 2,
+    mt: .5,
+    mb: .5
+  }
   
   return (
     <>
-      <Grid container sx={{flexDirection: "column", ml: 1.2, mb: 23}}>
+      <Grid container sx={{flexDirection: "column", ml: 1.2, mb: 30}}>
         <Typography variant='h5' align='center' sx={{padding: 1, width: 300, ml: -1}}>
           {songObj.title}
         </Typography>
@@ -42,7 +50,15 @@ function PlayPage() {
           </Typography>
         </Paper>
         <Card sx={style}>
-          <Typography>This is some text</Typography>
+          <Typography>Enter Your Guesses!</Typography>
+          <TextField sx={inputStyle} size="small" placeholder="  *** 1 ***" variant="outlined" />
+          <TextField sx={inputStyle} size="small" placeholder="  *** 2 ***" variant="outlined" />
+          <TextField sx={inputStyle} size="small" placeholder="  *** 3 ***" variant="outlined" />
+          <TextField sx={inputStyle} size="small" placeholder="  *** 4 ***" variant="outlined" />
+          <TextField sx={inputStyle} size="small" placeholder="  *** 5 ***" variant="outlined" />
+          <TextField sx={inputStyle} size="small" placeholder="  *** 6 ***" variant="outlined" />
+          <TextField sx={inputStyle} size="small" placeholder="  *** 7 ***" variant="outlined" />
+          <TextField sx={inputStyle} size="small" placeholder="  *** 8 ***" variant="outlined" />
         </Card>
       </Grid>
     </>
