@@ -20,7 +20,7 @@ function PlayPage() {
     width: 284,
     height: 230,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '1px solid #000',
     boxShadow: 24,
     p: 1,
     textAlign:"center"
@@ -34,6 +34,28 @@ function PlayPage() {
     mt: .5,
     mb: .5
   }
+
+  // This adds blanks to wherever the set of characters are
+    // NOTE: if you don't include the g after the regex statement (example /dog/g vs /dog/) then only the first instance of it will be replaced
+        // meaning when adding in the guesses from the user, drop the 'g' so you can feed each answer to a specific instance of /n!&x/
+        // also meaning the answers will likely be recorded in an array and pushed through a loop
+  function addBlanks(string, count) {
+    const blanker = /n!&x/;
+    return(string.replace(blanker, `*** ${count+1} ***`));
+  }
+
+  // this function converts the edited version to a temporary display version
+  function convertToBlanks(string, arrLength) {
+    let editArray = [string];
+    for(let i = 0; i < arrLength; i++) {
+        editArray.push(addBlanks(editArray[i], i));
+    }
+    return editArray[editArray.length-1];
+  }
+
+  // calling the convertor function
+  const displayLyrics = convertToBlanks(songObj.edited_lyrics, songObj.edited_lyrics.length);
+
   
   return (
     <>

@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Button, Grid, Typography, TextField } from '@mui/material/';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 
 function EditPage() {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const activeSong = useSelector(store => store.songs)
@@ -23,22 +20,25 @@ function EditPage() {
   // updates song lyrics with edited lyrics
   const updateSong = (id) => {
     console.log('this is lyricsToSend before it sends', lyricsToSend);
-    dispatch({
-      type: 'UPDATE_LYRICS',
-      payload: lyricsToSend,
-      id: id
-    })
+    
+    // .match(/n!&x/) creates an array of strings that match n!&x
+      //the .length tells us how many blanks(n!&x) there are
+    let matchArray = lyricsToSend.match(/n!&x/g);
+    console.log(matchArray.length);
+
+    if(matchArray.length > 8) {
+      alert(`You have ${matchArray.length} n!&x bundles, please keep your number of n!&x bundles equal to 8 or less`)
+    } else {
+      dispatch({
+        type: 'UPDATE_LYRICS',
+        payload: lyricsToSend,
+        id: id,
+        blanks: matchArray.length
+      })
+    }
   }
 
-  const handleChange = (event) => {
-    console.log('this is event.target.value', event.target.value);
-    setLyricsToSend(event.target.value);
-    console.log('this is lyricsToSend', lyricsToSend);
-  }
 
-  // useEffect(() => {
-  //   setLocalEditLyrics(songObj.answer_lyrics);
-  // }, [resetListen])
 
   return (
     <>
