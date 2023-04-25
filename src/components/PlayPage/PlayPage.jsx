@@ -41,7 +41,7 @@ function PlayPage() {
         // also meaning the answers will likely be recorded in an array and pushed through a loop
   function addBlanks(string, count) {
     const blanker = /n!&x/;
-    return(string.replace(blanker, `*** ${count+1} ***`));
+    return(string.replace(blanker, `**** ${count+1} ****`));
   }
 
   // this function converts the edited version to a temporary display version
@@ -55,6 +55,31 @@ function PlayPage() {
 
   // calling the convertor function
   const displayLyrics = convertToBlanks(songObj.edited_lyrics, songObj.edited_lyrics.length);
+  console.log('these are the lyrics that will be displayed', displayLyrics);
+  console.log('this is how many blanks there are', songObj.missing_lyrics);
+
+  // creates an array that will be used to create a number of input fields equal to the number of missing blanks
+  function inputFieldGenerator() {
+    const inputFields = [];
+    for(let i = 0; i < songObj.missing_lyrics; i++) {
+      // console.log(inputFields);
+      inputFields.push(i+1);
+    };
+    // console.log('this is the array', inputFields);
+    // console.log('this is the number of input fields needed:', inputFields.length);
+    return inputFields;
+  }
+  console.log('this is inputFieldGenerator', inputFieldGenerator());
+
+  // local state for each possible input field
+  const [answer1, setAnswer1] = useState('**** 1 ****');
+  const [answer2, setAnswer2] = useState('**** 2 ****');
+  const [answer3, setAnswer3] = useState('**** 3 ****');
+  const [answer4, setAnswer4] = useState('**** 4 ****');
+  const [answer5, setAnswer5] = useState('**** 5 ****');
+  const [answer6, setAnswer6] = useState('**** 6 ****');
+  const [answer7, setAnswer7] = useState('**** 7 ****');
+  const [answer8, setAnswer8] = useState('**** 8 ****');
 
   
   return (
@@ -72,14 +97,30 @@ function PlayPage() {
           </Typography>
         </Paper>
         <Card sx={style}>
-          <TextField sx={inputStyle} size="small" placeholder="  *** 1 ***" variant="outlined" />
-          <TextField sx={inputStyle} size="small" placeholder="  *** 2 ***" variant="outlined" />
-          <TextField sx={inputStyle} size="small" placeholder="  *** 3 ***" variant="outlined" />
-          <TextField sx={inputStyle} size="small" placeholder="  *** 4 ***" variant="outlined" />
-          <TextField sx={inputStyle} size="small" placeholder="  *** 5 ***" variant="outlined" />
-          <TextField sx={inputStyle} size="small" placeholder="  *** 6 ***" variant="outlined" />
-          <TextField sx={inputStyle} size="small" placeholder="  *** 7 ***" variant="outlined" />
-          <TextField sx={inputStyle} size="small" placeholder="  *** 8 ***" variant="outlined" />
+          {inputFieldGenerator().length > 0 ?
+            <TextField key={1} sx={inputStyle} size="small" value={answer1} variant="outlined" onChange={(event) => setAnswer1(event.target.value)}/>
+          : <TextField disabled key={1} sx={inputStyle} size="small" value={answer1} variant="outlined" onChange={(event) => setAnswer1(event.target.value)}/>}
+          {inputFieldGenerator().length > 1 ?
+            <TextField key={2} sx={inputStyle} size="small" value={answer2} variant="outlined" onChange={(event) => setAnswer2(event.target.value)}/>
+          : <TextField disabled key={2} sx={inputStyle} size="small" value={answer2} variant="outlined" onChange={(event) => setAnswer2(event.target.value)}/>}
+          {inputFieldGenerator().length > 2 ?
+            <TextField key={3} sx={inputStyle} size="small" value={answer3} variant="outlined" onChange={(event) => setAnswer3(event.target.value)}/>
+          : <TextField disabled key={3} sx={inputStyle} size="small" value={answer3} variant="outlined" onChange={(event) => setAnswer3(event.target.value)}/>}
+          {inputFieldGenerator().length > 3 ?
+            <TextField key={4} sx={inputStyle} size="small" value={answer4} variant="outlined" onChange={(event) => setAnswer4(event.target.value)}/>
+          : <TextField disabled key={4} sx={inputStyle} size="small" value={answer4} variant="outlined" onChange={(event) => setAnswer4(event.target.value)}/>}
+          {inputFieldGenerator().length > 4 ?
+            <TextField key={5} sx={inputStyle} size="small" value={answer5} variant="outlined" onChange={(event) => setAnswer5(event.target.value)}/>
+          : <TextField disabled key={5} sx={inputStyle} size="small" value={answer5} variant="outlined" onChange={(event) => setAnswer5(event.target.value)}/>}
+          {inputFieldGenerator().length > 5 ?
+            <TextField key={6} sx={inputStyle} size="small" value={answer6} variant="outlined" onChange={(event) => setAnswer6(event.target.value)}/>
+          : <TextField disabled key={6} sx={inputStyle} size="small" value={answer6} variant="outlined" onChange={(event) => setAnswer6(event.target.value)}/>}
+          {inputFieldGenerator().length > 6 ?
+            <TextField key={7} sx={inputStyle} size="small" value={answer7} variant="outlined" onChange={(event) => setAnswer7(event.target.value)}/>
+          : <TextField disabled key={7} sx={inputStyle} size="small" value={answer7} variant="outlined" onChange={(event) => setAnswer7(event.target.value)}/>}
+          {inputFieldGenerator().length > 7 ?
+            <TextField key={8} sx={inputStyle} size="small" value={answer8} variant="outlined" onChange={(event) => setAnswer8(event.target.value)}/>
+          : <TextField disabled key={8} sx={inputStyle} size="small" value={answer8} variant="outlined" onChange={(event) => setAnswer8(event.target.value)}/>}
           <Button variant="outlined" size="small" sx={{mt: .5}}>Submit Your Guesses!</Button>        
         </Card>
       </Grid>
