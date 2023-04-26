@@ -206,7 +206,7 @@ function PlayPage() {
     };
 
     const returnToDash = () => {
-      history.push('/home')
+      history.push('/dashboard')
     }
   // END ********** RESULTS MODAL **********
   

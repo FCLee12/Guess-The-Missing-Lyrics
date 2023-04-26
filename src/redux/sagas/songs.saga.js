@@ -21,6 +21,21 @@ function* fetchSongs() {
   }
 }
 
+function* fetchSongsGuest(action) {
+  try {
+    console.log('this is action.payload in fetchSongsGuest', action.payload);
+    const guestSongsList = yield axios.get(`/songs/guest/${action.payload}`)
+    console.log('guestSongsList', guestSongsList);
+
+    yield put({
+      type: 'SET_SONGS',
+      payload: guestSongsList
+    });
+  } catch(error) {
+    console.log('Guest user GET request for songs by GameID failed', error);
+  }
+}
+
 function* deleteSong(action) {
   try {
     console.log('this is deleteSong action.payload', action.payload);
@@ -55,6 +70,7 @@ function* changeActive(action) {
 //FOR ROOT SAGA
 function* songsSaga() {
   yield takeLatest('FETCH_SONGS', fetchSongs);
+  yield takeLatest('SEND_GAMEID', fetchSongsGuest);
   yield takeLatest('DELETE_SONG', deleteSong);
   yield takeLatest('UPDATE_LYRICS', updateLyrics);
   yield takeLatest('CHANGE_STATUS', changeActive);

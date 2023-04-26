@@ -14,6 +14,8 @@ function UserSongList() {
 
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const user = useSelector((store) => store.user);
     
     // stores the song list that displays on the user dashboard
     const songList = useSelector(store => store.songs);
@@ -39,6 +41,7 @@ function UserSongList() {
         // issue is: requires refresh to reflect updated status
     const setActive = (boolean, id) => {
         console.log('setActive is running', boolean, id);
+        if(user.id) {
         // will need a dispatch to SAGA to do a put request to SERVER which will set the status from active = false to active = true
             // meaning the song will appear when a guest user uses a registered user's gameID
         dispatch({
@@ -47,6 +50,7 @@ function UserSongList() {
             id: id
         })
         setIsActive(!isActive);
+        }
     }
 
     const [isActive, setIsActive] = useState(false);
@@ -55,9 +59,11 @@ function UserSongList() {
     
     // need a dispatch call to SAGA to do a get request to SERVER/ROUTER who will pull data from DB then store it in a reducer
     useEffect(() => {
-        dispatch({
-            type: 'FETCH_SONGS'
-        });
+        if(user.id) {
+            dispatch({
+                type: 'FETCH_SONGS'
+            });
+        }
     }, [isActive]);
 
     // ********** CARD EDIT BUTTON **********
@@ -132,21 +138,42 @@ function UserSongList() {
                                 onClick={() => handlePlay(song)}>
                                 Play
                             </Button>
-                            <Button
-                                variant="contained" 
-                                endIcon={<EditNoteIcon />}
-                                size="small"
-                                onClick={() => handleEdit(song)}>
-                                Edit
-                            </Button>
-                            <Button
-                                variant="contained" 
-                                endIcon={<DeleteIcon />}
-                                size="small"
-                                color="error"
-                                onClick={() => handleOpen(song.id)}>
-                                Delete
-                            </Button>
+                            {user.id ? 
+                            <>
+                                <Button
+                                    variant="contained" 
+                                    endIcon={<EditNoteIcon />}
+                                    size="small"
+                                    onClick={() => handleEdit(song)}>
+                                    Edit
+                                </Button> 
+                                <Button
+                                    variant="contained" 
+                                    endIcon={<DeleteIcon />}
+                                    size="small"
+                                    color="error"
+                                    onClick={() => handleOpen(song.id)}>
+                                    Delete
+                                </Button> 
+                            </> : <>
+                                <Button
+                                    disabled
+                                    variant="contained" 
+                                    endIcon={<EditNoteIcon />}
+                                    size="small"
+                                    onClick={() => handleEdit(song)}>
+                                    Edit
+                                </Button> 
+                                <Button
+                                    disabled
+                                    variant="contained" 
+                                    endIcon={<DeleteIcon />}
+                                    size="small"
+                                    color="error"
+                                    onClick={() => handleOpen(song.id)}>
+                                    Delete
+                                </Button> 
+                            </>}
                         </Stack>
                         <Modal
                             open={open}

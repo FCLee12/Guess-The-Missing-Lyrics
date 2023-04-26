@@ -15,6 +15,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserDashboard from '../UserDashboard/UserDashboard';
+import GuestDashboard from '../GuestDashboard/GuestDashboard';
 import PlayPage from '../PlayPage/PlayPage';
 import LandingPage from '../LandingPage/LandingPage';
 import EditPage from '../EditPage/EditPage';
@@ -52,11 +53,11 @@ function App() {
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/user will show the UserPage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
+            Visiting localhost:3000/user will show the UserDashboard if the user is logged in.
+            If the user is not logged in, the ProtectedRoute will show the LandingPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
           <ProtectedRoute
-            // logged in shows UserDashboard else shows LoginPage
+            // logged in shows UserDashboard else shows LandingPage
             exact
             path="/userDashboard"
           >
@@ -64,12 +65,26 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows ProfilePage else shows LandingPage
             exact
             path="/profile"
           >
             <ProfilePage />
           </ProtectedRoute>
+
+          <Route
+            exact
+            path="/dashboard"
+          >
+            {user.id ?
+              // If the user is already logged in, 
+              // redirect to the /user page
+              <Redirect to="/userDashboard" />
+              :
+              // Otherwise, show the landing page
+              <GuestDashboard />
+            }
+          </Route>
 
           <Route
             exact
@@ -105,7 +120,7 @@ function App() {
           >
             {user.id ?
               // If the user is already logged in, 
-              // redirect them to the /user page
+              // redirect them to the /edit page
               <EditPage />
               :
               // Otherwise, show the Landing page
@@ -130,7 +145,7 @@ function App() {
               <PlayPage />
               :
               // Otherwise, show the Landing page
-              <LandingPage />
+              <PlayPage />
             }
           </Route>
 
