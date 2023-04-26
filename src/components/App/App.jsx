@@ -8,7 +8,7 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import Nav from '../Nav/Nav';
+import NavBase from '../Nav/NavBase';
 import NavMui from '../Nav/NavMui';
 import Footer from '../Footer/Footer';
 
@@ -40,7 +40,7 @@ function App() {
     <Router>
       <div>
         {/* <Nav /> */}
-        <NavMui />
+
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
@@ -63,6 +63,7 @@ function App() {
             exact
             path="/userDashboard"
           >
+            <NavMui />
             <UserDashboard />
           </ProtectedRoute>
 
@@ -71,6 +72,7 @@ function App() {
             exact
             path="/profile"
           >
+            <NavMui />
             <ProfilePage />
           </ProtectedRoute>
 
@@ -84,7 +86,10 @@ function App() {
               <Redirect to="/userDashboard" />
               :
               // Otherwise, show the landing page
-              <GuestDashboard />
+              <>
+                <NavMui />
+                <GuestDashboard />
+              </>
             }
           </Route>
 
@@ -98,7 +103,10 @@ function App() {
               <Redirect to="/userDashboard" />
               :
               // Otherwise, show the landing page
-              <LandingPage />
+              <>
+                <NavBase />
+                <LandingPage />
+              </>
             }
           </Route>
 
@@ -112,7 +120,10 @@ function App() {
               <Redirect to="/userDashboard" />
               :
               // Otherwise, show the registration page
-              <RegisterPage />
+              <>
+                <NavBase/>
+                <RegisterPage />
+              </>
             }
           </Route>
 
@@ -123,10 +134,16 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /edit page
-              <EditPage />
+              <>
+                <NavMui />
+                <EditPage />
+              </>
               :
               // Otherwise, show the Landing page
-              <LandingPage />
+              <>
+                <NavBase />
+                <LandingPage />
+              </>
             }
           </Route>
 
@@ -134,6 +151,7 @@ function App() {
             exact
             path="/gameId"
           >
+            <NavBase />
             <GameId />
           </Route>
 
@@ -144,15 +162,22 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /userDashboard page
-              <PlayPage />
+              <>
+                <NavMui />
+                <PlayPage />
+              </>
               :
               // Otherwise, show the Landing page
-              <PlayPage />
+              <>
+                <NavMui />
+                <PlayPage />
+              </>
             }
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
+            <NavBase />
             <h1>404</h1>
           </Route>
         </Switch>
