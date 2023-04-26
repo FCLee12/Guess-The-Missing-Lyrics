@@ -280,9 +280,9 @@ function PlayPage() {
                       {resultsObj ? 
                         resultsObj.resultsDisplayArray.map((answers, i) => (
                           <TableRow key={i}>
-                                  <TableCell sx={{textAlign: "center"}}>{answers.number}</TableCell>
-                                  <TableCell sx={{textAlign: "center", color: 'red'}}>{answers.yourAnswer}</TableCell>
-                                  <TableCell sx={{textAlign: "center", color: 'green'}}>{answers.correctAnswer}</TableCell>
+                            <TableCell sx={{textAlign: "center"}}>{answers.number}</TableCell>
+                            <TableCell sx={{textAlign: "center", color: 'red'}}>{answers.yourAnswer}</TableCell>
+                            <TableCell sx={{textAlign: "center", color: 'green'}}>{answers.correctAnswer}</TableCell>
                           </TableRow>
                         ))
                       : <TableRow>
