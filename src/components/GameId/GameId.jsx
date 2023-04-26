@@ -9,23 +9,23 @@ function GameId() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // console.log('this is gameId', gameId);
+
 
   const playGuest = (event) => {
-    if (gameId) {
+    console.log('this is gameId', gameId);
+    console.log('this is gameId.length', gameId.length);
+    if (gameId.length === 6) {
     //this will go to the saga which will then make the call to the server
         // the server will then pull the registered user's collection of songs via
         // the gameId and SQL queries/joined tables
       dispatch({
-        type: 'GAMEID',
-        payload: {
-          gameId: gameId
-        },
+        type: 'SEND_GAMEID',
+        payload: gameId
       });
-    // will navigate to the user dashboard
-    // history.push('/userDashboard')
+      // will navigate to the guest dashboard
+      history.push('/dashboard')
     } else {
-      alert("Please input a registered user's GameID to continue")
+      alert("Please input a valid 6-digit registered user's GameID to continue")
     }
   };
 

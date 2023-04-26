@@ -57,6 +57,11 @@ function Nav() {
             
               // If there's no user, show login/registration links
             <div>
+                            <MenuItem onClick={handleClose}>
+                <Link className='navLink' to="/dashboard">
+                  Dashboard
+                </Link>
+              </MenuItem>
               <MenuItem onClick={handleClose}>
                 <Link className='navLink' to="/gameId">
                   Play As Guest
