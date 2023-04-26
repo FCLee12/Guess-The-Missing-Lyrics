@@ -138,21 +138,42 @@ function UserSongList() {
                                 onClick={() => handlePlay(song)}>
                                 Play
                             </Button>
-                            {user.id && <Button
-                                variant="contained" 
-                                endIcon={<EditNoteIcon />}
-                                size="small"
-                                onClick={() => handleEdit(song)}>
-                                Edit
-                            </Button>}
-                            {user.id && <Button
-                                variant="contained" 
-                                endIcon={<DeleteIcon />}
-                                size="small"
-                                color="error"
-                                onClick={() => handleOpen(song.id)}>
-                                Delete
-                            </Button>}
+                            {user.id ? 
+                            <>
+                                <Button
+                                    variant="contained" 
+                                    endIcon={<EditNoteIcon />}
+                                    size="small"
+                                    onClick={() => handleEdit(song)}>
+                                    Edit
+                                </Button> 
+                                <Button
+                                    variant="contained" 
+                                    endIcon={<DeleteIcon />}
+                                    size="small"
+                                    color="error"
+                                    onClick={() => handleOpen(song.id)}>
+                                    Delete
+                                </Button> 
+                            </> : <>
+                                <Button
+                                    disabled
+                                    variant="contained" 
+                                    endIcon={<EditNoteIcon />}
+                                    size="small"
+                                    onClick={() => handleEdit(song)}>
+                                    Edit
+                                </Button> 
+                                <Button
+                                    disabled
+                                    variant="contained" 
+                                    endIcon={<DeleteIcon />}
+                                    size="small"
+                                    color="error"
+                                    onClick={() => handleOpen(song.id)}>
+                                    Delete
+                                </Button> 
+                            </>}
                         </Stack>
                         <Modal
                             open={open}

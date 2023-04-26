@@ -18,10 +18,10 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // GUEST GET request to get songs from DB using gameId
 router.get('/guest/:gameId', (req, res) => {
     let queryText = 
-    `SELECT "gameSongs".id, "gameSongs".title, "gameSongs".artist, "gameSongs".edited_lyrics, "gameSongs".answer_lyrics, "gameSongs".status, "user".username, "user".game_id
+    `SELECT "gameSongs".id, "gameSongs".title, "gameSongs".artist, "gameSongs".edited_lyrics, "gameSongs".answer_lyrics, "gameSongs".status, "gameSongs".missing_lyrics, "user".username, "user".game_id
     FROM "gameSongs"
     JOIN "user" ON "gameSongs".user_id = "user".id
-    WHERE "game_id"=$1;`;
+    WHERE "game_id"=$1 AND "status"=true;`;
     let queryValues = [req.params.gameId];
     pool.query(queryText, queryValues)
     .then((result) => {
@@ -63,10 +63,6 @@ router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
 });
 
 // REGISTERED USER PUT Request to swap out edited_lyrics with the updated edited_lyrics with n!&x bundles included
-
-// example edited song with n!&x bundles
-// const editedSong = `When the visions around you Bring n!&x to your eyes And all that surrounds you Are secrets and lies  I'll be your n!&x I'll give you n!&x Keeping your faith when it's gone The one you should n!&x Was standing here all n!&x  And I will take  you in my arms And hold you right where you n!&x 'Til the day my n!&x is through  this I promise you This I n!&x you`
-
 router.put('/edited/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `UPDATE "gameSongs" SET "edited_lyrics" = $1, "missing_lyrics" = $2 WHERE "id" = $3 AND "user_id"=$4;`;
     // remove editedSong and replace with the dynamic values/req.body (should be edited lyrics with n!&x bundles)
