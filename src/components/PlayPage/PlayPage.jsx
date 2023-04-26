@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Box, Button, Card, Grid, Modal, Typography, TextField, Paper } from '@mui/material/';
+import { Box, Button, Card, Grid, Modal, Typography, TextField, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material/';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -82,6 +82,8 @@ function PlayPage() {
 
 
   // ********** HANDLE SUBMIT YOUR GUESSES BUTTON **********
+  // local state to store resultsObj
+  const [resultsObj, setResultsObj] = useState('');
   // this happens when the submit your guesses! button
   const sendGuesses = () => {
     // building an array of the user's answers
@@ -145,35 +147,39 @@ function PlayPage() {
     const generateResults = (array1, array2) => {
       let correctAnswerArray = [];
       let wrongAnswerArray = [];
+      let resultsDisplayArray = [];
       let extrasArray = [];
       for(let i = 0; i < array1.length; i++) {
         if(array1[i].segment !== array2[i].segment) {
           wrongAnswerArray.push(array1[i]);
           correctAnswerArray.push(array2[i]);
+          let obj = {yourAnswer: array1[i].segment, correctAnswer: array2[i].segment}
+          resultsDisplayArray.push(obj);
         } else {
           extrasArray.push(array1[i]);
         }
       }
-    
+
       // calculating correct answers and incorrect answers
       const correctAnswers = songObj.missing_lyrics - wrongAnswerArray.length;
 
       let answersObj = {
         correctAnswersArray: correctAnswerArray,
         wrongAnswersArray: wrongAnswerArray,
+        resultsDisplayArray: resultsDisplayArray,
         extrasArray: extrasArray,
         correctAnswers: correctAnswers,
         wrongAnswers: wrongAnswerArray.length
       };
-      // opens the modal
-      handleOpen();
       console.log(answersObj);
-      return answersObj;
+      setResultsObj(answersObj);
     }
     // END generateResults function
 
     // .filter(s => s.isWordLike) property spits filters out spaces or punctuation, leaving only words in the array to compare
-    const resultsObj = generateResults([...userGuessString].filter(s => s.isWordLike), [...answerKeyString].filter(s => s.isWordLike));
+    generateResults([...userGuessString].filter(s => s.isWordLike), [...answerKeyString].filter(s => s.isWordLike));
+    // opens the modal
+    handleOpen();
   }
   // END ********** HANDLE SUBMIT YOUR GUESSES BUTTON **********
 
@@ -247,11 +253,31 @@ function PlayPage() {
                   Results:
                 </Typography>
                 <Typography align='center'>
-                  Correct:
+                  Correct: {resultsObj.correctAnswers}/{songObj.missing_lyrics}
                 </Typography>
                 <Typography align='center'>
-                  Incorrect:
+                  Incorrect: {resultsObj.wrongAnswers}/{songObj.missing_lyrics}
                 </Typography>
+                <Table >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{textAlign: "center"}}>Your Guesses</TableCell>
+                      <TableCell sx={{textAlign: "center"}}>Correct Answers</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  {/* <TableBody>
+                    {resultsObj ? 
+                      resultsObj.resultsDisplayArray.map((answers, i) => {
+                        return <TableRow key={i}>
+                                <TableCell>{answers.yourAnswer}</TableCell>
+                                <TableCell>{answers.correctAnswer}</TableCell>
+                              </TableRow>
+                      })
+                    : <TableRow>
+                        <TableCell>Results Table Loading</TableCell>
+                      </TableRow>}
+                  </TableBody> */}
+                </Table>
             </Box>
           </Modal>       
         </Card>
