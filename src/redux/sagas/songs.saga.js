@@ -37,7 +37,8 @@ function* updateLyrics(action) {
   try {
     console.log('this is updateLyrics action.payload', action.payload);
     console.log('this is updateLyrics action.id', action.id);
-    yield axios.put(`/songs/edited/${action.id}`, {newLyrics: action.payload});
+    console.log('this is updateLyrics action.blanks', action.blanks);
+    yield axios.put(`/songs/edited/${action.id}`, {newLyrics: action.payload, blanks: action.blanks});
   } catch(error) {
     console.log('User PUT request to update lyrics failed', error);
   }

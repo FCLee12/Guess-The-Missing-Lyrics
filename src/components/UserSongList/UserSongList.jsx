@@ -19,6 +19,19 @@ function UserSongList() {
     const songList = useSelector(store => store.songs);
     // console.log('this is songList.songsReducer.data', songList.songsReducer.data);
     
+    // ********** PLAY BUTTON **********
+
+    const handlePlay = (songObj) => {
+        console.log('this is the songObj in handlePlay', songObj);
+        dispatch({
+            type: "SET_ACTIVE_SONG",
+            payload: songObj
+        })
+        history.push(`/play`);
+    }
+
+    // END ********** PLAY BUTTON **********
+
     // ***** Changes if song is active *****
     // Changes a song's status from false to true or true to false
         // true indicates the song can be seen by guest users
@@ -49,7 +62,7 @@ function UserSongList() {
 
     // ********** CARD EDIT BUTTON **********
     const handleEdit = (songObj) => {
-        console.log('this is the songObj', songObj);
+        console.log('this is the songObj in handleEdit', songObj);
         dispatch({
             type: "SET_ACTIVE_SONG",
             payload: songObj
@@ -115,7 +128,8 @@ function UserSongList() {
                                 variant="contained" 
                                 endIcon={<SportsEsportsIcon />}
                                 size="small"
-                                color='success'>
+                                color='success'
+                                onClick={() => handlePlay(song)}>
                                 Play
                             </Button>
                             <Button

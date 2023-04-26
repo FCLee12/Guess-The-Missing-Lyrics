@@ -15,7 +15,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserDashboard from '../UserDashboard/UserDashboard';
-import InfoPage from '../InfoPage/InfoPage';
+import PlayPage from '../PlayPage/PlayPage';
 import LandingPage from '../LandingPage/LandingPage';
 import EditPage from '../EditPage/EditPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -66,9 +66,9 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/profile"
           >
-            <InfoPage />
+            <ProfilePage />
           </ProtectedRoute>
 
           <Route
@@ -122,12 +122,12 @@ function App() {
 
           <Route
             exact
-            path="/profile"
+            path="/play"
           >
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /userDashboard page
-              <ProfilePage />
+              <PlayPage />
               :
               // Otherwise, show the Landing page
               <LandingPage />

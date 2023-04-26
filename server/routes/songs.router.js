@@ -77,9 +77,9 @@ router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
 // const editedSong = `When the visions around you Bring n!&x to your eyes And all that surrounds you Are secrets and lies  I'll be your n!&x I'll give you n!&x Keeping your faith when it's gone The one you should n!&x Was standing here all n!&x  And I will take  you in my arms And hold you right where you n!&x 'Til the day my n!&x is through  this I promise you This I n!&x you`
 
 router.put('/edited/:id', rejectUnauthenticated, (req, res) => {
-    const queryText = `UPDATE "gameSongs" SET "edited_lyrics" = $1 WHERE "id" = $2 AND "user_id"=$3;`;
+    const queryText = `UPDATE "gameSongs" SET "edited_lyrics" = $1, "missing_lyrics" = $2 WHERE "id" = $3 AND "user_id"=$4;`;
     // remove editedSong and replace with the dynamic values/req.body (should be edited lyrics with n!&x bundles)
-    let queryValues = [req.body.newLyrics, req.params.id, req.user.id];
+    let queryValues = [req.body.newLyrics, req.body.blanks, req.params.id, req.user.id];
     pool.query(queryText, queryValues)
     .then((result) => {
         res.sendStatus(200);
