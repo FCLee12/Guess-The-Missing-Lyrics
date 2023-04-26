@@ -32,9 +32,9 @@ function GameId() {
   // Card style
   const cardStyle = {
     flexDirection:"column",
-    marginLeft: 1.9,
+    marginLeft: 1.2,
     textAlign:"center",
-    width: 290,
+    width: 300,
     border: 'solid black 1px'
   }
 
