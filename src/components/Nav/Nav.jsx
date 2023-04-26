@@ -13,10 +13,10 @@ function Nav() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
+    setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-      setAnchorEl(null);
+    setAnchorEl(null);
   };
 
   return (
@@ -31,7 +31,7 @@ function Nav() {
           edge="start"
           color="inherit"
           aria-label="menu"
-          sx={{ mr: 26 }}
+          sx={{ mr: 17 }}
           onClick={handleClick}
           >
           <MenuIcon />
@@ -57,7 +57,7 @@ function Nav() {
             
               // If there's no user, show login/registration links
             <div>
-                            <MenuItem onClick={handleClose}>
+              <MenuItem onClick={handleClose}>
                 <Link className='navLink' to="/dashboard">
                   Dashboard
                 </Link>
