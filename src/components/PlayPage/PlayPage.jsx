@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 
 function PlayPage() {
 
+  const history = useHistory();
   const activeSong = useSelector(store => store.songs)
   let songObj = activeSong.activeSongReducer;
   // console.log('this is songObj taken from the store in PlayPage', songObj);
@@ -153,7 +154,9 @@ function PlayPage() {
         if(array1[i].segment !== array2[i].segment) {
           wrongAnswerArray.push(array1[i]);
           correctAnswerArray.push(array2[i]);
-          let obj = {yourAnswer: array1[i].segment, correctAnswer: array2[i].segment}
+          let blankNumber = answersArray.indexOf(array1[i].segment) + 1;
+          console.log(blankNumber);
+          let obj = {yourAnswer: array1[i].segment, correctAnswer: array2[i].segment, number: blankNumber};
           resultsDisplayArray.push(obj);
         } else {
           extrasArray.push(array1[i]);
@@ -194,13 +197,17 @@ function PlayPage() {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      width: 240,
+      width: 235,
       bgcolor: 'background.paper',
       border: '2px solid #000',
       boxShadow: 24,
       p: 4,
       align: 'center'
     };
+
+    const returnToDash = () => {
+      history.push('/home')
+    }
   // END ********** RESULTS MODAL **********
   
   return (
@@ -249,35 +256,42 @@ function PlayPage() {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description">
             <Box sx={modalStyle}>
-                <Typography id="modal-modal-title" variant="h6" component="h2" align='center'>
+                <Typography id="modal-modal-title" variant="h6" component="h2" align='center' sx={{fontWeight: 'bold'}}>
                   Results:
                 </Typography>
                 <Typography align='center'>
-                  Correct: {resultsObj.correctAnswers}/{songObj.missing_lyrics}
+                  <strong>Correct:</strong> {resultsObj.correctAnswers}/{songObj.missing_lyrics}
                 </Typography>
                 <Typography align='center'>
-                  Incorrect: {resultsObj.wrongAnswers}/{songObj.missing_lyrics}
+                  <strong>Incorrect:</strong> {resultsObj.wrongAnswers}/{songObj.missing_lyrics}
                 </Typography>
-                <Table >
-                  <TableHead>
-                    <TableRow>
-                      <TableCell sx={{textAlign: "center"}}>Your Guesses</TableCell>
-                      <TableCell sx={{textAlign: "center"}}>Correct Answers</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  {/* <TableBody>
-                    {resultsObj ? 
-                      resultsObj.resultsDisplayArray.map((answers, i) => {
-                        return <TableRow key={i}>
-                                <TableCell>{answers.yourAnswer}</TableCell>
-                                <TableCell>{answers.correctAnswer}</TableCell>
-                              </TableRow>
-                      })
-                    : <TableRow>
-                        <TableCell>Results Table Loading</TableCell>
-                      </TableRow>}
-                  </TableBody> */}
-                </Table>
+                {resultsObj.wrongAnswers === 0 ? 
+                  <Typography align='center' sx={{fontWeight: 'bold', mt: 4, fontSize: 32}}>Nicely Done!</Typography>
+                    :
+                  <Table >
+                    <TableHead>
+                      <TableRow>
+                        <TableCell sx={{textAlign: "center", fontWeight: 'bold'}}>#</TableCell>
+                        <TableCell sx={{textAlign: "center", fontWeight: 'bold'}}>Your Guesses</TableCell>
+                        <TableCell sx={{textAlign: "center", fontWeight: 'bold'}}>Correct Answers</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {resultsObj ? 
+                        resultsObj.resultsDisplayArray.map((answers, i) => (
+                          <TableRow key={i}>
+                                  <TableCell sx={{textAlign: "center"}}>{answers.number}</TableCell>
+                                  <TableCell sx={{textAlign: "center", color: 'red'}}>{answers.yourAnswer}</TableCell>
+                                  <TableCell sx={{textAlign: "center", color: 'green'}}>{answers.correctAnswer}</TableCell>
+                          </TableRow>
+                        ))
+                      : <TableRow>
+                          <TableCell>Results Table Loading</TableCell>
+                        </TableRow>}
+                    </TableBody>
+                  </Table>
+                }
+              <Button variant='contained' sx={{ml: 1, mt: 4}} onClick={returnToDash}>Return to Dashboard</Button>
             </Box>
           </Modal>       
         </Card>
