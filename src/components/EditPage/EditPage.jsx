@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Button, Grid, Typography, TextField } from '@mui/material/';
+import { Alert, Button, Grid, Snackbar, Typography, TextField } from '@mui/material/';
 import SendIcon from '@mui/icons-material/Send';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function EditPage() {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const activeSong = useSelector(store => store.songs)
@@ -35,19 +39,38 @@ function EditPage() {
         id: id,
         blanks: matchArray.length
       })
+      setOpen(true);
     }
   }
 
+  const toDash = () => {
+    history.push('/dashboard')
+  }
 
+  // Submit POST was successful Snackbar
+  const [open, setOpen] = React.useState(false);
+
+  // const handleClick = () => {
+  //   setOpen(true);
+  // };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  // END Submit POST was successful Snackbar
 
   return (
     <>
       {songObj ? 
-        <Grid container sx={{flexDirection: "column", marginLeft: "8px"}}>
-          <Typography variant='h5' align='center'>
+        <Grid container sx={{flexDirection: "column", marginLeft: "10px"}}>
+          <Typography variant='h5' align='center' sx={{ml: -2}}>
             {songObj.title} 
           </Typography> 
-          <Typography variant='h6' align='center'>
+          <Typography variant='h6' align='center' sx={{ml: -2}}>
             {songObj.artist}
           </Typography>
           {!resetListen ? 
@@ -75,19 +98,34 @@ function EditPage() {
           <Button 
               variant="contained" 
               endIcon={<SendIcon />}
+              color="success"
               sx={{width: 300, marginTop: 2}}
               size="small"
               onClick={() => updateSong(songObj.id)}>
               Submit
           </Button>
+          <Snackbar open={open} autoHideDuration={1500} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+              Song lyrics have been updated!
+            </Alert>
+          </Snackbar>
           <Button 
               variant="outlined" 
-              endIcon={<SendIcon />}
+              endIcon={<RestartAltIcon />}
               color="error"
               sx={{width: 300, marginTop: 2}}
               size="small"
               onClick={() => setResetListen(!resetListen)}>
               Reset Lyrics
+          </Button>
+          <Button 
+              variant="outlined" 
+              endIcon={<ArrowBackIcon />}
+              color="primary"
+              sx={{width: 240, mt: 2, ml: 4}}
+              size="small"
+              onClick={toDash}>
+              Back to Dashboard
           </Button>
         </Grid> : <h1>Loading</h1>
       }
