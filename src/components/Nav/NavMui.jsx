@@ -32,6 +32,10 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const toHome = () => {
+    history.push('/home')
+  }
+
   const toDashboard = () => {
     history.push('/dashboard')
     setAnchorElNav(null);
@@ -117,6 +121,7 @@ function ResponsiveAppBar() {
             variant="h6"
             component="a"
             align='center'
+            onClick={toHome}
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },

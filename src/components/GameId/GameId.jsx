@@ -9,8 +9,6 @@ function GameId() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-
-
   const playGuest = (event) => {
     console.log('this is gameId', gameId);
     console.log('this is gameId.length', gameId.length);
