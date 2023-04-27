@@ -3,6 +3,9 @@ import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import { Box, Button, Card, FormControl, Grid, Input, InputLabel, List, ListItem, ListItemText, Modal, Paper, Stack, TextField, Typography } from '@mui/material/';
+
+
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -35,51 +38,45 @@ function LoginForm() {
   }; // end login
 
   return (
-    <form className="formPanel" onSubmit={login}>
-      {/* <h2>Login</h2> */}
-      <div>
+      <Grid container sx={{flexDirection: 'column'}}>
+      <div style={{marginTop: '24px'}}>
         <img src='./images/music.svg' alt='game logo' style={{width: '250px', height: '250px'}}/>
       </div>
-      <h2>Welcome!</h2>
-      {errors.loginMessage && (
-        <h3 className="alert" role="alert">
-          {errors.loginMessage}
-        </h3>
-      )}
-      <div>
-        <label htmlFor="username">
-          Username:
-          <input
-            type="text"
-            name="username"
-            required
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </label>
-      </div>
-        <div>
-          <label htmlFor="password">
-            Password:
-            <input
-              type="password"
-              name="password"
-              required
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </label>
+      <Typography variant='h5' sx={{fontWeight: 600, mt: 1}}>Welcome!</Typography>
+        <TextField
+          variant='standard'
+          type="text"
+          name="username"
+          label='Username'
+          size='small'
+          sx={{mb: .5, ml: 3.7, width: 240}}
+          required
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}/>
+        <TextField
+          variant='standard'
+          type="password"
+          name="password"
+          label='Password'
+          size='small'
+          sx={{mb: 2, ml: 3.7, width: 240}}
+          required
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}/>
+        <div style={{marginBottom: '16px'}}>
+          <Button variant='contained' size='small' sx={{width: 240}} onClick={login}>
+            Login
+          </Button>
         </div>
-        <div>
-          <input className="btn btn_sizeSm" type="submit" name="submit" value="Log In" />
-          <button className="btn btn_sizeSm" onClick={onRegister}>
-                Register
-          </button>
-        </div>
-        <div>
-          <button className="btn btn_sizeSm" onClick={onGuest}>Play As Guest</button>
-        </div>
-    </form>
+        <Stack direction='row' spacing={1.5} sx={{mb: 5}}>
+          <Button variant='contained' sx={{ml: 3.7}}  size='small' onClick={onGuest}>
+            Play As Guest
+          </Button>
+          <Button variant='outlined' sx={{width: 102}} size='small' onClick={onRegister}>
+            Register
+          </Button>
+        </Stack>
+    </Grid>
   );
 }
 
