@@ -6,6 +6,8 @@ const searchResultsReducer = (state = [], action) => {
         case "SET_SEARCH_RESULTS":
             console.log('this is action.payload in searchResultsReducer', action.payload);
             return action.payload.data;
+        case "CLEAR_SEARCH_RESULTS":
+            return [];
         default:
             return state;
     }

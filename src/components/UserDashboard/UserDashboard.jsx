@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import UserSongList from '../UserSongList/UserSongList';
 import AddIcon from '@mui/icons-material/Add';
-import { Button, FormControl, Grid, Input, InputLabel, List, ListItem, ListItemText, Modal, Paper, Typography } from '@mui/material/';
+import { Alert, Button, FormControl, Grid, Input, InputLabel, List, ListItem, ListItemText, Modal, Paper, Snackbar, Typography } from '@mui/material/';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -33,7 +33,14 @@ function UserDashboard() {
   // needed local state and two functions to toggle Modal on and off
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    dispatch({
+      type: "CLEAR_SEARCH_RESULTS"
+    })
+    // to clear inputs
+    setSearchInput({title: '', artist: ''});
+    setOpen(false)
+  };
 
   // sets style for the Add New Song Modal
   const style = {
@@ -64,8 +71,6 @@ function UserDashboard() {
         type: 'FETCH_SEARCH_RESULTS',
         payload: searchInput
       });
-      // to clear inputs
-      // setSearchInput({title: '', artist: ''});
     }
   }
 
@@ -75,7 +80,20 @@ function UserDashboard() {
       type: "FETCH_LYRICS",
       payload: object
     })
+    setOpenSnack(true);
   };
+
+  // Add Song POST was successful Snackbar
+  const [openSnack, setOpenSnack] = React.useState(false);
+
+  const handleCloseSnack = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
+  // END Add Song POST was successful Snackbar
 
   return (
     <>
@@ -112,8 +130,6 @@ function UserDashboard() {
                   size='small' 
                   style={{marginTop:"10px"}}
                   onClick={sendSearch}>Search</Button>
-
-              
                 <Typography style={{marginTop:"5px"}}>
                   Results:
                 </Typography>
@@ -135,6 +151,11 @@ function UserDashboard() {
                 </FormControl>
             </Grid>
           </Modal>
+          <Snackbar open={openSnack} autoHideDuration={1500} onClose={handleCloseSnack}>
+            <Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
+              Song added to collection!
+            </Alert>
+          </Snackbar>
         <Typography variant='h5'>
           Your Song Collection:
         </Typography>
