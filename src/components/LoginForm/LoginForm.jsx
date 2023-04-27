@@ -9,7 +9,6 @@ import { Box, Button, Card, FormControl, Grid, Input, InputLabel, List, ListItem
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
   const history = useHistory();
 

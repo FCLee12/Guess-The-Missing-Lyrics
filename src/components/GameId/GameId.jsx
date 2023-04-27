@@ -33,6 +33,7 @@ function GameId() {
     marginLeft: 1.2,
     textAlign:"center",
     width: 300,
+    height: 545,
     border: 'solid black 1px'
   }
 
@@ -40,7 +41,7 @@ function GameId() {
   const imgStyle = {
     width: '250px',
     height: '250px',
-    marginTop: '16px',
+    marginTop: '24px',
     marginBottom: '8px'
   }
 
