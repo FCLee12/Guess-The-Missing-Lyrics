@@ -9,7 +9,7 @@ router.post('/search', (req, res) => {
     console.log(req.body);
     console.log('this is req.body.title', req.body.title);
     console.log('this is req.body.artist', req.body.artist);
-    let url = `http://api.musixmatch.com/ws/1.1/track.search?`;
+    let url = `https://api.musixmatch.com/ws/1.1/track.search?`;
 
     // function to dynamically build the URL based on parameters given
     const urlSearchBuilder = (urlString) => {
@@ -48,7 +48,7 @@ router.post('/search', (req, res) => {
 })
 
 router.get('/lyrics/:trackid', (req, res) => {
-    axios.get(`http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${req.params.trackid}&apikey=${process.env.MUSIXMATCH_API_KEY}`)
+    axios.get(`https://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${req.params.trackid}&apikey=${process.env.MUSIXMATCH_API_KEY}`)
     .then((response) => {
         console.log('this is response.data.message.body.lyrics.lyrics_body', response.data.message.body.lyrics.lyrics_body);
         if(response.status === 200) {
