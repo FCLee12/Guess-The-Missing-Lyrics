@@ -47,7 +47,7 @@ function EditPage() {
     history.push('/dashboard')
   }
 
-  // Submit POST was successful Snackbar
+  // Submit PUT was successful Snackbar
   const [open, setOpen] = React.useState(false);
 
   // const handleClick = () => {
@@ -61,7 +61,7 @@ function EditPage() {
 
     setOpen(false);
   };
-  // END Submit POST was successful Snackbar
+  // END Submit PUT was successful Snackbar
 
   return (
     <>

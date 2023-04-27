@@ -16,7 +16,7 @@ function PlayPage() {
   // style for lyric display
   const style = {
     position: 'fixed',
-    top: 554,
+    top: 526,
     left: 160.5,
     transform: 'translate(-50%, -50%)',
     width: 284,
