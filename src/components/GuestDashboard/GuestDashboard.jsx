@@ -13,14 +13,18 @@ function GuestDashboard() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   const registeredUserInfo = useSelector((store) => store.songs)
-  console.log(registeredUserInfo);
+  console.log('this is registeredUserInfo in Guest Dash', registeredUserInfo.songsReducer.data[0].username);
   
   return (
     <>
       <Grid container sx={{flexDirection:"column", marginLeft: 1, textAlign:"center", width: 290}}>
+        {registeredUserInfo ? 
         <Typography variant='h5' sx={{mb: 2}}>
-          {registeredUserInfo.activeSongReducer.username}'s Song Collection:
+          {registeredUserInfo.songsReducer.data[0].username}'s Playable Song Collection:
         </Typography>
+        :
+        <Typography>Song Collection:</Typography>
+        }
         <UserSongList />
       </Grid>
     </>

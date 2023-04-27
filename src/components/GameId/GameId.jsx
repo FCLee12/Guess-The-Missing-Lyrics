@@ -9,8 +9,6 @@ function GameId() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-
-
   const playGuest = (event) => {
     console.log('this is gameId', gameId);
     console.log('this is gameId.length', gameId.length);
@@ -46,6 +44,10 @@ function GameId() {
     marginBottom: '8px'
   }
 
+  const toLandingPage = () => {
+    history.push('/home')
+  }
+
   return (
     <Card sx={cardStyle}>
         <img src='./images/music.svg' alt='game logo' style={imgStyle}/>
@@ -64,8 +66,14 @@ function GameId() {
         </Box>
         <Button
           variant="contained"
-          sx={{mt: 1.6, mb: 2}}
+          sx={{mt: 1.6, mb: 2, width: 200}}
           onClick={playGuest}>Submit</Button>
+        <Button
+          variant="outlined"
+          sx={{mb: 2, ml: 11, display: 'block', width: 120}}
+          onClick={toLandingPage}>
+          Home
+        </Button>
     </Card>
   );
 }

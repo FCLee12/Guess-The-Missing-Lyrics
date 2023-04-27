@@ -9,7 +9,7 @@ function ProfilePage() {
         <>
             <h1>Hello {user.username}</h1>
             <div>
-                <img src='' alt='user avatar' style={{width: '250px', height: '250px'}}/>
+                <img src='./images/Avatar.png' alt='user avatar' style={{width: '250px', height: '250px'}}/>
             </div>
             <div>
                 <h3>Your GameID:</h3>
