@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
 import './LandingPage.css';
+import { Card } from '@mui/material/';
 
 // CUSTOM COMPONENTS
-// import RegisterForm from '../RegisterForm/RegisterForm';
 import LoginForm from '../LoginForm/LoginForm';
 
 function LandingPage() {
   const [heading, setHeading] = useState('Welcome');
 
+  // Card style
+  const cardStyle = {
+      flexDirection:"column",
+      marginLeft: 1.2,
+      textAlign:"center",
+      width: 300,
+      border: 'solid black 1px'
+  }
+
   return (
-    <div className="container">
-      {/* <h2>{heading}</h2> */}
-
-      <div>
-        <div style={{display: 'flexbox', justifyContent: 'center'}}>
-          <LoginForm />
-
-        </div>
-      </div>
-    </div>
+    <>
+      <Card sx={cardStyle}>
+        <LoginForm />
+      </Card>
+    </>
   );
 }
 
