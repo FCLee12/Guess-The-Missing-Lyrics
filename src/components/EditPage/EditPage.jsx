@@ -71,13 +71,14 @@ function EditPage() {
     const style = {
       position: 'absolute',
       top: '50%',
-      left: '50%',
+      left: '48.5%',
       transform: 'translate(-50%, -50%)',
-      width: 240,
+      width: 300,
       bgcolor: 'background.paper',
       border: '2px solid #000',
       boxShadow: 24,
       p: 4,
+      textAlign: 'center'
     };
   // END Instructions Modal
 
@@ -151,6 +152,7 @@ function EditPage() {
               <p>2. Replace the word with the following bundle of characters: <strong>n!&x</strong></p>
               <p>3. You can replace up to 8 words per song lyrics</p>
               <p>4. On the Play Page, the <strong>n!&x</strong> will be converted to blanks (**** 1 *****)</p>
+              <p>5. If you want to reset the lyrics to the original lyrics, click the Reset Lyrics button and start editing again!</p>
             </Grid>
           </Modal>
           <Button 
