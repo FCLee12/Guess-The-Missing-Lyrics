@@ -1,78 +1,89 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Box, Button, Card, FormControl, Grid, Input, InputLabel, List, ListItem, ListItemText, Modal, Paper, Stack, TextField, Typography } from '@mui/material/';
+import { useHistory } from 'react-router-dom';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
-  const errors = useSelector((store) => store.errors);
+
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const registerUser = (event) => {
-    event.preventDefault();
-
-    dispatch({
-      type: 'REGISTER',
-      payload: {
-        username: username,
-        password: password,
-        emailAddress: emailAddress
-      },
-    });
+    if(username === '' || password === '' || emailAddress === '') {
+      alert('Please provide input for each input field')
+    } else {
+      dispatch({
+        type: 'REGISTER',
+        payload: {
+          username: username,
+          password: password,
+          emailAddress: emailAddress
+        },
+      });
+    }
   }; // end registerUser
+
+  const toHome = (event) => {
+    history.push('/home')
+  }
 
   return (
     <>
-      <form className="formPanel" onSubmit={registerUser}>
-        <div>
+      <Grid container sx={{flexDirection: 'column'}}>
+        <div style={{marginTop: '24px'}}>
           <img src='./images/music.svg' alt='game logo' style={{width: '250px', height: '250px'}}/>
         </div>
-        <h2>Register User</h2>
-        {errors.registrationMessage && (
-          <h3 className="alert" role="alert">
-            {errors.registrationMessage}
-          </h3>
-        )}
+        <Typography variant='h5' sx={{fontWeight: 600, mt: 1}}>Register User</Typography>
         <div>
-          <label htmlFor="username">
-            Username:
-            <input
+            <TextField
+              variant='standard'
               type="text"
               name="username"
+              label='Username'
+              size='small'
+              sx={{mb: 1.5, width: 200}}
               value={username}
               required
-              onChange={(event) => setUsername(event.target.value)}
-            />
-          </label>
+              onChange={(event) => setUsername(event.target.value)}/>
         </div>
         <div>
-          <label htmlFor="password">
-            Password:
-            <input
+            <TextField
+              variant='standard'
               type="password"
               name="password"
+              label='Password'
+              size='small'
+              sx={{mb: 1.5, width: 200}}
               value={password}
               required
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </label>
+              onChange={(event) => setPassword(event.target.value)}/>
         </div>
         <div>
-          <label htmlFor="emailAddress">
-            Email Address:
-            <input
+            <TextField
+              variant='standard'
               type="email"
               name="emailAddress"
+              label='Email Address'
+              size='small'
+              sx={{mb: 1.8, width: 200}}
               value={emailAddress}
               required
-              onChange={(event) => setEmailAddress(event.target.value)}
-            />
-          </label>
+              onChange={(event) => setEmailAddress(event.target.value)}/>
         </div>
-        <div>
-          <input className="btn" type="submit" name="submit" value="Register" />
+        <div style={{marginBottom: '16px', marginTop: '4px'}}>
+          <Stack direction='row' spacing={2}>
+            <Button variant='outlined' size='small' sx={{width: 80, ml: 8}} onClick={toHome}>
+              Home
+            </Button>
+            <Button variant='contained' size='small' sx={{width: 80}} onClick={registerUser}>
+              Register
+            </Button>
+          </Stack>
         </div>
-      </form>
+      </Grid>
     </>
   );
 }

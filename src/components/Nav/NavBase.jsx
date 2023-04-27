@@ -32,7 +32,6 @@ function ResponsiveAppBar() {
             align='center'
             onClick={toLandingPage}
             sx={{
-              mr: 1,
               display: { xs: 'flex', md: 'none' },
               flexWrap: 'wrap',
               fontWeight: 550,

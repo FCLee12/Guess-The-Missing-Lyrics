@@ -55,7 +55,7 @@ function ResponsiveAppBar() {
   }
 
   const toRegister = () => {
-    history.push('/register')
+    history.push('/registration')
     setAnchorElNav(null);
   }
 
@@ -121,7 +121,7 @@ function ResponsiveAppBar() {
             align='center'
             onClick={toHome}
             sx={{
-              mr: 2,
+              mr: 1,
               display: { xs: 'flex', md: 'none' },
               flexWrap: 'wrap',
               fontWeight: 550,
@@ -162,7 +162,7 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
           :
-          <Box sx={{m: 1}}></Box>}
+          <Box sx={{m: 2.5}}></Box>}
         </Toolbar>
       </Container>
     </AppBar>
