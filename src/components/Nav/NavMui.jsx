@@ -86,6 +86,7 @@ function ResponsiveAppBar() {
                 horizontal: 'left',
               }}
               open={Boolean(anchorElNav)}
+              disableScrollLock={ true }
               onClose={handleCloseNavMenu}
               sx={{display: { xs: 'block', md: 'none' }}}>
                 {user.id ?
@@ -152,6 +153,7 @@ function ResponsiveAppBar() {
                 horizontal: 'right',
               }}
               open={Boolean(anchorElUser)}
+              disableScrollLock={ true }
               onClose={handleCloseUserMenu}>
                 <MenuItem onClick={toProfile}>
                   <Typography textAlign="center">Profile</Typography>

@@ -73,12 +73,12 @@ function RegisterForm() {
               required
               onChange={(event) => setEmailAddress(event.target.value)}/>
         </div>
-        <div style={{marginBottom: '16px', marginTop: '4px'}}>
+        <div style={{marginBottom: '20px', marginTop: '4px'}}>
           <Stack direction='row' spacing={2}>
-            <Button variant='outlined' size='small' sx={{width: 80, ml: 8}} onClick={toHome}>
+            <Button variant='outlined' size='small' sx={{width: 90, ml: 6.5}} onClick={toHome}>
               Home
             </Button>
-            <Button variant='contained' size='small' sx={{width: 80}} onClick={registerUser}>
+            <Button variant='contained' size='small' sx={{width: 90}} onClick={registerUser}>
               Register
             </Button>
           </Stack>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Button, Grid, Snackbar, Typography, TextField } from '@mui/material/';
+import { Alert, Box, Button, Grid, Modal, Snackbar, Typography, TextField } from '@mui/material/';
 import SendIcon from '@mui/icons-material/Send';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -63,6 +63,24 @@ function EditPage() {
   };
   // END Submit PUT was successful Snackbar
 
+  // Instructions Modal
+    const [openModal, setOpenModal] = React.useState(true);
+    const handleOpenModal = () => setOpenModal(true);
+    const handleCloseModal = () => setOpenModal(false);
+
+    const style = {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 240,
+      bgcolor: 'background.paper',
+      border: '2px solid #000',
+      boxShadow: 24,
+      p: 4,
+    };
+  // END Instructions Modal
+
   return (
     <>
       {songObj ? 
@@ -73,6 +91,13 @@ function EditPage() {
           <Typography variant='h6' align='center' sx={{ml: -2}}>
             {songObj.artist}
           </Typography>
+          <Button
+            variant='outlined'
+            size='small'
+            sx={{width: 150, ml: 9.2, mb: -1}}
+            onClick={() => setOpenModal(true)}>
+              Instructions
+          </Button>
           {!resetListen ? 
           <TextField 
             label="songEditor"
@@ -109,6 +134,25 @@ function EditPage() {
               Song lyrics have been updated!
             </Alert>
           </Snackbar>
+          <Modal
+            open={openModal}
+            onClose={handleCloseModal}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            disableScrollLock={ true }>
+            <Grid sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Welcome to Edit Mode!
+              </Typography>
+              <Typography>
+                Instructions:
+              </Typography>
+              <p>1. Delete a word from the song lyrics</p>
+              <p>2. Replace the word with the following bundle of characters: <strong>n!&x</strong></p>
+              <p>3. You can replace up to 8 words per song lyrics</p>
+              <p>4. On the Play Page, the <strong>n!&x</strong> will be converted to blanks (**** 1 *****)</p>
+            </Grid>
+          </Modal>
           <Button 
               variant="outlined" 
               endIcon={<RestartAltIcon />}
