@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography, useRadioGroup } from '@mui/material/';
+import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material/';
 
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -7,8 +7,6 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
-const pages = [`Dashboard`, `Play Other's Songs`];
 
 function ResponsiveAppBar() {
 
@@ -137,7 +135,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="User" src="./images/Avatar.png" />
               </IconButton>
             </Tooltip>
             <Menu
