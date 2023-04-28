@@ -22,7 +22,7 @@ function ResponsiveAppBar() {
   }
 
   return (
-    <AppBar position="relative" sx={{mb: 2}}>
+    <AppBar position="relative" sx={{mb: 2, backgroundColor: '#ffb300'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
         <Box sx={{m:2}}></Box>
@@ -34,9 +34,9 @@ function ResponsiveAppBar() {
             sx={{
               display: { xs: 'flex', md: 'none' },
               flexWrap: 'wrap',
-              fontWeight: 550,
+              fontWeight: 500,
               letterSpacing: '.2rem',
-              color: 'inherit',
+              color: 'black',
               textDecoration: 'none',
             }}>
             Guess The Missing Lyrics
