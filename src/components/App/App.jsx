@@ -25,6 +25,7 @@ import GameId from '../GameId/GameId';
 
 import './App.css';
 import ProfilePage from '../ProfilePage/ProfilePage';
+import { ThemeProvider, createTheme } from '@mui/system';
 
 
 function App() {

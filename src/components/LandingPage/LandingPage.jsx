@@ -14,7 +14,7 @@ function LandingPage() {
       marginLeft: 1.2,
       textAlign:"center",
       width: 300,
-      border: 'solid black 1px'
+      border: 'solid white 1px'
   }
 
   return (

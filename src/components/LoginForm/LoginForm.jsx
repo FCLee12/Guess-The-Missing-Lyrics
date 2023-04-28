@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { Box, Button, Card, createTheme, FormControl, Grid, Input, InputLabel, List, ListItem, ListItemText, Modal, Paper, Stack, TextField, ThemeProvider, Typography } from '@mui/material/';
 
-import { Box, Button, Card, FormControl, Grid, Input, InputLabel, List, ListItem, ListItemText, Modal, Paper, Stack, TextField, Typography } from '@mui/material/';
 
 
 function LoginForm() {
@@ -11,6 +11,32 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const theme = createTheme({
+    palette: {
+      type: 'dark',
+      primary: {
+        main: '#ffb300',
+        contrastText: 'rgba(0, 0, 0, 0.87)'
+      },
+      secondary: {
+        main: '#619bb9',
+        light: 'rgb(128, 175, 199)',
+        dark: 'rgb(67, 108, 129)',
+        contrastText: '#fff'
+      },
+      background: {
+        default: '#252525',
+        paper: '#424242'
+      },
+      text: {
+        primary: '#fbf7f7',
+        secondary: 'rgba(255, 255, 255, 0.7)',
+        disabled: 'rgba(255, 255, 255, 0.5)',
+        hint: 'rgba(255, 255, 255, 0.5)'
+      },
+    }
+  })
 
   const onRegister = (event) => {
     history.push('/registration');
@@ -37,11 +63,12 @@ function LoginForm() {
   }; // end login
 
   return (
-      <Grid container sx={{flexDirection: 'column'}}>
+      <ThemeProvider theme={theme}>
+      <Grid container sx={{flexDirection: 'column', backgroundColor: '#424242'}}>
       <div style={{marginTop: '24px'}}>
-        <img src='./images/music.svg' alt='game logo' style={{width: '250px', height: '250px'}}/>
+        <img src='./images/music.svg' alt='game logo' style={{width: '250px', height: '250px', border: 'solid 2px white'}}/>
       </div>
-      <Typography variant='h5' sx={{fontWeight: 600, mt: 1}}>Welcome!</Typography>
+      <Typography variant='h5' sx={{fontWeight: 600, mt: 1, color: 'white'}}>Welcome!</Typography>
         <TextField
           variant='standard'
           type="text"
@@ -58,10 +85,12 @@ function LoginForm() {
           name="password"
           label='Password'
           size='small'
+          color="primary"
           sx={{mb: 2, ml: 3.7, width: 240}}
           required
           value={password}
           onChange={(event) => setPassword(event.target.value)}/>
+        
         <div style={{marginBottom: '16px'}}>
           <Button variant='contained' size='small' sx={{width: 240}} onClick={login}>
             Login
@@ -76,6 +105,7 @@ function LoginForm() {
           </Button>
         </Stack>
     </Grid>
+    </ThemeProvider>
   );
 }
 
