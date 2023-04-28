@@ -283,17 +283,17 @@ function PlayPage() {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description">
               <Box sx={modalStyle}>
-                  <Typography id="modal-modal-title" variant="h6" component="h2" align='center' sx={{fontWeight: 'bold'}}>
+                  <Typography id="modal-modal-title" variant="h6" component="h2" color='white' align='center' sx={{fontWeight: 'bold'}}>
                     Results:
                   </Typography>
-                  <Typography align='center'>
+                  <Typography align='center' color='white'>
                     <strong>Correct:</strong> {resultsObj.correctAnswers}/{songObj.missing_lyrics}
                   </Typography>
-                  <Typography align='center'>
+                  <Typography align='center' color='white'>
                     <strong>Incorrect:</strong> {resultsObj.wrongAnswers}/{songObj.missing_lyrics}
                   </Typography>
                   {resultsObj.wrongAnswers === 0 ? 
-                    <Typography align='center' sx={{fontWeight: 'bold', mt: 4, fontSize: 32}}>Nicely Done!</Typography>
+                    <Typography align='center' color='white' sx={{fontWeight: 'bold', mt: 4, fontSize: 32}}>You Did It!</Typography>
                       :
                     <Table >
                       <TableHead>
