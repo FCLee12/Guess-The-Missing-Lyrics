@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Box, Button, Card, createTheme, Grid, Modal, Typography, TextField, Paper, Table, TableHead, TableRow, TableCell, TableBody, ThemeProvider } from '@mui/material/';
+import { Box, Button, Card, createTheme, Grid, Modal, Typography, TextField, Paper, Table, TableHead, TableRow, TableCell, TableBody, ThemeProvider, Stack, IconButton } from '@mui/material/';
 import SendIcon from '@mui/icons-material/Send';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -276,7 +277,7 @@ function PlayPage() {
             {songObj.missing_lyrics > 7 ?
               <TextField key={8} sx={inputStyle} size="small" value={answer8} variant="outlined" onChange={(event) => setAnswer8(event.target.value)}/>
             : <TextField disabled key={8} sx={inputStyle} size="small" value={answer8} variant="outlined" onChange={(event) => setAnswer8(event.target.value)}/>}
-            <Button variant="outlined" size="small" sx={{mt: .5}} onClick={sendGuesses}>Submit Your Guesses!</Button>
+              <Button variant="outlined" size="small" sx={{mt: .5}} onClick={sendGuesses}>Submit Your Guesses!</Button>
             <Modal
               open={open}
               onClose={handleClose}
