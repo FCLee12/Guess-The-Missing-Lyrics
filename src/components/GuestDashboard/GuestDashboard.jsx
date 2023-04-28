@@ -1,10 +1,10 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import UserSongList from '../UserSongList/UserSongList';
-import AddIcon from '@mui/icons-material/Add';
 import { Grid, createTheme, ThemeProvider, Typography } from '@mui/material/';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 function GuestDashboard() {
   
@@ -14,6 +14,15 @@ function GuestDashboard() {
   const user = useSelector((store) => store.user);
   const registeredUserInfo = useSelector((store) => store.songs)
   // console.log('this is registeredUserInfo in Guest Dash', registeredUserInfo.songsReducer.data[0].username);
+  const [regUser, setRegUser] = useState('')
+
+  useEffect(() => {
+    if(registeredUserInfo.songsReducer.data.length > 0) {
+      setRegUser(registeredUserInfo.songsReducer.data[0].username);
+    } else {
+      console.log(`Sorry, Registered User's Song Collection is still underconstruction`);
+    }
+  },[registeredUserInfo])
 
   const theme = createTheme({
     palette: {
@@ -45,12 +54,12 @@ function GuestDashboard() {
     <>
       <ThemeProvider theme={theme}>
         <Grid container sx={{flexDirection:"column", marginLeft: 1, textAlign:"center", width: 290, height: '100vh'}}>
-          {registeredUserInfo ? 
+          {registeredUserInfo.songsReducer.data.length > 0 ? 
           <Typography variant='h5' color='white' sx={{mb: 2}}>
-            {registeredUserInfo.songsReducer.data[0].username}'s Playable Song Collection:
+            {regUser}'s Playable Song Collection:
           </Typography>
           :
-          <Typography>Song Collection:</Typography>
+          <Typography variant='h5' color='white'>Sorry, Registered User's Song Collection is still underconstruction</Typography>
           }
           <UserSongList />
         </Grid>

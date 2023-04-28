@@ -7,6 +7,7 @@ import { Box, Button, Card, createTheme, TextField, ThemeProvider, Typography } 
 
 function GameId() {
   const user = useSelector((store) => store.user);
+  const gameIdUser = useSelector((store) => store.songs);
   const [gameId, setGameId] = useState('');
   const dispatch = useDispatch();
   const history = useHistory();
@@ -37,7 +38,7 @@ function GameId() {
     }
   })
 
-  const playGuest = (event) => {
+  const playGuest = async (event) => {
     console.log('this is gameId', gameId);
     console.log('this is gameId.length', gameId.length);
     if (gameId.length === 6) {

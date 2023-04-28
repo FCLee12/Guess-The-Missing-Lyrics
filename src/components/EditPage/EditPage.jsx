@@ -130,6 +130,7 @@ function EditPage() {
           <TextField 
             label="songEditor"
             variant="outlined"
+            inputProps={{style: {fontSize: 18}}}
             value={editedLyrics}
             sx={{width: 300, marginTop: 2, minHeight: 400}}
             onChange={(event) => {
@@ -195,7 +196,7 @@ function EditPage() {
               variant="outlined" 
               endIcon={<ArrowBackIcon />}
               color="primary"
-              sx={{width: 240, mt: 2, ml: 4}}
+              sx={{width: 240, mt: 2, ml: 4, mb: 15}}
               size="small"
               onClick={toDash}>
               Back to Dashboard
