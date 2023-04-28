@@ -11,10 +11,10 @@ function LandingPage() {
   // Card style
   const cardStyle = {
       flexDirection:"column",
-      marginLeft: 1.2,
+      marginLeft: 1.3,
       textAlign:"center",
-      width: 300,
-      border: 'solid black 1px'
+      width: 298,
+      border: 'solid white 1px'
   }
 
   return (

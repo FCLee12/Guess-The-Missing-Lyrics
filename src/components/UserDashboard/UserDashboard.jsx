@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import UserSongList from '../UserSongList/UserSongList';
 import AddIcon from '@mui/icons-material/Add';
-import { Alert, Button, FormControl, Grid, Input, InputLabel, List, ListItem, ListItemText, Modal, Paper, Snackbar, Typography } from '@mui/material/';
+import { Alert, Button, createTheme, FormControl, Grid, Input, InputLabel, List, ListItem, ListItemText, Modal, Paper, Snackbar, ThemeProvider, Typography } from '@mui/material/';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -14,6 +14,32 @@ function UserDashboard() {
   const user = useSelector((store) => store.user);
   // pulls searchResults array from store
   const songSearch = useSelector((store => store.searchResultsReducer));
+
+  const theme = createTheme({
+    palette: {
+      type: 'dark',
+      primary: {
+        main: '#ffb300',
+        contrastText: 'rgba(0, 0, 0, 0.87)'
+      },
+      secondary: {
+        main: '#619bb9',
+        light: 'rgb(128, 175, 199)',
+        dark: 'rgb(67, 108, 129)',
+        contrastText: '#fff'
+      },
+      background: {
+        default: '#252525',
+        paper: '#424242'
+      },
+      text: {
+        primary: '#fbf7f7',
+        secondary: 'rgba(255, 255, 255, 0.7)',
+        disabled: 'rgba(255, 255, 255, 0.5)',
+        hint: 'rgba(255, 255, 255, 0.5)'
+      },
+    }
+  })
   
   // local state to collect input field values
   let [searchInput, setSearchInput] = useState({title: '', artist: ''})
@@ -51,7 +77,7 @@ function UserDashboard() {
       width: 310,
       height: 510,
       bgcolor: 'background.paper',
-      border: '2px solid #000',
+      border: '2px solid white',
       boxShadow: 24,
       p: 4,
       flexDirection:"column",
@@ -97,12 +123,13 @@ function UserDashboard() {
 
   return (
     <>
+      <ThemeProvider theme={theme}>
       <Grid container sx={{flexDirection:"column", marginLeft: 1, textAlign:"center", width: 290}}>
         <Button 
           variant="contained" 
           endIcon={<AddIcon />}
           size="large"
-          sx={{marginBottom: 1, pt: 2, pb: 2}}
+          sx={{marginBottom: 1, pt: 2, pb: 2, border: 'solid white 2px'}}
           onClick={handleOpen}>Add a New Song</Button>
         <Modal
             open={open}
@@ -110,7 +137,7 @@ function UserDashboard() {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description">
             <Grid sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
+                <Typography id="modal-modal-title" variant="h6" component="h2" color='primary'>
                     Song Search:
                 </Typography>
                 <InputLabel style={{marginTop:"5px"}}>Song Title:</InputLabel>
@@ -130,7 +157,7 @@ function UserDashboard() {
                   size='small' 
                   style={{marginTop:"10px"}}
                   onClick={sendSearch}>Search</Button>
-                <Typography style={{marginTop:"5px"}}>
+                <Typography color='white' style={{marginTop:"5px"}}>
                   Results:
                 </Typography>
                 <FormControl variant="standard">
@@ -139,7 +166,7 @@ function UserDashboard() {
                       <List sx={{padding: 0}}>
                         {songSearch.map((result, i) => {
                           return (
-                            <ListItem key={i} sx={{maxWidth: 290, paddingTop: 0, paddingBottom: 0, border: 'solid 1px black', flexDirection: "column"}}>
+                            <ListItem key={i} sx={{maxWidth: 290, paddingTop: 0, paddingBottom: 0, border: 'solid 1px lightgrey', flexDirection: "column"}}>
                                 <ListItemText style={{marginTop: 3, marginBottom: 3}}><strong>Title:</strong> {result.track.track_name}</ListItemText>
                                 <ListItemText style={{marginTop: 3, marginBottom: 3}}><strong>Artist:</strong> {result.track.artist_name}</ListItemText>
                                 <Button variant='contained' size="small" sx={{marginBottom: 1.2}} onClick={() => addSong(result.track)}>Add Song</Button>
@@ -156,11 +183,12 @@ function UserDashboard() {
               Song added to collection!
             </Alert>
           </Snackbar>
-        <Typography variant='h5'>
+        <Typography variant='h5' color='white'>
           Your Song Collection:
         </Typography>
         <UserSongList />
       </Grid>
+      </ThemeProvider>
     </>
   );
 }

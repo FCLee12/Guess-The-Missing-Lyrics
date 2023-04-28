@@ -29,7 +29,7 @@ function* fetchSongsGuest(action) {
 
     yield put({
       type: 'SET_SONGS',
-      payload: guestSongsList
+      payload: guestSongsList.data
     });
   } catch(error) {
     console.log('Guest user GET request for songs by GameID failed', error);

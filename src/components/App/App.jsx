@@ -25,6 +25,7 @@ import GameId from '../GameId/GameId';
 
 import './App.css';
 import ProfilePage from '../ProfilePage/ProfilePage';
+import { ThemeProvider, createTheme } from '@mui/system';
 
 
 function App() {
@@ -38,8 +39,7 @@ function App() {
 
   return (
     <Router>
-      <div>
-        {/* <Nav /> */}
+      <div style={{backgroundColor: '#252525', minHeight: '100%'}}>
 
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -51,6 +51,7 @@ function App() {
             exact
             path="/about"
           >
+            <NavBase />
             <AboutPage />
           </Route>
 
@@ -179,6 +180,7 @@ function App() {
           <Route>
             <NavBase />
             <h1>404</h1>
+
           </Route>
         </Switch>
         <Footer />
