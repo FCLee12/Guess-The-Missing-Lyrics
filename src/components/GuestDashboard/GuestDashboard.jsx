@@ -13,7 +13,7 @@ function GuestDashboard() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   const registeredUserInfo = useSelector((store) => store.songs)
-  console.log('this is registeredUserInfo in Guest Dash', registeredUserInfo.songsReducer.data[0].username);
+  // console.log('this is registeredUserInfo in Guest Dash', registeredUserInfo.songsReducer.data[0].username);
 
   const theme = createTheme({
     palette: {

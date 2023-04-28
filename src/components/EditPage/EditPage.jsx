@@ -131,7 +131,7 @@ function EditPage() {
             label="songEditor"
             variant="outlined"
             value={editedLyrics}
-            sx={{width: 300, marginTop: 2}}
+            sx={{width: 300, marginTop: 2, minHeight: 400}}
             onChange={(event) => {
               setEditedLyrics(event.target.value);
               setLyricsToSend(event.target.value);
