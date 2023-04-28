@@ -119,7 +119,7 @@ function UserSongList() {
         {songList.songsReducer.data ?
             songList.songsReducer.data.map((song) => {
                 return (
-                <Card sx={{ maxWidth: 300, marginTop: '5px', marginBottom: '5px', border: `solid ${song.status ? "green" : "grey"} 4px`}} key={song.id}>
+                <Card sx={{maxWidth: 300, marginTop: '5px', marginBottom: '5px', border: `solid ${song.status ? "limegreen" : "lightgrey"} 4px`}} key={song.id}>
                     <CardContent>
                         <CardActionArea onClick={() => setActive(song.status, song.id)}>
                             <Typography variant='h6'>
