@@ -38,7 +38,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div style={{backgroundColor: '#252525'}}>
         {/* <Nav /> */}
 
         <Switch>

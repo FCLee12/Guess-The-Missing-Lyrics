@@ -60,7 +60,7 @@ function ResponsiveAppBar() {
   }
 
   return (
-    <AppBar position="relative" sx={{mb: 2}}>
+    <AppBar position="relative" sx={{mb: 2, backgroundColor: '#ffb300'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -70,7 +70,7 @@ function ResponsiveAppBar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit">
+              color="black">
               <MenuIcon />
             </IconButton>
             <Menu
@@ -125,9 +125,9 @@ function ResponsiveAppBar() {
               mr: 1,
               display: { xs: 'flex', md: 'none' },
               flexWrap: 'wrap',
-              fontWeight: 550,
+              fontWeight: 500,
               letterSpacing: '.2rem',
-              color: 'inherit',
+              color: 'black',
               textDecoration: 'none',
             }}>
             Guess The Missing Lyrics
@@ -136,7 +136,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User" src="./images/Avatar.png" sx={{border: 'solid 2px white'}}/>
+                <Avatar alt="User" src="./images/Avatar.png" sx={{border: 'solid 2px black'}}/>
               </IconButton>
             </Tooltip>
             <Menu
