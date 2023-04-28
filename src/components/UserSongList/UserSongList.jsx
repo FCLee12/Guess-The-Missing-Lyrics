@@ -143,8 +143,8 @@ function UserSongList() {
     return (
     <>
         <ThemeProvider theme={theme}>
-        {songList.songsReducer.data ?
-            songList.songsReducer.data.map((song) => {
+        {songList.songsReducer.length ?
+            songList.songsReducer.map((song) => {
                 return (
                 <Card sx={{maxWidth: 300, marginTop: '5px', marginBottom: '5px', border: `solid ${song.status ? "limegreen" : "lightgrey"} 4px`}} key={song.id}>
                     <CardContent>

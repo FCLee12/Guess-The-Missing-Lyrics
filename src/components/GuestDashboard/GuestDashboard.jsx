@@ -13,12 +13,12 @@ function GuestDashboard() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   const registeredUserInfo = useSelector((store) => store.songs)
-  // console.log('this is registeredUserInfo in Guest Dash', registeredUserInfo.songsReducer.data[0].username);
+  console.log('this is registeredUserInfo in Guest Dash', registeredUserInfo.songsReducer[0]);
   const [regUser, setRegUser] = useState('')
 
   useEffect(() => {
-    if(registeredUserInfo.songsReducer.data.length > 0) {
-      setRegUser(registeredUserInfo.songsReducer.data[0].username);
+    if(registeredUserInfo.songsReducer.length > 0) {
+      setRegUser(registeredUserInfo.songsReducer[0].username);
     } else {
       console.log(`Sorry, Registered User's Song Collection is still underconstruction`);
     }
@@ -54,7 +54,7 @@ function GuestDashboard() {
     <>
       <ThemeProvider theme={theme}>
         <Grid container sx={{flexDirection:"column", marginLeft: 1, textAlign:"center", width: 290, height: '100vh'}}>
-          {registeredUserInfo.songsReducer.data[0].username ? 
+          {registeredUserInfo.songsReducer[0] ? 
           <Typography variant='h5' color='white' sx={{mb: 2}}>
             {regUser}'s Playable Song Collection:
           </Typography>
