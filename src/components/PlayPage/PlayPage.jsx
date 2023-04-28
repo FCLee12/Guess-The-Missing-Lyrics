@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Box, Button, Card, Grid, Modal, Typography, TextField, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material/';
+import { Box, Button, Card, createTheme, Grid, Modal, Typography, TextField, Paper, Table, TableHead, TableRow, TableCell, TableBody, ThemeProvider } from '@mui/material/';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -12,6 +12,32 @@ function PlayPage() {
   const activeSong = useSelector(store => store.songs)
   let songObj = activeSong.activeSongReducer;
   // console.log('this is songObj taken from the store in PlayPage', songObj);
+
+  const theme = createTheme({
+    palette: {
+      type: 'dark',
+      primary: {
+        main: '#ffb300',
+        contrastText: 'rgba(0, 0, 0, 0.87)'
+      },
+      secondary: {
+        main: '#619bb9',
+        light: 'rgb(128, 175, 199)',
+        dark: 'rgb(67, 108, 129)',
+        contrastText: '#fff'
+      },
+      background: {
+        default: '#252525',
+        paper: '#424242'
+      },
+      text: {
+        primary: '#fbf7f7',
+        secondary: 'rgba(255, 255, 255, 0.7)',
+        disabled: 'rgba(255, 255, 255, 0.5)',
+        hint: 'rgba(255, 255, 255, 0.5)'
+      },
+    }
+  })
   
   // style for lyric display
   const style = {
@@ -22,7 +48,7 @@ function PlayPage() {
     width: 284,
     height: 230,
     bgcolor: 'background.paper',
-    border: '1px solid #000',
+    border: '1px solid white',
     boxShadow: 24,
     p: 1,
     textAlign:"center"
@@ -212,90 +238,92 @@ function PlayPage() {
   
   return (
     <>
-      <Grid container sx={{flexDirection: "column", ml: 1.2, mb: 31}}>
-        <Typography variant='h5' align='center' sx={{padding: 1, width: 300, ml: -1}}>
-          {songObj.title}
-        </Typography>
-        <Typography variant='h6' align='center' sx={{padding: 1, width: 300, ml: -1}}>
-          By: {songObj.artist}
-        </Typography>
-        <Paper sx={{width: 300, border: 'solid black 1px'}}>
-          <Typography align='center' sx={{padding: 1}}>
-            {displayLyrics}
+      <ThemeProvider theme={theme}>
+        <Grid container sx={{flexDirection: "column", ml: 1.2, mb: 31}}>
+          <Typography variant='h5' align='center' color='white' sx={{padding: 1, width: 300, ml: -1}}>
+            {songObj.title}
           </Typography>
-        </Paper>
-        <Card sx={style}>
-          {songObj.missing_lyrics > 0 ?
-            <TextField key={1} sx={inputStyle} size="small" value={answer1} variant="outlined" onChange={(event) => setAnswer1(event.target.value)}/>
-          : <TextField disabled key={1} sx={inputStyle} size="small" value={answer1} variant="outlined" onChange={(event) => setAnswer1(event.target.value)}/>}
-          {songObj.missing_lyrics > 1 ?
-            <TextField key={2} sx={inputStyle} size="small" value={answer2} variant="outlined" onChange={(event) => setAnswer2(event.target.value)}/>
-          : <TextField disabled key={2} sx={inputStyle} size="small" value={answer2} variant="outlined" onChange={(event) => setAnswer2(event.target.value)}/>}
-          {songObj.missing_lyrics > 2 ?
-            <TextField key={3} sx={inputStyle} size="small" value={answer3} variant="outlined" onChange={(event) => setAnswer3(event.target.value)}/>
-          : <TextField disabled key={3} sx={inputStyle} size="small" value={answer3} variant="outlined" onChange={(event) => setAnswer3(event.target.value)}/>}
-          {songObj.missing_lyrics > 3 ?
-            <TextField key={4} sx={inputStyle} size="small" value={answer4} variant="outlined" onChange={(event) => setAnswer4(event.target.value)}/>
-          : <TextField disabled key={4} sx={inputStyle} size="small" value={answer4} variant="outlined" onChange={(event) => setAnswer4(event.target.value)}/>}
-          {songObj.missing_lyrics > 4 ?
-            <TextField key={5} sx={inputStyle} size="small" value={answer5} variant="outlined" onChange={(event) => setAnswer5(event.target.value)}/>
-          : <TextField disabled key={5} sx={inputStyle} size="small" value={answer5} variant="outlined" onChange={(event) => setAnswer5(event.target.value)}/>}
-          {songObj.missing_lyrics > 5 ?
-            <TextField key={6} sx={inputStyle} size="small" value={answer6} variant="outlined" onChange={(event) => setAnswer6(event.target.value)}/>
-          : <TextField disabled key={6} sx={inputStyle} size="small" value={answer6} variant="outlined" onChange={(event) => setAnswer6(event.target.value)}/>}
-          {songObj.missing_lyrics > 6 ?
-            <TextField key={7} sx={inputStyle} size="small" value={answer7} variant="outlined" onChange={(event) => setAnswer7(event.target.value)}/>
-          : <TextField disabled key={7} sx={inputStyle} size="small" value={answer7} variant="outlined" onChange={(event) => setAnswer7(event.target.value)}/>}
-          {songObj.missing_lyrics > 7 ?
-            <TextField key={8} sx={inputStyle} size="small" value={answer8} variant="outlined" onChange={(event) => setAnswer8(event.target.value)}/>
-          : <TextField disabled key={8} sx={inputStyle} size="small" value={answer8} variant="outlined" onChange={(event) => setAnswer8(event.target.value)}/>}
-          <Button variant="outlined" size="small" sx={{mt: .5}} onClick={sendGuesses}>Submit Your Guesses!</Button>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description">
-            <Box sx={modalStyle}>
-                <Typography id="modal-modal-title" variant="h6" component="h2" align='center' sx={{fontWeight: 'bold'}}>
-                  Results:
-                </Typography>
-                <Typography align='center'>
-                  <strong>Correct:</strong> {resultsObj.correctAnswers}/{songObj.missing_lyrics}
-                </Typography>
-                <Typography align='center'>
-                  <strong>Incorrect:</strong> {resultsObj.wrongAnswers}/{songObj.missing_lyrics}
-                </Typography>
-                {resultsObj.wrongAnswers === 0 ? 
-                  <Typography align='center' sx={{fontWeight: 'bold', mt: 4, fontSize: 32}}>Nicely Done!</Typography>
-                    :
-                  <Table >
-                    <TableHead>
-                      <TableRow>
-                        <TableCell sx={{textAlign: "center", fontWeight: 'bold'}}>#</TableCell>
-                        <TableCell sx={{textAlign: "center", fontWeight: 'bold'}}>Your Guesses</TableCell>
-                        <TableCell sx={{textAlign: "center", fontWeight: 'bold'}}>Correct Answers</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {resultsObj ? 
-                        resultsObj.resultsDisplayArray.map((answers, i) => (
-                          <TableRow key={i}>
-                            <TableCell sx={{textAlign: "center"}}>{answers.number}</TableCell>
-                            <TableCell sx={{textAlign: "center", color: 'red'}}>{answers.yourAnswer}</TableCell>
-                            <TableCell sx={{textAlign: "center", color: 'green'}}>{answers.correctAnswer}</TableCell>
-                          </TableRow>
-                        ))
-                      : <TableRow>
-                          <TableCell>Results Table Loading</TableCell>
-                        </TableRow>}
-                    </TableBody>
-                  </Table>
-                }
-              <Button variant='contained' sx={{ml: 1, mt: 4}} onClick={returnToDash}>Return to Dashboard</Button>
-            </Box>
-          </Modal>       
-        </Card>
-      </Grid>
+          <Typography variant='h6' align='center' color='white' sx={{padding: 1, width: 300, ml: -1}}>
+            By: {songObj.artist}
+          </Typography>
+          <Paper sx={{width: 300, border: 'solid white 1px'}}>
+            <Typography align='center' sx={{padding: 1}}>
+              {displayLyrics}
+            </Typography>
+          </Paper>
+          <Card sx={style}>
+            {songObj.missing_lyrics > 0 ?
+              <TextField key={1} sx={inputStyle} size="small" value={answer1} variant="outlined" onChange={(event) => setAnswer1(event.target.value)}/>
+            : <TextField disabled key={1} sx={inputStyle} size="small" value={answer1} variant="outlined" onChange={(event) => setAnswer1(event.target.value)}/>}
+            {songObj.missing_lyrics > 1 ?
+              <TextField key={2} sx={inputStyle} size="small" value={answer2} variant="outlined" onChange={(event) => setAnswer2(event.target.value)}/>
+            : <TextField disabled key={2} sx={inputStyle} size="small" value={answer2} variant="outlined" onChange={(event) => setAnswer2(event.target.value)}/>}
+            {songObj.missing_lyrics > 2 ?
+              <TextField key={3} sx={inputStyle} size="small" value={answer3} variant="outlined" onChange={(event) => setAnswer3(event.target.value)}/>
+            : <TextField disabled key={3} sx={inputStyle} size="small" value={answer3} variant="outlined" onChange={(event) => setAnswer3(event.target.value)}/>}
+            {songObj.missing_lyrics > 3 ?
+              <TextField key={4} sx={inputStyle} size="small" value={answer4} variant="outlined" onChange={(event) => setAnswer4(event.target.value)}/>
+            : <TextField disabled key={4} sx={inputStyle} size="small" value={answer4} variant="outlined" onChange={(event) => setAnswer4(event.target.value)}/>}
+            {songObj.missing_lyrics > 4 ?
+              <TextField key={5} sx={inputStyle} size="small" value={answer5} variant="outlined" onChange={(event) => setAnswer5(event.target.value)}/>
+            : <TextField disabled key={5} sx={inputStyle} size="small" value={answer5} variant="outlined" onChange={(event) => setAnswer5(event.target.value)}/>}
+            {songObj.missing_lyrics > 5 ?
+              <TextField key={6} sx={inputStyle} size="small" value={answer6} variant="outlined" onChange={(event) => setAnswer6(event.target.value)}/>
+            : <TextField disabled key={6} sx={inputStyle} size="small" value={answer6} variant="outlined" onChange={(event) => setAnswer6(event.target.value)}/>}
+            {songObj.missing_lyrics > 6 ?
+              <TextField key={7} sx={inputStyle} size="small" value={answer7} variant="outlined" onChange={(event) => setAnswer7(event.target.value)}/>
+            : <TextField disabled key={7} sx={inputStyle} size="small" value={answer7} variant="outlined" onChange={(event) => setAnswer7(event.target.value)}/>}
+            {songObj.missing_lyrics > 7 ?
+              <TextField key={8} sx={inputStyle} size="small" value={answer8} variant="outlined" onChange={(event) => setAnswer8(event.target.value)}/>
+            : <TextField disabled key={8} sx={inputStyle} size="small" value={answer8} variant="outlined" onChange={(event) => setAnswer8(event.target.value)}/>}
+            <Button variant="outlined" size="small" sx={{mt: .5}} onClick={sendGuesses}>Submit Your Guesses!</Button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description">
+              <Box sx={modalStyle}>
+                  <Typography id="modal-modal-title" variant="h6" component="h2" align='center' sx={{fontWeight: 'bold'}}>
+                    Results:
+                  </Typography>
+                  <Typography align='center'>
+                    <strong>Correct:</strong> {resultsObj.correctAnswers}/{songObj.missing_lyrics}
+                  </Typography>
+                  <Typography align='center'>
+                    <strong>Incorrect:</strong> {resultsObj.wrongAnswers}/{songObj.missing_lyrics}
+                  </Typography>
+                  {resultsObj.wrongAnswers === 0 ? 
+                    <Typography align='center' sx={{fontWeight: 'bold', mt: 4, fontSize: 32}}>Nicely Done!</Typography>
+                      :
+                    <Table >
+                      <TableHead>
+                        <TableRow>
+                          <TableCell sx={{textAlign: "center", fontWeight: 'bold'}}>#</TableCell>
+                          <TableCell sx={{textAlign: "center", fontWeight: 'bold'}}>Your Guesses</TableCell>
+                          <TableCell sx={{textAlign: "center", fontWeight: 'bold'}}>Correct Answers</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {resultsObj ? 
+                          resultsObj.resultsDisplayArray.map((answers, i) => (
+                            <TableRow key={i}>
+                              <TableCell sx={{textAlign: "center"}}>{answers.number}</TableCell>
+                              <TableCell sx={{textAlign: "center", color: 'red'}}>{answers.yourAnswer}</TableCell>
+                              <TableCell sx={{textAlign: "center", color: 'green'}}>{answers.correctAnswer}</TableCell>
+                            </TableRow>
+                          ))
+                        : <TableRow>
+                            <TableCell>Results Table Loading</TableCell>
+                          </TableRow>}
+                      </TableBody>
+                    </Table>
+                  }
+                <Button variant='contained' sx={{ml: 1, mt: 4}} onClick={returnToDash}>Return to Dashboard</Button>
+              </Box>
+            </Modal>       
+          </Card>
+        </Grid>
+      </ThemeProvider>
     </>
   );
 }
