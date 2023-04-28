@@ -9,7 +9,7 @@ function RegisterPage() {
 
   const cardStyle = {
     flexDirection:"column",
-    marginLeft: 1.2,
+    marginLeft: 1.1,
     textAlign:"center",
     width: 300,
     border: 'solid black 1px',

@@ -95,7 +95,7 @@ function RegisterForm() {
               name="emailAddress"
               label='Email Address'
               size='small'
-              sx={{mb: 1.8, width: 200}}
+              sx={{mb: 1.9, width: 200}}
               value={emailAddress}
               required
               onChange={(event) => setEmailAddress(event.target.value)}/>

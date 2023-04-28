@@ -61,7 +61,7 @@ function GameId() {
     marginLeft: 1.3,
     textAlign:"center",
     width: 298,
-    height: 550.5,
+    height: 550,
     border: 'solid white 1px'
   }
 
