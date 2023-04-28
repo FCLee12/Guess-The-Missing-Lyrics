@@ -96,7 +96,7 @@ function LoginForm() {
             Login
           </Button>
         </div>
-        <Stack direction='row' spacing={1.5} sx={{mb: 5}}>
+        <Stack direction='row' spacing={1.5} sx={{mb: 5.18}}>
           <Button variant='contained' sx={{ml: 3.7}}  size='small' onClick={onGuest}>
             Play As Guest
           </Button>

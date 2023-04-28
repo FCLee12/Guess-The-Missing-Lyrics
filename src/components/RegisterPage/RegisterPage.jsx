@@ -12,7 +12,8 @@ function RegisterPage() {
     marginLeft: 1.2,
     textAlign:"center",
     width: 300,
-    border: 'solid black 1px'
+    border: 'solid black 1px',
+    mt: -.1
   }
 
   return (
