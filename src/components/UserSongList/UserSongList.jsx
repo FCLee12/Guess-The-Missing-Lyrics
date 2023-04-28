@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Button, Card, CardContent, Typography, CardActionArea, Stack, Modal, Grid } from '@mui/material';
+import { Box, Button, Card, CardContent, createTheme, Typography, CardActionArea, Stack, Modal, Grid, ThemeProvider } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -20,6 +20,32 @@ function UserSongList() {
     // stores the song list that displays on the user dashboard
     const songList = useSelector(store => store.songs);
     // console.log('this is songList.songsReducer.data', songList.songsReducer.data);
+
+    const theme = createTheme({
+        palette: {
+          type: 'dark',
+          primary: {
+            main: '#ffb300',
+            contrastText: 'rgba(0, 0, 0, 0.87)'
+          },
+          secondary: {
+            main: '#619bb9',
+            light: 'rgb(128, 175, 199)',
+            dark: 'rgb(67, 108, 129)',
+            contrastText: '#fff'
+          },
+          background: {
+            default: '#252525',
+            paper: '#424242'
+          },
+          text: {
+            primary: '#fbf7f7',
+            secondary: 'rgba(255, 255, 255, 0.7)',
+            disabled: 'rgba(255, 255, 255, 0.5)',
+            hint: 'rgba(255, 255, 255, 0.5)'
+          },
+        }
+    });
     
     // ********** PLAY BUTTON **********
 
@@ -116,6 +142,7 @@ function UserSongList() {
 
     return (
     <>
+        <ThemeProvider theme={theme}>
         {songList.songsReducer.data ?
             songList.songsReducer.data.map((song) => {
                 return (
@@ -181,7 +208,7 @@ function UserSongList() {
                             aria-labelledby="modal-modal-title"
                             aria-describedby="modal-modal-description">
                             <Box sx={style}>
-                                <Typography id="modal-modal-title" variant="h6" component="h2">
+                                <Typography id="modal-modal-title" variant="h6" component="h2" color='white'>
                                     Are you sure you want to delete this song?
                                 </Typography>
                                 <Grid container sx={{justifyContent: 'space-between', maxWidth: 240}}>
@@ -197,7 +224,7 @@ function UserSongList() {
                                         variant="outlined" 
                                         endIcon={<CancelIcon />}
                                         size="small"
-                                        color="info"
+                                        color="primary"
                                         onClick={handleClose}>
                                         Cancel
                                     </Button>
@@ -206,8 +233,9 @@ function UserSongList() {
                         </Modal>
                     </CardContent>
                 </Card>
-            )}) : <p>Loading</p>
+            )}): <p>Loading</p>
         }
+        </ThemeProvider> 
     </>
     );
       

@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { Box, Button, Card, createTheme, Grid, Input, InputLabel, List, ListItem, ListItemText, Modal, Paper, TextField, ThemeProvider, Typography } from '@mui/material/';
+import { Box, Button, Card, createTheme, TextField, ThemeProvider, Typography } from '@mui/material/';
+
 
 function GameId() {
+  const user = useSelector((store) => store.user);
   const [gameId, setGameId] = useState('');
   const dispatch = useDispatch();
   const history = useHistory();
@@ -97,12 +99,20 @@ function GameId() {
             variant="contained"
             sx={{mt: 1.6, mb: 2, width: 200}}
             onClick={playGuest}>Submit</Button>
+          {user.id ? 
+          <Button
+            variant="outlined"
+            sx={{mb: 2, ml: 11, display: 'block', width: 120}}
+            onClick={toLandingPage}>
+            Dashboard
+          </Button>
+          :
           <Button
             variant="outlined"
             sx={{mb: 2, ml: 11, display: 'block', width: 120}}
             onClick={toLandingPage}>
             Home
-          </Button>
+          </Button>}
       </Card>
     </ThemeProvider>
   );

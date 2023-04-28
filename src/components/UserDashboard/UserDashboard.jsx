@@ -77,7 +77,7 @@ function UserDashboard() {
       width: 310,
       height: 510,
       bgcolor: 'background.paper',
-      border: '2px solid #000',
+      border: '2px solid white',
       boxShadow: 24,
       p: 4,
       flexDirection:"column",
@@ -137,7 +137,7 @@ function UserDashboard() {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description">
             <Grid sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
+                <Typography id="modal-modal-title" variant="h6" component="h2" color='primary'>
                     Song Search:
                 </Typography>
                 <InputLabel style={{marginTop:"5px"}}>Song Title:</InputLabel>
@@ -157,7 +157,7 @@ function UserDashboard() {
                   size='small' 
                   style={{marginTop:"10px"}}
                   onClick={sendSearch}>Search</Button>
-                <Typography style={{marginTop:"5px"}}>
+                <Typography color='white' style={{marginTop:"5px"}}>
                   Results:
                 </Typography>
                 <FormControl variant="standard">
@@ -166,7 +166,7 @@ function UserDashboard() {
                       <List sx={{padding: 0}}>
                         {songSearch.map((result, i) => {
                           return (
-                            <ListItem key={i} sx={{maxWidth: 290, paddingTop: 0, paddingBottom: 0, border: 'solid 1px black', flexDirection: "column"}}>
+                            <ListItem key={i} sx={{maxWidth: 290, paddingTop: 0, paddingBottom: 0, border: 'solid 1px lightgrey', flexDirection: "column"}}>
                                 <ListItemText style={{marginTop: 3, marginBottom: 3}}><strong>Title:</strong> {result.track.track_name}</ListItemText>
                                 <ListItemText style={{marginTop: 3, marginBottom: 3}}><strong>Artist:</strong> {result.track.artist_name}</ListItemText>
                                 <Button variant='contained' size="small" sx={{marginBottom: 1.2}} onClick={() => addSong(result.track)}>Add Song</Button>
