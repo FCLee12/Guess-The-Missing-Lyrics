@@ -49,6 +49,7 @@ function GameId() {
         type: 'SEND_GAMEID',
         payload: gameId
       });
+      
       // will navigate to the guest dashboard
       history.push('/dashboard')
     } else {

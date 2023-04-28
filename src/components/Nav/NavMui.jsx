@@ -31,7 +31,11 @@ function ResponsiveAppBar() {
   };
 
   const toHome = () => {
-    history.push('/home')
+    if(user.id) {
+      history.push('/home')
+    } else {
+      history.push('/dashboard')
+    }
   }
 
   const toDashboard = () => {

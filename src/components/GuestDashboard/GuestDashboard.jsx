@@ -54,7 +54,7 @@ function GuestDashboard() {
     <>
       <ThemeProvider theme={theme}>
         <Grid container sx={{flexDirection:"column", marginLeft: 1, textAlign:"center", width: 290, height: '100vh'}}>
-          {registeredUserInfo.songsReducer.data.length > 0 ? 
+          {registeredUserInfo.songsReducer.data[0].username ? 
           <Typography variant='h5' color='white' sx={{mb: 2}}>
             {regUser}'s Playable Song Collection:
           </Typography>
