@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Box, Button, Card, createTheme, Grid, Input, InputLabel, List, ListItem, ListItemText, Modal, Paper, TextField, ThemeProvider, Typography } from '@mui/material/';
+import {Button, Card, createTheme, Grid, Paper, ThemeProvider, Typography } from '@mui/material/';
 
 
 function ProfilePage() {

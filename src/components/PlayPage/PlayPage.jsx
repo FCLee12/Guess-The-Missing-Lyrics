@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Box, Button, Card, createTheme, Grid, Modal, Typography, TextField, Paper, Table, TableHead, TableRow, TableCell, TableBody, ThemeProvider, Stack, IconButton } from '@mui/material/';
-import SendIcon from '@mui/icons-material/Send';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useDispatch } from 'react-redux';
+import { Box, Button, Card, createTheme, Grid, Modal, Typography, TextField, Paper, Table, TableHead, TableRow, TableCell, TableBody, ThemeProvider } from '@mui/material/';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 
 function PlayPage() {
 

@@ -1,10 +1,6 @@
 import * as React from 'react';
-import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography, useRadioGroup } from '@mui/material/';
+import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material/';
 
-import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
-
-import LogOutButton from '../LogOutButton/LogOutButton';
 
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
