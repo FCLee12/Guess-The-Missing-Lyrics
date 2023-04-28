@@ -1,121 +1,116 @@
 
-# Prime Solo Project Starting Repo
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
+# Project Name
 
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
+Guess The Missing Lyrics
 
-## Use the Template for This Repository (Don't Clone)
+## Description
 
-- Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account. Make the project `PUBLIC`!
+Duration: 2 Week Sprint (~150hrs)
 
+Guess The Missing Lyrics is a word guessing game application to be played with friends and family. As a registered user, you are able to search the MusixMatch API using a search form within the app to pick songs and add them to your collection. Once the song has been added to your collection, you can remove a word and replace it with a bundle of characters: <strong>n!&x</strong> which will be translated into blanks on the Play Page. In addition, registered users can pass out their unique game ID to unregistered users, allowing the guest users to guess missing lyrics of songs in the registered user's song collection. Guess The Missing Lyrics will be sure to entertain whether played in a group or on your own.
 
 ## Prerequisites
+<ul>
+    <li>React</li>
+    <li>Redux</li>
+    <li>Redux Sagas</li>
+    <li>Node.js</li>
+    <li>Express</li>
+    <li>Postgres</li>
+    <li>Postico</li>
+    <li>MusixMatch API Key</li>
+</ul>
 
-Before you get started, make sure you have the following software installed on your computer:
+## Installation
+<ol>
+    <li>Go to: https://github.com/FCLee12/Guess-The-Missing-Lyrics</li>
+    <li>Look at the top right of the webpage for the 'fork' button</li>
+    <li>Create a fork under your own GitHub account ***** Verify you are in your own fork of the project ***** -At the top left of the webpage, you should see the path to the repo -Your GitHub account name should appear before the first '/'</li>
+    <li>Open your terminal</li>
+    <li>Navigate to the desired location you want to place the project files using the terminal</li>
+    <li>On the webpage of your forked copy, look for the 'code' button</li>
+    <li>Assuming you've set up your SSH, click on the SSH tab and copy the file path</li>
+    <li>Back on your terminal, enter the following into your terminal: git clone PASTE-COPIED-FILE-PATH-HERE</li>
+    <li>Hit enter, the repo will be downloaded into your current working directory</li>
+    <li>The repo should now exist in your local machine</li>
+    <li>cd into the repo</li>
+    <li>Run the following commands in your terminal, waiting each time for installation to complete before running the next command:
+        <ol>
+            <li>npm install</li>
+        </ol>
+    </li>
+    <li>Make sure Postgres is running, and open up Postico</li>
+    <li>Create a new database with the name: guess_missing_lyrics</li>
+    <li>Search for the database.sql file, within the file you will find the code to generate the table required to run the web app, in addition to some mock data</li>
+      <ol>Please note: in order to use the mock data, you must register at least 1 user using the registration form in the app</ol>
+    <li>Upon executing the provided code in Postico, hit refresh and you should now see the genres table, the movies table, and the movies_genres table, this indicates the database is now ready</li>
+    <li>Upon completion of those installs, you have to start the server with the following command: npm run server</li>
+    <li>Next you have to start the client server with the following command: npm run client, which will result in the web app being opened in your default browser, ready for use</li>
+</ol>
 
-- [Node.js](https://nodejs.org/en/)
-- [PostrgeSQL](https://www.postgresql.org/)
-- [Nodemon](https://nodemon.io/)
+## Usage
 
-## Create database and table
+# Landing Page 
+<ol>
+    <li>Users can log in on this page or navigate to the Register Page or to the Play as Guest Page</li>
+</ol>
 
-Create a new database called `prime_app` and create a `user` table:
+# Register Page
+<ol>
+    <li>Users can register on this page by entering their information in the respective input fields</li>
+</ol>
 
-```SQL
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
-```
+# GameId Page
+<ol>
+    <li>Users can enter in a Game ID received from an already registered user to view the registered user's song collection and guess missing lyrics of any songs the registered user has posted as active</li>
+</ol>
 
-If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
+# Guest Dashboard
+<ol>
+    <li>This dashboard will show any posted/active songs tied to the registered user's account whose Game ID was entered</li>
+    <li>The guest user can click on the play button to enter the Play Page, where they are able to guess missing lyrics</li>
+    <li>There is a hamburger button at the top left, allowing the guest user to navigate back to the Landing Page, the Dashboard Page, the GameID Page, or the Registration Page</li>
+</ol>
 
-## Development Setup Instructions
+# User Dashboard
+<ol>
+    <li>This dashboard will show all songs tied to the registered user's account who logged in</li>
+    <li>The registered user can click on the "Play" button to enter the Play Page, where they are able to guess missing lyrics</li>
+    <ol>
+      <li>The Play Page will function identically for a registered user and a guest user</li>
+    </ol>
+    <li>The registered user can click on the "Edit" button to enter the Edit Page, where they can remove words and replace them with the <strong>n!&x</strong> character bundle denoting blanks when viewed on the Play Page</li>
+    <li>The registered user can click on the "Delete" button to remove a song from their collection</li>
+    <li>There is a hamburger button at the top left, allowing the registered user to navigate back to the Dashboard Page, or the GameID Page</li>
+    <li>There is also an avatar icon at the top right, this allows the registered user to navigate to their profile page (profile information edit hasn't been implemented yet) where they can view their profile information, such as: username, or Game ID</li>
+</ol>
 
-- Run `npm install`
-- Create a `.env` file at the root of the project and paste this line into the file:
-  ```
-  SERVER_SESSION_SECRET=superDuperSecret
-  ```
-  While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm run server`
-- Run `npm run client`
-- Navigate to `localhost:3000`
+# Play Page
+<ol>
+    <li></li>
+</ol>
 
-## Debugging
 
-To debug, you will need to run the client-side separately from the server. Start the client by running the command `npm run client`. Start the debugging server by selecting the Debug button.
 
-![VSCode Toolbar](documentation/images/vscode-toolbar.png)
+## Built With
+<ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+    <li>React</li>
+    <li>Redux</li>
+    <li>Redux Sagas</li>
+    <li>Node.js</li>
+    <li>Express</li>
+    <li>Postgres</li>
+    <li>Postico</li>
+    <li>Musix Match API</li>
+    <li>Material UI</li>
+</ul>
 
-Then make sure `Launch Program` is selected from the dropdown, then click the green play arrow.
+## Acknowledgement
+Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality.
+Thanks to [MusixMatch API](https://developer.musixmatch.com/) for supplying the lyrics to power my application.
 
-![VSCode Debug Bar](documentation/images/vscode-debug-bar.png)
-
-## Testing Routes with Postman
-
-To use Postman with this repo, you will need to set up requests in Postman to register a user and login a user at a minimum.
-
-Keep in mind that once you using the login route, Postman will manage your session cookie for you just like a browser, ensuring it is sent with each subsequent request. If you delete the `localhost` cookie in Postman, it will effectively log you out.
-
-1. Start the server - `npm run server`
-2. Import the sample routes JSON file [v2](./PostmanPrimeSoloRoutesv2.json) by clicking `Import` in Postman. Select the file.
-3. Click `Collections` and `Send` the following three calls in order:
-   1. `POST /api/user/register` registers a new user, see body to change username/password
-   2. `POST /api/user/login` will login a user, see body to change username/password
-   3. `GET /api/user` will get user information, by default it's not very much
-
-After running the login route above, you can try any other route you've created that requires a logged in user!
-
-## Production Build
-
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
-
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm start`
-- Navigate to `localhost:5000`
-
-## Lay of the Land
-
-There are a few videos linked below that show a walkthrough the client and sever setup to help acclimatize to the boilerplate. Please take some time to watch the videos in order to get a better understanding of what the boilerplate is like.
-
-- [Initial Set](https://vimeo.com/453297271)
-- [Server Walkthrough](https://vimeo.com/453297212)
-- [Client Walkthrough](https://vimeo.com/453297124)
-
-Directory Structure:
-
-- `src/` contains the React application
-- `public/` contains static assets for the client-side
-- `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
-- `server/` contains the Express App
-
-This code is also heavily commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
-
-- src/components
-  - App/App
-  - Footer/Footer
-  - Nav/Nav
-  - AboutPage/AboutPage
-  - InfoPage/InfoPage
-  - UserPage/UserPage
-  - LoginPage/LoginPage
-  - RegisterPage/RegisterPage
-  - LogOutButton/LogOutButton
-  - ProtectedRoute/ProtectedRoute
-
-## Deployment
-
-1. Create a new Heroku project
-1. Link the Heroku project to the project GitHub Repo
-1. Create an Heroku Postgres database
-1. Connect to the Heroku Postgres database from Postico
-1. Create the necessary tables
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-1. In the deploy section, select manual deploy
-
-## Update Documentation
-
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+## Support
+If you have suggestions or issues, please email me at [fueclee.12@gmail.com]
