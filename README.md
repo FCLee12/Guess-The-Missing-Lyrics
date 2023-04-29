@@ -62,6 +62,12 @@ Song Search                |  Play Page                |  Edit Page             
     <li>Search for the database.sql file, within the file you will find the code to generate the table required to run the web app, in addition to some mock data</li>
       <ol>Note: in order to use the mock data, you must register at least 1 user using the registration form in the app</ol>
     <li>Upon executing the provided code in Postico, hit refresh and you should now see the genres table, the movies table, and the movies_genres table, this indicates the database is now ready</li>
+    <li>In the outermost file, create a .env file to hold your personal MusixMatch API key</li>
+    <li>Within your .env file set: MUSIXMATCH_API_KEY equal to your MusixMatch API key</li>
+    <ol>
+        <li>If you skip this step, the Song Search will not function</li>
+        <li>If you receive a SERVER_SESSION_SECRET error, generate a random string of numbers and letters and set SERVER_SESSION_SECRET equal to it</li>
+    </ol>
     <li>Upon completion of those installs, you have to start the server with the following command: npm run server</li>
     <li>Next you have to start the client server with the following command: npm run client, which will result in the web app being opened in your default browser, ready for use</li>
 </ol>
