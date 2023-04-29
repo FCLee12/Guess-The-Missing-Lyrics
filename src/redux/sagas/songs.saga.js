@@ -14,7 +14,7 @@ function* fetchSongs() {
           // to be stored in the REDUX Store, ready for referencing
       yield put({
           type: 'SET_SONGS',
-          payload: songsList
+          payload: songsList.data
       });
   } catch (error) {
       console.log('User get request failed', error);
