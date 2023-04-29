@@ -7,7 +7,6 @@ import { Box, Button, Card, createTheme, TextField, ThemeProvider, Typography } 
 
 function GameId() {
   const user = useSelector((store) => store.user);
-  const gameIdUser = useSelector((store) => store.songs);
   const [gameId, setGameId] = useState('');
   const dispatch = useDispatch();
   const history = useHistory();

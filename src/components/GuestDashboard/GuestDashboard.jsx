@@ -3,15 +3,9 @@ import {useSelector} from 'react-redux';
 import UserSongList from '../UserSongList/UserSongList';
 import { Grid, createTheme, ThemeProvider, Typography } from '@mui/material/';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 function GuestDashboard() {
-  
-  const dispatch = useDispatch();
-
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
-  const user = useSelector((store) => store.user);
   const registeredUserInfo = useSelector((store) => store.songs)
   console.log('this is registeredUserInfo in Guest Dash', registeredUserInfo.songsReducer[0]);
   const [regUser, setRegUser] = useState('')

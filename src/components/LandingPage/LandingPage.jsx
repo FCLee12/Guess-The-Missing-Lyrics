@@ -6,8 +6,6 @@ import { Card } from '@mui/material/';
 import LoginForm from '../LoginForm/LoginForm';
 
 function LandingPage() {
-  const [heading, setHeading] = useState('Welcome');
-
   // Card style
   const cardStyle = {
       flexDirection:"column",

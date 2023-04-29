@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Button, Card, createTheme, FormControl, Grid, Input, InputLabel, List, ListItem, ListItemText, Modal, Paper, Stack, TextField, ThemeProvider, Typography } from '@mui/material/';
+import { Button, createTheme, Grid, Stack, TextField, ThemeProvider, Typography } from '@mui/material/';
 import { useHistory } from 'react-router-dom';
 
 function RegisterForm() {

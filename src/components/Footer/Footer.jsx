@@ -10,10 +10,10 @@ import { Typography } from '@mui/material';
 function Footer() {
   return (
     <footer>
-      <Typography>
+      <Typography color='white'>
         &copy; FCLee12
       </Typography>
-      <Typography>
+      <Typography color='white'>
         Lyrics provided by &copy; MusixMatch API
       </Typography>
     </footer>
