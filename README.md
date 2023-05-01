@@ -169,5 +169,8 @@ Song Search                |  Play Page                |  Edit Page             
 <p>Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality.</p>
 <p>Thanks to [MusixMatch API](https://developer.musixmatch.com/) for supplying the lyrics to power my application.</p>
 
+## Scope Document
+[https://docs.google.com/document/d/16ZJvnxI8m4WYV4G4JVPPx7TtLg8MOr3220NJnN-hi1c/edit?usp=sharing]
+
 ## Support
 If you have suggestions or issues, please email me at [fueclee.12@gmail.com]
